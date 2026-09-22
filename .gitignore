@@ -1,0 +1,40 @@
+# 这个知识库的 .gitignore（由 Knowrary 初始化时铺下，可以自己改）
+#
+# 分界是「成果 vs 流水」：手工摆位、项目清单、教练侧写丢了要重做，值得进版本库当备份；
+# 我问过什么、花了多少钱、哪道题答错了，是过程不是知识——尤其在公开仓库里，进了历史就收不回来。
+#
+# **注意：.gitignore 管不住已经被跟踪的文件。** 往下面加规则时必须同时跑一次：
+#     git rm -r --cached <路径>      # 只从索引移除，磁盘上的文件不动
+# 然后 `git ls-files .knowrary/` 复核，确认它真的不在跟踪列表里了。
+
+# LLM 配置含密钥，绝不入库（模板是 .knowrary/llm.example.json）
+*.local.json
+
+# 可重建的派生缓存（knowrary index 随时重建）
+.knowrary/index.json
+
+# 写回 Markdown 前的快照
+.knowrary/backup/
+
+# 对话留档是过程不是知识，按月分文件，找旧对话用 grep
+.knowrary/chat/
+
+# 调用量与花费
+.knowrary/llm-usage.json
+
+# 答题与复习流水：答错了什么、什么时候复习的
+.knowrary/quiz-log.json
+.knowrary/review-log.json
+.knowrary/question-pool.json
+
+# 对话续接缓存与会话表：可丢的缓存，不是真值
+.knowrary/cards.jsonl
+.knowrary/turns.json
+.knowrary/cli-sessions.json
+
+# Obsidian 的窗口状态
+.obsidian/workspace*.json
+.obsidian/cache
+
+# OS
+.DS_Store
