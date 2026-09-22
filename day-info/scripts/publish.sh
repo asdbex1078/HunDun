@@ -8,8 +8,8 @@ cd "$ROOT"
 MSG="${1:-day-info: 更新 $(date +%F)}"
 BRANCH="${DAYINFO_BRANCH:-day-info}"
 
-HTTPS_URL="https://github.com/asdbex1078/Knowrary.git"
-SSH_URL="git@github.com:asdbex1078/Knowrary.git"
+HTTPS_URL="https://github.com/asdbex1078/HunDun.git"
+SSH_URL="git@github.com:asdbex1078/HunDun.git"
 
 # macOS 没有 timeout，只有装了 coreutils 才有 gtimeout；缺失时降级为不设超时
 TIMEOUT_BIN=""

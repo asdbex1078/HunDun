@@ -31,7 +31,7 @@
 ## 如何迁移 / 重建
 
 **提示词本身不依赖任何平台，只有一处需要按环境替换：仓库的绝对路径。**
-当前环境的值为 `/Users/moka/IdeaProjects/Knowrary`。
+当前环境的值为 `/Users/moka/IdeaProjects/HunDun`。
 
 - **在 WorkBuddy 里**：新建定时任务，把工作目录设为仓库根目录，提示词复制 `prompt-*.md` 中代码块的内容，并把绝对路径换成该环境的实际路径。
 - **迁到别的 agent 平台**：以 `agent-cron-jobs.baseline.json` 为基准，替换 `<REPO_ROOT>` / `<BRANCH>`，提示词复制 `payload.message`，再按目标平台的字段名映射 schedule / timeout / delivery。

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Knowrary day-info 收集器（零第三方依赖）。
+"""HunDun day-info 收集器（零第三方依赖）。
 
 扫描 → 分级打标 → 写入 day-info/pool/YYYY-MM-DD.json 与 .md。
 

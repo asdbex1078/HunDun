@@ -86,14 +86,14 @@ ssh -T git@github.com
 如需改用本仓库专用的 Deploy Key（而不是个人密钥）：
 
 - 私钥路径：`.secrets/github_deploy_key`（同样不入库）
-- 公钥添加到 https://github.com/asdbex1078/Knowrary/settings/keys ，勾选 **Allow write access**
+- 公钥添加到 https://github.com/asdbex1078/HunDun/settings/keys ，勾选 **Allow write access**
 
 **通道 B：HTTPS + Personal Access Token（本机当前不可用）**
 
 保留此通道仅为兼顾其他网络环境。**在本机当前网络下，到 `github.com:443` 的 TLS 握手直接失败**（`OpenSSL SSL_connect: SSL_ERROR_SYSCALL`），因此 PAT 在此机器上无法使用——申请了也推不上去。若将来换到其他网络环境，可按以下步骤配置：
 
 1. GitHub → 头像 → Settings → Developer settings → Personal access tokens → **Fine-grained tokens** → Generate new token
-2. Repository access 选 **Only select repositories**，只勾 `Knowrary`
+2. Repository access 选 **Only select repositories**，只勾 `HunDun`
 3. Permissions → Repository permissions → **Contents → Read and write**（push 所需的最小权限）
 4. 写入凭证文件：
 
