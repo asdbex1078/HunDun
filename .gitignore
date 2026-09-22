@@ -22,6 +22,9 @@
 # 调用量与花费
 .knowrary/llm-usage.json
 
+# 诊断流水：什么时候报了什么错
+.knowrary/issues.jsonl
+
 # 答题与复习流水：答错了什么、什么时候复习的
 .knowrary/quiz-log.json
 .knowrary/review-log.json
