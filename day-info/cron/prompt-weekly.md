@@ -4,26 +4,28 @@
 > 因此拆成两段：**19:45 生成并推送文件（不输出全文）** + **20:15 读取文件并输出（阅读版）**。
 >
 > **当前状态**：两个任务**均已迁到 WorkBuddy 本机运行**（原 AutoClaw 环境已停用）。
-> 下面的路径已是 HunDun 本机仓库路径，直接可用。
+> 下面全是**仓库内相对路径**——三个任务的工作目录就是本仓库根目录（WorkBuddy 任务配置里设好的），
+> 所以相对路径直接可用，也不必把某台机器的绝对路径写进这个公开仓库。
 >
 > 本文件与 WorkBuddy 里实际生效的定时任务提示词保持一字不差；改提示词时两边都要改。
+> **2026-09-22 把绝对路径换成了相对路径，WorkBuddy 侧三个任务需照本文重粘一次才恢复一字不差。**
 
 ## ① 生成任务（周日 19:45）
 
-> 调度：每周日 19:45（Asia/Shanghai）· 工作目录 `/Users/moka/IdeaProjects/HunDun`
+> 调度：每周日 19:45（Asia/Shanghai）· 工作目录 `<仓库根目录>`
 
 ```text
-Day-Info 周报·生成。维护对象是 HunDun 仓库的 day-info 系统，工作目录 /Users/moka/IdeaProjects/HunDun。
+Day-Info 周报·生成。维护对象是 HunDun 仓库的 day-info 系统；工作目录就是该仓库根目录，下面的路径都相对它。
 
 本任务只生成并推送周报文件，不要输出周报全文——全文留给 30 分钟后的「阅读版」任务输出。
 
 步骤：
 
-0. 先切到 day-info 分支：bash /Users/moka/IdeaProjects/HunDun/day-info/scripts/ensure-branch.sh
+0. 先切到 day-info 分支：bash day-info/scripts/ensure-branch.sh
    （weekly.py 读的是 day-info/digests/raw/，在落后的分支上跑会读到过期材料。此时工作区干净，切换最稳；
    流程最后一步 publish.sh 会自动切回原分支。若该脚本报错退出，停止本次任务并如实汇报原因，不要绕过它。）
 
-1. 运行（超时给 300 秒）：python3 /Users/moka/IdeaProjects/HunDun/day-info/scripts/weekly.py
+1. 运行（超时给 300 秒）：python3 day-info/scripts/weekly.py
    它把最近 7 天收集池中「必须看 + 值得看」的条目合并成周材料，输出到 day-info/digests/raw/YYYY-Www.json 和 .md，并打印「周材料已生成：…」与「统计：必须看 X · 值得看 Y（覆盖 N 天池数据）」两行。
 
 2. 读取周材料：取 day-info/digests/raw/ 目录下修改时间最新的 .md 文件，读其全文。
@@ -39,7 +41,7 @@ Day-Info 周报·生成。维护对象是 HunDun 仓库的 day-info 系统，工
 
 4. 用一次文件写入完成成稿（不要分多次追加修改）：写入 day-info/digests/<周标签>.md，周标签用 date +%G-W%V 取得，形如 2026-W38。
 
-5. 运行：bash /Users/moka/IdeaProjects/HunDun/day-info/scripts/publish.sh "day-info: 周报 <周标签>"
+5. 运行：bash day-info/scripts/publish.sh "day-info: 周报 <周标签>"
 
 6. 汇报，最多 5 行，全中文：① 成品文件路径；② 必须看 / 值得看 条数；③ 推送结果。
 
@@ -53,10 +55,10 @@ Day-Info 周报·生成。维护对象是 HunDun 仓库的 day-info 系统，工
 
 ## ② 阅读版任务（周日 20:15）
 
-> 调度：每周日 20:15（Asia/Shanghai）· 工作目录 `/Users/moka/IdeaProjects/HunDun`
+> 调度：每周日 20:15（Asia/Shanghai）· 工作目录 `<仓库根目录>`
 
 ```text
-Day-Info 周报·阅读版。把本周日 19:45「Day-Info 周报·生成」任务写好的周报全文读出来，作为回复直接输出。工作目录 /Users/moka/IdeaProjects/HunDun。
+Day-Info 周报·阅读版。把本周日 19:45「Day-Info 周报·生成」任务写好的周报全文读出来，作为回复直接输出；工作目录就是 HunDun 仓库根目录。
 
 步骤：
 
