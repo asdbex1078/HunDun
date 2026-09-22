@@ -1,14 +1,17 @@
 {
   "date": "2026-09-22",
-  "generated_at": "2026-09-22T18:37:28",
+  "generated_at": "2026-09-22T19:04:19",
   "counts": {
-    "total": 106,
+    "total": 107,
     "must": 12,
-    "worth": 81,
+    "worth": 82,
     "archive": 13,
     "critical": 1
   },
-  "errors": [],
+  "errors": [
+    "LangChain: <urlopen error _ssl.c:1015: The handshake operation timed out>",
+    "DeepMind: <urlopen error _ssl.c:1015: The handshake operation timed out>"
+  ],
   "items": [
     {
       "url": "https://huggingface.co/papers/2609.24220",
@@ -412,6 +415,18 @@
       "source": "HF 新模型",
       "published": "2026-09-22",
       "summary": "likes 10 · downloads 0",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://huggingface.co/mulemp/nochekaiser881",
+      "title": "mulemp/nochekaiser881",
+      "source": "HF 新模型",
+      "published": "2026-09-22",
+      "summary": "likes 1 · downloads 0",
       "tier": "值得看",
       "critical": false,
       "reasons": [
