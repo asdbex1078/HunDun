@@ -1,7 +1,7 @@
 # 迁移报告 2026-09-10
 
-- 源：`/Users/moka/IdeaProjects/knowage`
-- 目标：`/Users/moka/IdeaProjects/knowage-v2`
+- 源：`~/IdeaProjects/knowage`
+- 目标：`~/IdeaProjects/knowage-v2`
 - 节点：62 个；新建 stub：0 个；边：194 条（方向翻转 16 条，去重丢弃 42 条）
 
 ## 边按族分布
