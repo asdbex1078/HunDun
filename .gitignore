@@ -10,6 +10,11 @@
 # LLM 配置含密钥，绝不入库（模板是 .knowrary/llm.example.json）
 *.local.json
 
+# 教练侧写写的是「我是谁、要什么口气」，是你自己的事，不是知识
+# （模板是 .knowrary/coach.example.md，照着抄一份成 coach.md 就生效）
+.knowrary/coach.md
+.knowrary/coaches/
+
 # 可重建的派生缓存（knowrary index 随时重建）
 .knowrary/index.json
 
