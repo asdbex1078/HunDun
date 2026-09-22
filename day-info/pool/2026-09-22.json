@@ -1,17 +1,14 @@
 {
   "date": "2026-09-22",
-  "generated_at": "2026-09-22T19:04:19",
+  "generated_at": "2026-09-22T21:28:57",
   "counts": {
-    "total": 107,
-    "must": 12,
-    "worth": 82,
-    "archive": 13,
-    "critical": 1
+    "total": 121,
+    "must": 13,
+    "worth": 89,
+    "archive": 19,
+    "critical": 2
   },
-  "errors": [
-    "LangChain: <urlopen error _ssl.c:1015: The handshake operation timed out>",
-    "DeepMind: <urlopen error _ssl.c:1015: The handshake operation timed out>"
-  ],
+  "errors": [],
   "items": [
     {
       "url": "https://huggingface.co/papers/2609.24220",
@@ -47,6 +44,18 @@
       "critical": true,
       "reasons": [
         "项目相关+更新:知识库,修复"
+      ]
+    },
+    {
+      "url": "https://www.ithome.com/1/005/942.htm",
+      "title": "体验价 499 元：OPPO 推出“AI 心力球”可穿戴新品，主打“AI 成长教练”",
+      "source": "IT之家",
+      "published": "2026-09-22",
+      "summary": "IT之家 9 月 22 日消息，OPPO 今天召开新品发布会，除了推出 Find X10 系列手机新品以外，OPPO 本次还带来了全新品类穿戴产品“AI 心力球”。 新品体验价为 499 元 ，主打卖点是“AI 成长教练”，能够帮助用户思考，把事情做成。 即日起开启用户招募 。 IT之家在发布会现场了解到， OPPO AI 心力球是一款别在衣服领口的穿戴产品 。其重量为 9.8g，支持 24 小时全天续航、5 米远距离收音。 这款产品能",
+      "tier": "必须看",
+      "critical": true,
+      "reasons": [
+        "项目相关+更新:x6/g6/antv/mcp,推出"
       ]
     },
     {
@@ -374,6 +383,18 @@
       ]
     },
     {
+      "url": "https://huggingface.co/Nonene/sdxl_models",
+      "title": "Nonene/sdxl_models",
+      "source": "HF 新模型",
+      "published": "2026-09-22",
+      "summary": "likes 17 · downloads 0",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
       "url": "https://huggingface.co/PIXELZX/XERON-0.1",
       "title": "PIXELZX/XERON-0.1",
       "source": "HF 新模型",
@@ -446,6 +467,30 @@
       ]
     },
     {
+      "url": "https://huggingface.co/nphSi/Z-Image-Lora",
+      "title": "nphSi/Z-Image-Lora",
+      "source": "HF 新模型",
+      "published": "2026-09-22",
+      "summary": "likes 153 · downloads 355071",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://huggingface.co/pmolodyk/artifacts-a833cdd7fe3f8895",
+      "title": "pmolodyk/artifacts-a833cdd7fe3f8895",
+      "source": "HF 新模型",
+      "published": "2026-09-22",
+      "summary": "likes 3 · downloads 0",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
       "url": "https://huggingface.co/wlyu/FaceLift_demo",
       "title": "wlyu/FaceLift_demo",
       "source": "HF 新模型",
@@ -479,6 +524,18 @@
       "critical": false,
       "reasons": [
         "命中:guide"
+      ]
+    },
+    {
+      "url": "https://huggingface.co/papers/2609.24797",
+      "title": "Complex KDA: Understanding and Enhancing the Expressivity of Kimi Delta Attention",
+      "source": "HF 每日论文",
+      "published": "2026-09-20",
+      "summary": "Linear RNNs based on the delta-rule enable efficient sequence modeling, but their linear updates with a low-rank correction constrain their expressivity. Prior work has shown that composing two delta-rule transitions in",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
       ]
     },
     {
@@ -566,6 +623,30 @@
       ]
     },
     {
+      "url": "https://huggingface.co/papers/2609.20758",
+      "title": "Prediction-Powered Smoothing and Validation for Disaggregated AI Evaluation",
+      "source": "HF 每日论文",
+      "published": "2026-09-16",
+      "summary": "Evaluating an AI system requires disaggregated assessment, as performance varies across domains such as benchmark task types or conversation types in deployed agents. Exhaustive testing is expensive, so evaluation rests",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:benchmark"
+      ]
+    },
+    {
+      "url": "https://huggingface.co/papers/2609.13231",
+      "title": "ShieldVLA: Feasibility-Aware Safety Alignment for Vision-Language-Action Models",
+      "source": "HF 每日论文",
+      "published": "2026-09-01",
+      "summary": "Vision-Language-Action (VLA) models demonstrate strong generalization in robotic manipulation and navigation, but existing fine-tuning methods provide limited safety guarantees. Current approaches primarily rely on Lagra",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
       "url": "https://huggingface.co/papers/2609.24788",
       "title": "Streaming Video Editing with Easy Adaptation",
       "source": "HF 每日论文",
@@ -611,6 +692,18 @@
       "critical": false,
       "reasons": [
         "命中:tool"
+      ]
+    },
+    {
+      "url": "https://www.ithome.com/1/005/915.htm",
+      "title": "联合国 AI 专家反对 AI 末日论，呼吁理性讨论",
+      "source": "IT之家",
+      "published": "2026-09-22",
+      "summary": "IT之家 9 月 22 日消息，联合国下属人工智能委员会的多名专家于当地时间周一发出提醒，反对业内部分从业者针对 AI 风险所发表的世界末日式言论。 独立机构国际 AI 科学专家组（International Scientific Panel on AI）成员、谷歌 DeepMind 高管若埃尔 · 巴拉尔（Joelle Barral）表示：“身为科研工作者，我们应当投入精力开展科学研究，厘清哪些内容已有定论、哪些尚且属于未知。一味渲染",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:渲染"
       ]
     },
     {
@@ -1142,6 +1235,16 @@
       ]
     },
     {
+      "url": "https://alexn.org/blog/2026/09/22/ai-has-no-wisdom-and-neither-will-you/",
+      "title": "AI Has No Wisdom and Neither Will You",
+      "source": "Hacker News",
+      "published": "2026-09-22",
+      "summary": "Article URL: https://alexn.org/blog/2026/09/22/ai-has-no-wisdom-and-neither-will-you/ Comments URL: https://news.ycombinator.com/item?id=49799965 Points: 132 # Comments: 165",
+      "tier": "仅存档",
+      "critical": false,
+      "reasons": []
+    },
+    {
       "url": "https://linear.app/now/ci-bottleneck-reworked",
       "title": "AI coding has made CI a bottleneck, so we reworked ours to keep up",
       "source": "Hacker News",
@@ -1202,6 +1305,26 @@
       "reasons": []
     },
     {
+      "url": "https://www.ithome.com/1/005/955.htm",
+      "title": "4999 元起：OPPO Find X10 E 手机发布，天玑 9500s 芯片",
+      "source": "IT之家",
+      "published": "2026-09-22",
+      "summary": "IT之家 9 月 22 日消息，OPPO 今晚召开新品发布会推出 Find X10 E 手机。新品采用联发科天玑 9500s 芯片，配备 7025mAh 冰川电池，拥有哈苏超清影像系统，售价 4999 元起。 IT之家附 OPPO Find X10 E 定价： 12GB+256GB：4999 元 16GB+512GB：5499 元 据介绍，OPPO Find X10 E 可选冰蓝、浅钛两种配色。机身采用绒光玻璃材质，正面带有极窄四等边，",
+      "tier": "仅存档",
+      "critical": false,
+      "reasons": []
+    },
+    {
+      "url": "https://www.ithome.com/1/005/944.htm",
+      "title": "5499 元起：OPPO Find X10 标准版手机发布，天玑 9600M 芯片、双 2 亿镜头群",
+      "source": "IT之家",
+      "published": "2026-09-22",
+      "summary": "IT之家 9 月 22 日消息，OPPO 今晚召开新品发布会，推出 Find X10 标准版手机。新品搭载联发科天玑 9600M 旗舰芯片，配备 8000mAh 冰川电池，拥有新一代 1nit 明眸护眼屏，采用双 2 亿镜头群方案， 定价 5499 元起 ，9 月 24 日起开售。 IT之家附 OPPO Find X10 手机各版本定价如下： 12+256GB：5499 元 12+512GB：5999 元 16+512GB：6499 元",
+      "tier": "仅存档",
+      "critical": false,
+      "reasons": []
+    },
+    {
       "url": "https://www.ithome.com/1/005/851.htm",
       "title": "AI 也搞“同行评审”？曝 OpenAI 与 Anthropic 曾讨论互测彼此模型",
       "source": "IT之家",
@@ -1242,6 +1365,16 @@
       "reasons": []
     },
     {
+      "url": "https://www.ithome.com/1/005/924.htm",
+      "title": "业绩狂飙估值却遇冷，英伟达市盈率跌至十余年来低位",
+      "source": "IT之家",
+      "published": "2026-09-22",
+      "summary": "IT之家 9 月 22 日消息，据彭博社报道，英伟达的股票估值正在释放警示信号：市场开始质疑这家芯片厂商能否继续维持爆发式的利润增长。 根据彭博汇总的数据，以未来 12 个月的预期盈利计算，英伟达当前动态市盈率已经不足 17 倍，股价估值处于十余年来的低位。该估值水平仅为 2025 年的一半；值得注意的是，2025 年英伟达当时营收和利润增速还更低。就在今年 5 月，其预期市盈率还在 25 倍以上。 TCW 主题股票与稳健成长股票高级投",
+      "tier": "仅存档",
+      "critical": false,
+      "reasons": []
+    },
+    {
       "url": "https://www.ithome.com/1/005/807.htm",
       "title": "日本计划在国际空间站举办 AI 机器人竞赛，最早 2027 年实行",
       "source": "IT之家",
@@ -1257,6 +1390,26 @@
       "source": "IT之家",
       "published": "2026-09-22",
       "summary": "IT之家 9 月 22 日消息，据路透社今天（22 日）傍晚报道，国民西敏银行、美国银行等多家银行警告，让 AI 智能体代替消费者进行网上购物，可能增加诈骗、欺诈和数据隐私泄露的风险。 OpenAI、Anthropic、谷歌和 Meta 等科技企业正大力把 AI 聊天机器人推向购物场景，希望未来消费者可以 让 AI 智能体挑选商品并直接代为下单 ，零售商则开始争相影响聊天机器人的商品推荐。 英国零售商约翰 · 刘易斯百货 9 月称，来自",
+      "tier": "仅存档",
+      "critical": false,
+      "reasons": []
+    },
+    {
+      "url": "https://www.ithome.com/1/005/960.htm",
+      "title": "超频三融核系列 27 英寸 AI 模组化整机开售：酷睿 Ultra 5 125U 处理器，首发 11999 元",
+      "source": "IT之家",
+      "published": "2026-09-22",
+      "summary": "IT之家 9 月 22 日消息，超频三融核系列 27 英寸 AI 模组化整机现已开售，新品采用酷睿 Ultra 5 125U 处理器，专为本地轻量 AI 部署设计，首发售价 11999 元。 据介绍，这款产品不仅是一体机，而是高品质显示器 +AI 主机的融合体。搭载英特尔酷睿 Ultra 5 125U 处理器，拥有 12 核心 24 线程架构，配备 DDR5 高频内存。 同时，这款产品采用全铝 CNC 外壳，配色为星空银。搭载 27 英",
+      "tier": "仅存档",
+      "critical": false,
+      "reasons": []
+    },
+    {
+      "url": "https://www.ithome.com/1/005/916.htm",
+      "title": "路透社民调：近四分之三美国人认为 AI 公司在防止灾难方面做得不够",
+      "source": "IT之家",
+      "published": "2026-09-22",
+      "summary": "IT之家 9 月 22 日消息，路透社 / 益普索（Ipsos）最新民调显示，73% 的美国人担心，AI 公司为防止人工智能严重危害社会所采取的措施仍然不够。 IT之家从今天（22 日）晚间公布的数据获悉， 39% 的受访者认为 AI 正在给社会带来负面影响 ，高于上月的 36%，创下自 3 月开始调查这一问题以来的最高水平。只有 11% 认为 AI 带来了积极影响，其余受访者表示不确定或没有作答。 许多美国人也 不相信 AI 企业有能",
       "tier": "仅存档",
       "critical": false,
       "reasons": []
