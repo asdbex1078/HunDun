@@ -1,0 +1,672 @@
+{
+  "date": "2026-09-23",
+  "generated_at": "2026-09-23T11:46:48",
+  "counts": {
+    "total": 56,
+    "must": 1,
+    "worth": 48,
+    "archive": 7,
+    "critical": 0
+  },
+  "errors": [],
+  "items": [
+    {
+      "url": "https://www.marktechpost.com/2026/09/22/anthropic-claude-opus-5-5-release/",
+      "title": "Anthropic Releases Claude Opus 5.5: Fable 5.1-Level Performance at 40% Lower Running Cost Than Opus 5",
+      "source": "MarkTechPost",
+      "published": "2026-09-22",
+      "summary": "Anthropic has released Claude Opus 5.5, the first model in its new Claude 5.5 family. The team states it performs at the level of Claude Fable 5.1 on most work. It also costs 40% less to run than Opus 5 on typical worklo",
+      "tier": "必须看",
+      "critical": false,
+      "reasons": [
+        "发布信号:anthropic,claude,release,model"
+      ]
+    },
+    {
+      "url": "https://aws.amazon.com/blogs/machine-learning/bring-more-intelligence-to-everyday-work-with-gpt-6-sol-and-gpt-6-luna-on-amazon-bedrock/",
+      "title": "Bring more intelligence to everyday work with GPT-6 Sol and GPT-6 Luna on Amazon Bedrock",
+      "source": "AWS ML",
+      "published": "2026-09-22",
+      "summary": "GPT-6 Sol and GPT-6 Luna are now generally available on Amazon Bedrock, giving you more options to match intelligence and efficiency to each workload.",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://aws.amazon.com/blogs/machine-learning/claude-opus-5-5-is-now-available-on-aws/",
+      "title": "Claude Opus 5.5 is now available on AWS",
+      "source": "AWS ML",
+      "published": "2026-09-22",
+      "summary": "Claude Opus 5.5, Anthropic's most capable Opus model for agentic coding, knowledge work, and long-running tasks, is now available on Amazon Bedrock and Claude Platform on AWS. This post covers what's new in Opus 5.5, pra",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://aws.amazon.com/blogs/machine-learning/evaluate-skill-equipped-agents-with-strands-evals-and-amazon-bedrock-agentcore/",
+      "title": "Evaluate skill-equipped agents with Strands Evals and Amazon Bedrock AgentCore",
+      "source": "AWS ML",
+      "published": "2026-09-22",
+      "summary": "Skills let you encode domain-specific procedures as reusable, portable instructions for agents, but a fluent answer doesn't prove the agent picked the right skill or followed it. Learn how to measure skill selection and ",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://aws.amazon.com/blogs/machine-learning/how-reactiv-automates-mobile-commerce-80-faster-with-amazon-bedrock-agentcore/",
+      "title": "How Reactiv automates mobile commerce 80% faster with Amazon Bedrock AgentCore",
+      "source": "AWS ML",
+      "published": "2026-09-22",
+      "summary": "Reactiv used Amazon Bedrock AgentCore to build a multi-agent AI Scheduler that autonomously refreshes Shopify merchants' mobile apps on a schedule, reducing merchant configuration time by 80% and getting to production 33",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://github.com/TianyuCodings/NanoJev",
+      "title": "TianyuCodings/NanoJev · ⭐2020",
+      "source": "GitHub 新项目",
+      "published": "2026-09-17",
+      "summary": "A nano replica of Jev: parallel decisions, dynamic candidates, and an end-to-end training pipeline.",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://github.com/bespokelabsai/nimble",
+      "title": "bespokelabsai/nimble · ⭐1639",
+      "source": "GitHub 新项目",
+      "published": "2026-09-18",
+      "summary": "Local typed decisions, contrastive data curation, and model evaluation.",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://github.com/mizorewww/laya-coreml",
+      "title": "mizorewww/laya-coreml · ⭐1309",
+      "source": "GitHub 新项目",
+      "published": "2026-09-19",
+      "summary": "Local Laya typed decisions on Apple Core ML and Neural Engine. Validated ports, ~5 ms short decisions on M3 Max, reproducible speed and energy benchmarks.",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:benchmark"
+      ]
+    },
+    {
+      "url": "https://github.com/yibie/awesome-jev",
+      "title": "yibie/awesome-jev · ⭐1335",
+      "source": "GitHub 新项目",
+      "published": "2026-09-17",
+      "summary": "A curated list of public projects, integrations, and discussions built on Jev — TypeSafe AI's System One model for typed decisions.",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://huggingface.co/pmolodyk/artifacts-a833cdd7fe3f8895",
+      "title": "pmolodyk/artifacts-a833cdd7fe3f8895",
+      "source": "HF 新模型",
+      "published": "2026-09-23",
+      "summary": "likes 3 · downloads 0",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://huggingface.co/saliacoel/chars",
+      "title": "saliacoel/chars",
+      "source": "HF 新模型",
+      "published": "2026-09-23",
+      "summary": "likes 11 · downloads 0",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://huggingface.co/tchbcb/samai-8b-M8",
+      "title": "tchbcb/samai-8b-M8",
+      "source": "HF 新模型",
+      "published": "2026-09-23",
+      "summary": "likes 1 · downloads 5138",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://huggingface.co/xelananv/fhe-ssm-pbd430a",
+      "title": "xelananv/fhe-ssm-pbd430a",
+      "source": "HF 新模型",
+      "published": "2026-09-23",
+      "summary": "likes 1 · downloads 0",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://huggingface.co/papers/2609.23989",
+      "title": "ACLArena: Agent Continue Learning in Multi-stage Post-training",
+      "source": "HF 每日论文",
+      "published": "2026-09-20",
+      "summary": "Building general-purpose agents for industrial deployment requires integrating multiple capabilities, each typically acquired at a distinct stage of training. Yet there is currently no well-established recipe for Agent C",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://huggingface.co/papers/2609.24058",
+      "title": "All-in-One Multilingual Scene Text Recognition with Script-aware Mixture-of-Experts",
+      "source": "HF 每日论文",
+      "published": "2026-09-20",
+      "summary": "Multilingual scene text recognition (STR) remains challenging due to the scarcity of training data for most languages and the difficulty of serving diverse scripts within a single model. Existing solutions either deploy",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://huggingface.co/papers/2609.15987",
+      "title": "Bellman Policy Optimization",
+      "source": "HF 每日论文",
+      "published": "2026-09-13",
+      "summary": "Reinforcement learning with verifiable rewards (RLVR) improves the reasoning capabilities of large language models (LLMs). We introduce Bellman Policy Optimization (BPO), a critic-free method derived from Policy Mirror D",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://huggingface.co/papers/2609.24657",
+      "title": "Circuit Hypernetworks for Quantum-Augmented Diffusion Language Models",
+      "source": "HF 每日论文",
+      "published": "2026-09-20",
+      "summary": "Language models can be adapted by changing the computations applied to individual tokens. Quantum circuits offer one such approach, but evaluating wider circuits inside a large model can be computationally demanding. Her",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://huggingface.co/papers/2609.26796",
+      "title": "Flash-dLLM: IO-Aware KV Caching and Parallel Decoding for Fast, Memory-Efficient Diffusion LLMs",
+      "source": "HF 每日论文",
+      "published": "2026-09-21",
+      "summary": "Diffusion Large Language Models (dLLMs) have recently emerged as a promising alternative to autoregressive LLMs by enabling non-autoregressive text generation. However, their practical deployment remains limited by ineff",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://huggingface.co/papers/2609.25186",
+      "title": "From Pattern Recognizers to Personalized Companions: A Survey of Large Language Models in Mental Health",
+      "source": "HF 每日论文",
+      "published": "2026-09-20",
+      "summary": "The rising global prevalence of mental health conditions, together with longstanding barriers in traditional healthcare, such as limited resources, high cost, stigma, and privacy concerns, has created an urgent need for",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:survey"
+      ]
+    },
+    {
+      "url": "https://huggingface.co/papers/2609.24981",
+      "title": "GAE: Learning a Geometry-Native Latent Space for 3D-Consistent World Generation",
+      "source": "HF 每日论文",
+      "published": "2026-09-20",
+      "summary": "We present a compact geometry-native latent space as a shared foundation for perception and generation. Visual generators can produce photorealistic frames without preserving a consistent 3D scene. We argue that this is",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://huggingface.co/papers/2609.25247",
+      "title": "Geometric and Semantic Coupling for Interaction Understanding in 3D Scenes",
+      "source": "HF 每日论文",
+      "published": "2026-09-20",
+      "summary": "Interaction understanding in 3D scenes requires a joint description of movable parts, their motion, and the regions through which they can be operated. We present Segment-Snap, which connects these outputs through the ph",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://huggingface.co/papers/2609.25165",
+      "title": "Ovis-Embedding: Pushing the Frontiers of Universal Omni-Modal Embeddings",
+      "source": "HF 每日论文",
+      "published": "2026-09-20",
+      "summary": "In this report, we introduce Ovis-Embedding, a state-of-the-art omni-modal embedding family built on native integration of text, image, video, and audio. Instead of assembling separate modality towers, Ovis-Embedding use",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://huggingface.co/papers/2609.25270",
+      "title": "RULER: Instance-aware Rubric Rewards for SVG Generation",
+      "source": "HF 每日论文",
+      "published": "2026-09-20",
+      "summary": "Generating Scalable Vector Graphics (SVG) code from natural-language instructions is an open-ended task without absolute visual ground truth, leaving both evaluation and policy optimization without a faithful signal. Sca",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://huggingface.co/papers/2609.26457",
+      "title": "Recursive self-improvement of AI research agents",
+      "source": "HF 每日论文",
+      "published": "2026-09-21",
+      "summary": "AI agents are beginning to automate research and development across the AI stack, from improving training efficiency to optimizing inference. A natural next step is to improve the research efficiency of the agents themse",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://huggingface.co/papers/2609.06052",
+      "title": "SkillSpec: Intent-Masked Specification Reasoning for Agent Skill Correctness",
+      "source": "HF 每日论文",
+      "published": "2026-09-04",
+      "summary": "Autonomous agent systems increasingly depend on reusable skill abstractions for consolidating experiential knowledge and domain expertise. These artifacts typically bundle free-form instructions with heterogeneous resour",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://huggingface.co/papers/2609.15991",
+      "title": "The Functionalizer: Lossless Functional Decomposition for Subword Tokenization",
+      "source": "HF 每日论文",
+      "published": "2026-09-17",
+      "summary": "Standard subword tokenizers either treat every orthographic variation of a word (such as hello, Hello, HELLO, and Héllo) as unrelated vocabulary entries, which fragments the embedding space, or discard this variation thr",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://huggingface.co/papers/2609.11063",
+      "title": "The information geometry of large language models is shared, learned, and controllable",
+      "source": "HF 每日论文",
+      "published": "2026-09-09",
+      "summary": "Large language models learn similar behaviours, yet it remains unclear what structure they share or how to change one behaviour without disturbing others. The Fisher-Rao geometry of next-token probabilities connects thes",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://huggingface.co/papers/2609.22870",
+      "title": "Towards Full Pipeline FP8 Reinforcement Learning for LLMs",
+      "source": "HF 每日论文",
+      "published": "2026-09-18",
+      "summary": "Reinforcement learning (RL) has become a key technique for improving the reasoning and agentic abilities of large language models (LLMs). Although FP8 quantization can accelerate RL training, maintaining stability throug",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://benchmarkheaven.com/jev-models",
+      "title": "Show HN: JevBench, a reproducible benchmark for typed decision models",
+      "source": "Hacker News",
+      "published": "2026-09-22",
+      "summary": "Hi HN! I built JevBench because Jev kicks ass, and the world deserves to know how the serious open source and fake lookalike projects really perform in comparison. Jev-class models return bounded choices and probabilitie",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:open source,github,benchmark"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.15369",
+      "title": "Show HN: Training a model to identify AI web content from structure alone",
+      "source": "Hacker News",
+      "published": "2026-09-22",
+      "summary": "Hey HN! We’re Vincent and Jochen from Sitefire ( https://sitefire.ai ). We have been working together for years, with backgrounds in RL/optimization at Stanford and software engineering from Technical University Munich (",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:paper,arxiv,github"
+      ]
+    },
+    {
+      "url": "https://unreallabs.ai/blog/unreal-agent/",
+      "title": "Unreal Agent",
+      "source": "Hacker News",
+      "published": "2026-09-22",
+      "summary": "https://github.com/unreallabsai/unreal-agent Comments URL: https://news.ycombinator.com/item?id=49805748 Points: 144 # Comments: 86",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:github"
+      ]
+    },
+    {
+      "url": "https://www.ithome.com/1/006/093.htm",
+      "title": "华为首款鸿蒙 7+ 麒麟 9 系旗舰芯片电视：华为智慧屏 Mate TV 2 系列开启预售，7999 元起",
+      "source": "IT之家",
+      "published": "2026-09-23",
+      "summary": "IT之家 9 月 23 日消息， 华为首款搭载鸿蒙 7+ 麒麟 9 系旗舰芯片的电视 —— 华为智慧屏 Mate TV 2 系列今日开启预售，定价 7999 元起。IT之家汇总价格和配置信息如下： 华为智慧屏 Mate TV 2 悦享版： 65 英寸预售价 7999 元 75 英寸预售价 9999 元 85 英寸预售价 13999 元 华为智慧屏 Mate TV 2： 65 英寸预售价 9999 元 75 英寸预售价 12999 元 8",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:渲染"
+      ]
+    },
+    {
+      "url": "https://www.latent.space/p/john-platt",
+      "title": "🔬 An Oscar, Two Asteroids, and the Algorithm in Your sklearn: John Platt on AI for Science",
+      "source": "Latent Space",
+      "published": "2026-09-22",
+      "summary": "We talked to Google&#8217;s Oscar winning &#8220;Giganerd&#8221; about automating science, solving climate change, and how future generations can contribute to science in the age of superintelligent AI",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:cli"
+      ]
+    },
+    {
+      "url": "https://www.marktechpost.com/2026/09/22/speakon-ships-a-magsafe-ai-voice-button-with-its-own-microphone/",
+      "title": "SpeakON Ships a MagSafe AI Voice Button With Its Own Microphone: Turning Your Voice into Polished Communication, and Action across Apps",
+      "source": "MarkTechPost",
+      "published": "2026-09-23",
+      "summary": "Voice input on phones has been solved for years. What has not been solved is the output. Speak into most dictation tools and you get back exactly what you said, fillers and false starts included, in a note you then have ",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:tool"
+      ]
+    },
+    {
+      "url": "https://openai.com/index/better-prompt-caching-for-gpt-6",
+      "title": "Better prompt caching for GPT-6",
+      "source": "OpenAI",
+      "published": "2026-09-22",
+      "summary": "Learn how GPT-6 improves prompt caching with higher cache hit rates, new diagnostics, explicit breakpoints, and controls that reduce latency and costs.",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://openai.com/index/parallel-cuts-time-and-cost-with-astra",
+      "title": "Parallel cut research time and cost in half with GPT‑6 Astra",
+      "source": "OpenAI",
+      "published": "2026-09-22",
+      "summary": "GPT‑6 Astra allowed Parallel’s agents to research and synthesize labor-market data in half the time and at half the cost vs. prior models.",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://openai.com/index/priorities-principles-third-party-assessments",
+      "title": "Priorities and principles for effective third party assessments",
+      "source": "OpenAI",
+      "published": "2026-09-22",
+      "summary": "OpenAI outlines priorities and principles for rigorous, secure, and independent third-party AI safety assessments of frontier models and safeguards.",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://simonwillison.net/2026/Sep/22/opus-and-sol-and-luna/",
+      "title": "Claude Opus 5.5, GPT-6 Sol, GPT-6 Luna, and a new price war",
+      "source": "Simon Willison",
+      "published": "2026-09-22",
+      "summary": "Yesterday was Grok 4.7 ( pelicans ) and MiMo v2.6 Flash/Pro ( more pelicans ). Today Anthropic released Claude Opus 5.5 , and around an hour later OpenAI released GPT-6 Sol and GPT-6 Luna . It's going to take a while to ",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:render"
+      ]
+    },
+    {
+      "url": "https://simonwillison.net/2026/Sep/22/therealcornpop/",
+      "title": "Quoting @therealcornpop",
+      "source": "Simon Willison",
+      "published": "2026-09-22",
+      "summary": "Hey, you know it's like super obvious if you're using AI to write your scripts for TikTok and YouTube, right? [...] It's not just the general AI-isms of \"it's not X, it's Y\", or the rule of three, or the really weird bro",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://simonwillison.net/2026/Sep/23/bof-agentic-engineering/",
+      "title": "SF October 14th: A Birds of a Feather Session on Agentic Engineering",
+      "source": "Simon Willison",
+      "published": "2026-09-23",
+      "summary": "SF October 14th: A Birds of a Feather Session on Agentic Engineering I'm hosting an evening event with Jesse Vincent in San Francisco on Wednesday 14th October for people who are building weird and interesting things wit",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://simonwillison.net/2026/Sep/22/llm/",
+      "title": "llm 0.36",
+      "source": "Simon Willison",
+      "published": "2026-09-22",
+      "summary": "Release: llm 0.36 New OpenAI models: gpt-6-sol for GPT-6 Sol and gpt-6-luna for GPT-6 Luna . #1702 Model plugins can now declare supports_conversation = False for models that only accept single-turn prompts. LLM raises l",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:tool,plugin"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.22277",
+      "title": "An Affordable AI-Integrated Smart Cane for Multimodal Mobility Assistance of Visually Impaired Users",
+      "source": "arXiv cs.AI",
+      "published": "2026-09-22",
+      "summary": "Visual impairment affects over 2.2 billion people worldwide, yet conventional white canes cannot detect elevated hazards or provide semantic environmental context. Existing AI-assisted navigation systems typically rely o",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:paper"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.22161",
+      "title": "Didactic knowledge or Clinical Cases? How Data Types Shape Medical Large Language Models",
+      "source": "arXiv cs.AI",
+      "published": "2026-09-22",
+      "summary": "Medical large language models are commonly trained on mixtures of didactic data (e.g., textbooks) and clinical data (e.g., patient records), yet how these data types differentially shape model capabilities remains unclea",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:cli"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.22475",
+      "title": "Goal-driven Variant Categorization",
+      "source": "arXiv cs.AI",
+      "published": "2026-09-22",
+      "summary": "Process discovery rarely yields a single coherent process structure. For analysis, a common step is to cluster process variants based on structural similarity and then assign business meaning to the resulting groups. Sin",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:paper,guide"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.22410",
+      "title": "Learning 3D biophysical cell properties from 2D images and cell-population statistics",
+      "source": "arXiv cs.AI",
+      "published": "2026-09-22",
+      "summary": "Inferring 3D cellular properties from 2D microscopy is difficult when a reference instrument reports only population statistics rather than labels for individual cells. Here we develop a population-supervised framework t",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:framework"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.22353",
+      "title": "PAANI : On Device Visual Evidence Fusion and Explainable Guidance for River Robot Simulation",
+      "source": "arXiv cs.AI",
+      "published": "2026-09-22",
+      "summary": "Mobile river monitoring robots must interpret obstacles and water boundaries that geographic waypoints alone cannot describe. On resource constrained platforms, converting imperfect visual predictions into timely and ins",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.22478",
+      "title": "Replication Without Persistence in Hosted LLMs: Measurement Sensitivity in Action-Time Belief Evaluation",
+      "source": "arXiv cs.AI",
+      "published": "2026-09-22",
+      "summary": "Behavioural evaluations of hosted language models can vary because the evaluated service, the measurement instrument, or both differ across runs. We separate three validation questions: whether a prior finding recurs on ",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.22408",
+      "title": "Social Influence and the Allocation of Scientific Attention in AI Populations",
+      "source": "arXiv cs.AI",
+      "published": "2026-09-22",
+      "summary": "AI systems are becoming participants in the evaluation and use of scientific research. They encounter citation counts, download statistics and lists of popular articles developed around human readers, but the collective ",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:paper"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.22497",
+      "title": "The Wisdom of Artificial Deliberative Crowds",
+      "source": "arXiv cs.AI",
+      "published": "2026-09-22",
+      "summary": "The aggregation of many lay estimates often outperforms individual expert judgment, a phenomenon known as the wisdom of crowds. While this is usually attributed to the independence of estimates, an even stronger effect a",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:paper"
+      ]
+    },
+    {
+      "url": "https://openai.com/index/introducing-gpt-6-sol-and-luna/",
+      "title": "GPT-6 Sol and Luna",
+      "source": "Hacker News",
+      "published": "2026-09-22",
+      "summary": "Article URL: https://openai.com/index/introducing-gpt-6-sol-and-luna/ Comments URL: https://news.ycombinator.com/item?id=49805509 Points: 1271 # Comments: 637",
+      "tier": "仅存档",
+      "critical": false,
+      "reasons": []
+    },
+    {
+      "url": "https://www.cryptocellar.org/bgac/the-mvueh-break.html",
+      "title": "OpenAI GPT–6 Astra breaks Enigma message that has resisted solution since 2005",
+      "source": "Hacker News",
+      "published": "2026-09-22",
+      "summary": "Article URL: https://www.cryptocellar.org/bgac/the-mvueh-break.html Comments URL: https://news.ycombinator.com/item?id=49801324 Points: 586 # Comments: 371",
+      "tier": "仅存档",
+      "critical": false,
+      "reasons": []
+    },
+    {
+      "url": "https://www.bloomberg.com/graphics/2026-iran-school-attack/",
+      "title": "Pentagon says overreliance on AI contributed to missile strike on Iran school",
+      "source": "Hacker News",
+      "published": "2026-09-22",
+      "summary": "https://archive.ph/0V37g Comments URL: https://news.ycombinator.com/item?id=49806430 Points: 484 # Comments: 243",
+      "tier": "仅存档",
+      "critical": false,
+      "reasons": []
+    },
+    {
+      "url": "https://www.interconnects.ai/p/the-current-balance-of-power-in-open",
+      "title": "The current balance of power in open models",
+      "source": "Hacker News",
+      "published": "2026-09-22",
+      "summary": "Article URL: https://www.interconnects.ai/p/the-current-balance-of-power-in-open Comments URL: https://news.ycombinator.com/item?id=49808816 Points: 55 # Comments: 20",
+      "tier": "仅存档",
+      "critical": false,
+      "reasons": []
+    },
+    {
+      "url": "https://www.ithome.com/1/006/076.htm",
+      "title": "华为智能门锁 2 Pro 悦享版预售：搭载 AI 3D 人脸识别 3.0 技术，2499 元",
+      "source": "IT之家",
+      "published": "2026-09-23",
+      "summary": "IT之家 9 月 23 日消息，华为智能门锁 2 Pro 悦享版今日 10:08 开启预售， 到手价 2499 元 ，部分地区国补后 2124.15 元。 该门锁采用一体化压铸工艺制造，内部配置全自动降噪锁体及 C 级直插式锁芯。产品前面板集成了深感摄像头与 161° 广角智能猫眼，还提供了应急小红键。 IT之家获悉，该门锁设备应用 AI 3D 人脸识别 3.0 及 3D ToF 技术，可捕捉 307,200 个深度信息点，解锁耗时约为",
+      "tier": "仅存档",
+      "critical": false,
+      "reasons": []
+    },
+    {
+      "url": "https://www.ithome.com/1/006/138.htm",
+      "title": "雷神预告 STATION 系列迷你 AI 工作站，至高可选 AMD 锐龙 AI Max+ PRO 495",
+      "source": "IT之家",
+      "published": "2026-09-23",
+      "summary": "IT之家 9 月 23 日消息，雷神 (THUNDEROBOT) 今日宣布雷神 STATION 系列迷你 AI 工作站即将亮相。 该系列产品 至高可选 AMD 锐龙 AI Max+ PRO 495 处理器 ，支持集群弹性组网，允许多机灵活部署、算力按需扩容，面向 AI 开发、专业创作、企业商用等多元场景。 IT之家注意到，雷神近期发售了基于 \"Strix Halo\" 的 AI Master M7000 移动工作站。根据 此前发布会 ，该",
+      "tier": "仅存档",
+      "critical": false,
+      "reasons": []
+    },
+    {
+      "url": "https://www.ithome.com/1/006/065.htm",
+      "title": "韶音旗下首款 AI 耳机 OpenFit 2 AI 亮相 2026 云栖大会，AI 实验室新功能首发",
+      "source": "IT之家",
+      "published": "2026-09-23",
+      "summary": "IT之家 9 月 23 日消息，2026 云栖大会于 9 月 22 日在浙江杭州开幕，Shokz 韶音首次亮相云栖大会， 携旗下首款 AI 耳机 OpenFit 2 AI 参展，并首发“AI 实验室”新功能 ，推出智能对话、日程待办、随口记、消息助手四项功能。 本届云栖大会以“智以致用”为主题，聚焦 AI 技术从研发创新走向产业应用。作为阿里云主办的 AI 领域重要大会，云栖大会也成为 Qwen 大模型探索实际应用场景的重要平台。 韶音",
+      "tier": "仅存档",
+      "critical": false,
+      "reasons": []
+    }
+  ]
+}
