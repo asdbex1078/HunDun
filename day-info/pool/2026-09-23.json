@@ -1,15 +1,41 @@
 {
   "date": "2026-09-23",
-  "generated_at": "2026-09-23T11:46:48",
+  "generated_at": "2026-09-23T19:02:04",
   "counts": {
-    "total": 56,
-    "must": 1,
-    "worth": 48,
+    "total": 103,
+    "must": 5,
+    "worth": 91,
     "archive": 7,
     "critical": 0
   },
-  "errors": [],
+  "errors": [
+    "IT之家: <urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol ("
+  ],
   "items": [
+    {
+      "url": "https://huggingface.co/papers/2609.24967",
+      "title": "Emergent Collusion in Long-Horizon LLM Agent Interaction",
+      "source": "HF 每日论文",
+      "published": "2026-09-20",
+      "summary": "LLM agents are increasingly deployed in collaborative settings, yet long-term interaction may give rise to undesirable coordination. We study the emergence of collusion in a long-horizon multi-agent environment: two agen",
+      "tier": "必须看",
+      "critical": false,
+      "reasons": [
+        "项目相关:long-horizon"
+      ]
+    },
+    {
+      "url": "https://huggingface.co/papers/2609.25804",
+      "title": "The Tasteful Agent: Measuring and Improving Taste in Long-Horizon Tasks",
+      "source": "HF 每日论文",
+      "published": "2026-09-21",
+      "summary": "LLM agents increasingly work on long-horizon tasks, and the decisions they make along the way, such as which hypothesis to test or which implementation to build on, determine the outcome of the whole run. Making these de",
+      "tier": "必须看",
+      "critical": false,
+      "reasons": [
+        "项目相关:long-horizon"
+      ]
+    },
     {
       "url": "https://www.marktechpost.com/2026/09/22/anthropic-claude-opus-5-5-release/",
       "title": "Anthropic Releases Claude Opus 5.5: Fable 5.1-Level Performance at 40% Lower Running Cost Than Opus 5",
@@ -20,6 +46,30 @@
       "critical": false,
       "reasons": [
         "发布信号:anthropic,claude,release,model"
+      ]
+    },
+    {
+      "url": "https://www.marktechpost.com/2026/09/22/openai-releases-gpt-6-sol-and-luna-50-cheaper-api-pricing-and-benchmarks/",
+      "title": "OpenAI Releases GPT-6 Sol and Luna: 50% Cheaper API Pricing and Benchmarks",
+      "source": "MarkTechPost",
+      "published": "2026-09-23",
+      "summary": "OpenAI has released GPT-6 Sol and GPT-6 Luna, 2 lower-cost models trained with methods similar to GPT-6 Astra. Sol costs $2/$10 and Luna $0.10/$0.50 per 1M tokens. Both are available now in the API, ChatGPT Work and Code",
+      "tier": "必须看",
+      "critical": false,
+      "reasons": [
+        "发布信号:openai,gpt,release,model"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.25187",
+      "title": "X-Planner: Event-Structured Task Planning for Embodied Intelligence",
+      "source": "arXiv cs.AI",
+      "published": "2026-09-23",
+      "summary": "Task planning bridges high-level instructions and executable behavior in long-horizon manipulation, yet modern Vision-Language-Action (VLA) systems often leave this intermediate structure implicit. Existing chain-of-thou",
+      "tier": "必须看",
+      "critical": false,
+      "reasons": [
+        "项目相关:long-horizon"
       ]
     },
     {
@@ -119,6 +169,42 @@
       ]
     },
     {
+      "url": "https://huggingface.co/Alissonerdx/Minimax-H3-ComfyUI",
+      "title": "Alissonerdx/Minimax-H3-ComfyUI",
+      "source": "HF 新模型",
+      "published": "2026-09-23",
+      "summary": "likes 247 · downloads 29701",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://huggingface.co/Eugleo/exp089-mcq-letter-arms-nemotron-nano4b",
+      "title": "Eugleo/exp089-mcq-letter-arms-nemotron-nano4b",
+      "source": "HF 新模型",
+      "published": "2026-09-23",
+      "summary": "likes 1 · downloads 0",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://huggingface.co/khazic/tfm-offline-stage1-group-6",
+      "title": "khazic/tfm-offline-stage1-group-6",
+      "source": "HF 新模型",
+      "published": "2026-09-23",
+      "summary": "likes 2 · downloads 0",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
       "url": "https://huggingface.co/pmolodyk/artifacts-a833cdd7fe3f8895",
       "title": "pmolodyk/artifacts-a833cdd7fe3f8895",
       "source": "HF 新模型",
@@ -179,6 +265,18 @@
       ]
     },
     {
+      "url": "https://huggingface.co/papers/2609.22323",
+      "title": "ALPINE: Adaptive Localization for Parameter- and Sample-Efficient Few-Shot Learning",
+      "source": "HF 每日论文",
+      "published": "2026-09-15",
+      "summary": "Few-shot learning research is predominantly evaluated on accuracy alone, with limited attention to the parameter and training-sample budgets required to reach that accuracy - a real constraint for practitioners without l",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
       "url": "https://huggingface.co/papers/2609.24058",
       "title": "All-in-One Multilingual Scene Text Recognition with Script-aware Mixture-of-Experts",
       "source": "HF 每日论文",
@@ -196,6 +294,18 @@
       "source": "HF 每日论文",
       "published": "2026-09-13",
       "summary": "Reinforcement learning with verifiable rewards (RLVR) improves the reasoning capabilities of large language models (LLMs). We introduce Bellman Policy Optimization (BPO), a critic-free method derived from Policy Mirror D",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://huggingface.co/papers/2609.26346",
+      "title": "Blaming Across the Aisle: Political Contrasting and Blame Attribution in the Danish Parliament",
+      "source": "HF 每日论文",
+      "published": "2026-09-21",
+      "summary": "Political discourse is widely perceived to be growing more hostile, yet robust evidence remains scarce. This study examines blame attribution in the Danish Parliament from 1997 to 2026, combining a purpose-built classifi",
       "tier": "值得看",
       "critical": false,
       "reasons": [
@@ -263,6 +373,18 @@
       ]
     },
     {
+      "url": "https://huggingface.co/papers/2609.25267",
+      "title": "ImIR: Image-Instruction Tuning for All-in-One Image Restoration",
+      "source": "HF 每日论文",
+      "published": "2026-09-20",
+      "summary": "Degradations vary widely across images, so a practical restoration system has to handle many degradation types with one model. A recent and effective recipe adapts a large pretrained image-editing model to restoration us",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
       "url": "https://huggingface.co/papers/2609.25165",
       "title": "Ovis-Embedding: Pushing the Frontiers of Universal Omni-Modal Embeddings",
       "source": "HF 每日论文",
@@ -299,6 +421,18 @@
       ]
     },
     {
+      "url": "https://huggingface.co/papers/2609.25636",
+      "title": "RoboFollow: Unveiling the Instruction Following Mirage in Embodied Agents",
+      "source": "HF 每日论文",
+      "published": "2026-09-21",
+      "summary": "Modern embodied agents achieve impressive success rates, yet their actual instruction-following ability is far weaker than these numbers suggest. We trace this illusion to a structural property we term low scene entropy:",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
       "url": "https://huggingface.co/papers/2609.06052",
       "title": "SkillSpec: Intent-Masked Specification Reasoning for Agent Skill Correctness",
       "source": "HF 每日论文",
@@ -308,6 +442,18 @@
       "critical": false,
       "reasons": [
         "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://huggingface.co/papers/2609.26774",
+      "title": "StableVQ: Practical Guidelines for Stable Vector-Quantized Tokenizer Training",
+      "source": "HF 每日论文",
+      "published": "2026-09-21",
+      "summary": "Vector Quantization (VQ) is fundamental to discrete visual tokenizers that power modern autoregressive and masked image generation models. While recent shared-projection codebook methods have substantially advanced codeb",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:guide"
       ]
     },
     {
@@ -383,6 +529,18 @@
       ]
     },
     {
+      "url": "https://camplight.net/ai/ai-software-factory/",
+      "title": "What Is an AI Software Factory? Lessons from 3 Client Deployments",
+      "source": "Hacker News",
+      "published": "2026-09-23",
+      "summary": "Article URL: https://camplight.net/ai/ai-software-factory/ Comments URL: https://news.ycombinator.com/item?id=49813704 Points: 4 # Comments: 0",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:cli"
+      ]
+    },
+    {
       "url": "https://www.ithome.com/1/006/093.htm",
       "title": "华为首款鸿蒙 7+ 麒麟 9 系旗舰芯片电视：华为智慧屏 Mate TV 2 系列开启预售，7999 元起",
       "source": "IT之家",
@@ -395,6 +553,18 @@
       ]
     },
     {
+      "url": "https://www.latent.space/p/ainews-claude-opus-55-the-new-default",
+      "title": "[AINews] Claude Opus 5.5, the new default model for AINews — and everybody cuts prices 40-50%",
+      "source": "Latent Space",
+      "published": "2026-09-23",
+      "summary": "overshadowing more efficient GPT6 models from OpenAI",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
       "url": "https://www.latent.space/p/john-platt",
       "title": "🔬 An Oscar, Two Asteroids, and the Algorithm in Your sklearn: John Platt on AI for Science",
       "source": "Latent Space",
@@ -404,6 +574,42 @@
       "critical": false,
       "reasons": [
         "命中:cli"
+      ]
+    },
+    {
+      "url": "https://www.marktechpost.com/2026/09/22/kyutai-releases-voice-of-reason-a-speech-native-model-that-solves-spoken-math-with-reinforcement-learning/",
+      "title": "Kyutai Releases Voice of Reason: A Speech-Native Model that Solves Spoken Math with Reinforcement Learning",
+      "source": "MarkTechPost",
+      "published": "2026-09-23",
+      "summary": "Kyutai has released Voice of Reason, 2 open-weight speech-to-speech models built on GLM-4-Voice-9B. Supervised fine-tuning and reinforcement learning lift spoken GSM8K accuracy from 27.3% to 77.1%. There is no transcript",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://www.marktechpost.com/2026/09/23/nokia-open-sources-anyjev-a-training-free-layer-that-turns-any-open-llm-into-a-calibrated-decision-model/",
+      "title": "Nokia Open-Sources AnyJev: A Training-Free Layer That Turns Any Open LLM Into a Calibrated Decision Model",
+      "source": "MarkTechPost",
+      "published": "2026-09-23",
+      "summary": "Nokia&#8217;s applied research team has open-sourced AnyJev, a Python library that turns an open LLM into a decision model. It needs no training. It targets a common production job: picking one answer from a fixed set in",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:library"
+      ]
+    },
+    {
+      "url": "https://www.marktechpost.com/2026/09/22/speakon-ships-a-magsafe-ai-voice-button/",
+      "title": "SpeakON Ships a MagSafe AI Voice Button With Its Own Microphone",
+      "source": "MarkTechPost",
+      "published": "2026-09-23",
+      "summary": "Voice input on phones has been solved for years. What has not been solved is the output. Speak into most dictation tools and you get back exactly what you said, fillers and false starts included, in a note you then have ",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:tool"
       ]
     },
     {
@@ -503,6 +709,30 @@
       ]
     },
     {
+      "url": "https://arxiv.org/abs/2609.25036",
+      "title": "4DGS-JEPA: Temporally Compositional Joint-Embedding Prediction for Dynamic Gaussian Splatting",
+      "source": "arXiv cs.AI",
+      "published": "2026-09-23",
+      "summary": "Dynamic Gaussian Splatting provides an explicit representation of evolving 3D scenes, but existing approaches are primarily optimized for reconstruction, future-state generation, or rendering rather than for learning reu",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:render"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.25088",
+      "title": "An Accurate and Interpretable Hyper Graph Neural Network for GBM Survival Prediction",
+      "source": "arXiv cs.AI",
+      "published": "2026-09-23",
+      "summary": "Survival prediction for glioblastoma multiforme (GBM) demands models that are both accurate and interpretable, yet existing approaches treat these objectives as com- peting, where performant models sacrifice transparency",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:framework,cli"
+      ]
+    },
+    {
       "url": "https://arxiv.org/abs/2609.22277",
       "title": "An Affordable AI-Integrated Smart Cane for Multimodal Mobility Assistance of Visually Impaired Users",
       "source": "arXiv cs.AI",
@@ -527,6 +757,30 @@
       ]
     },
     {
+      "url": "https://arxiv.org/abs/2609.25013",
+      "title": "Do Existing Preconditioners Improve Biomedical Tabular Foundation Learning? An Empirical Study on TabPFN Optimization",
+      "source": "arXiv cs.AI",
+      "published": "2026-09-23",
+      "summary": "Tabular foundation models have recently shown strong potential for structured biomedical data analysis. Among them, TabPFN has emerged as an effective approach for low-data tabular classification tasks. However, the impa",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:benchmark"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.25010",
+      "title": "Do Synthetic Personas Predict Real Audience Response? A Sim-to-Real Study Where a No-Persona Baseline Beats Persona-Based Copy Simulation",
+      "source": "arXiv cs.AI",
+      "published": "2026-09-23",
+      "summary": "Marketers increasingly use large language models (LLMs) as \"synthetic personas\" to predict how an audience will react to a piece of copy before it ships, encouraged by evidence that profile-conditioned LLMs mimic human s",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:cli"
+      ]
+    },
+    {
       "url": "https://arxiv.org/abs/2609.22475",
       "title": "Goal-driven Variant Categorization",
       "source": "arXiv cs.AI",
@@ -536,6 +790,18 @@
       "critical": false,
       "reasons": [
         "命中:paper,guide"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.25199",
+      "title": "Lean Pool: An AI-Maintained Archive of Formalized Mathematics",
+      "source": "arXiv cs.AI",
+      "published": "2026-09-23",
+      "summary": "Lean Pool is a repository of formalized mathematics. It is grown, maintained and optimized by AI agents.",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
       ]
     },
     {
@@ -587,6 +853,18 @@
       ]
     },
     {
+      "url": "https://arxiv.org/abs/2609.25254",
+      "title": "The AI Neuroscientist: An Interactive Agentic Interface for Neuroimaging Analysis",
+      "source": "arXiv cs.AI",
+      "published": "2026-09-23",
+      "summary": "Analyzing neuroimaging data requires specialized coding and statistical expertise, which limits accessibility for researchers without computational backgrounds. We present the AI Neuroscientist, a language agent for inte",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:tool,benchmark,visualization"
+      ]
+    },
+    {
       "url": "https://arxiv.org/abs/2609.22497",
       "title": "The Wisdom of Artificial Deliberative Crowds",
       "source": "arXiv cs.AI",
@@ -596,6 +874,294 @@
       "critical": false,
       "reasons": [
         "命中:paper"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.25012",
+      "title": "A Computational Approach to Measuring Semantic Change in Sanskrit Literature",
+      "source": "arXiv cs.CL",
+      "published": "2026-09-23",
+      "summary": "Diachronic word embeddings have become the modern standard for tracking semantic change, yet they have been largely validated on modern, high-resource, and well-segmented languages. This paper tests whether the paradigm ",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:paper"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.25047",
+      "title": "AIBuildAI-2.5: Efficient Autonomous AI Model Development Through LLM-Guided Tree Search",
+      "source": "arXiv cs.CL",
+      "published": "2026-09-23",
+      "summary": "Autonomous agents that automatically build artificial intelligence (AI) models could broaden access to AI across science and engineering. A popular line of such agents frames model building as a code search problem and s",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:guide,benchmark"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.25034",
+      "title": "From Tone to Trajectory: Continuous Sentiment and the Shape of Monetary Policy Communication",
+      "source": "arXiv cs.CL",
+      "published": "2026-09-23",
+      "summary": "Central bank press conferences are not merely information releases --- they are structured narratives. We study whether the shape of sentiment within a statement, not just its average tone, carries policy-relevant signal",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:benchmark"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.25046",
+      "title": "Peerify: Benchmarking Peer-Review Claim Verification",
+      "source": "arXiv cs.CL",
+      "published": "2026-09-23",
+      "summary": "Peer review plays a central role in scholarly publishing, yet verifying whether reviewer claims are supported by manuscript evidence remains a largely manual and time-consuming process. We present Peerify, a pipeline for",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:paper,benchmark"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.25028",
+      "title": "Retrieved-Span Training for Efficient Query-Focused Meeting Summarization on QMSum",
+      "source": "arXiv cs.CL",
+      "published": "2026-09-23",
+      "summary": "QMSum provides no scorer, making query-focused meeting summarization results difficult to compare. We rescore or generate 15 systems under one implementation. Through a common inference port, a released 406M Fusion-in-De",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.25009",
+      "title": "Same Quantity, Different Answer: Numerical Representation Invariance in Language Models",
+      "source": "arXiv cs.CL",
+      "published": "2026-09-23",
+      "summary": "Numerically equivalent word problems should yield the same canonical answer whether a quantity is written as a decimal, fraction, percentage, number word, scientific notation, or an exactly converted unit. We generate 3,",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:paper,benchmark"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.25008",
+      "title": "Training a Language Model End-to-End in Rust: An Experience Report",
+      "source": "arXiv cs.CL",
+      "published": "2026-09-23",
+      "summary": "I pretrained a language model end-to-end in Rust - alone, with no team, no PyTorch, and no Python in the training path - for $164 in rented GPU time. I report that as an achievement, not a recommendation: the more useful",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:framework"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.25006",
+      "title": "What Does 99% Accuracy Measure? A Reproducible Audit of Shortcut Learning in a Widely Used Fake News Corpus",
+      "source": "arXiv cs.CL",
+      "published": "2026-09-23",
+      "summary": "Text classifiers trained on the ISOT/Kaggle \"Fake and Real News\" corpus routinely report accuracy and F1 above 0.98, a level of performance that sits uneasily beside the difficulty of assessing veracity. Using a transpar",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:benchmark"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.25021",
+      "title": "\"As a Language Model...\": Chat Template Switches LLM Self-Referential Voice and Activation Steering Reproduces It",
+      "source": "arXiv cs.LG",
+      "published": "2026-09-23",
+      "summary": "Large Language Models (LLMs) tend to add disclaimers like \"I'm just an AI\" when asked about something related to themselves. The self-reports from such responses are used in debates about AI safety or self-knowledge of t",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.25146",
+      "title": "Brain-Inspired Hierarchical Modularity for General Continual Learning",
+      "source": "arXiv cs.LG",
+      "published": "2026-09-23",
+      "summary": "Continual learning, the ability to learn from sequential experience while retaining and adapting prior knowledge, is central to intelligent systems operating in changing environments. However, conventional continual lear",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.25149",
+      "title": "Dual-GNN Multilevel Coarsening for Maximum Independent Set",
+      "source": "arXiv cs.LG",
+      "published": "2026-09-23",
+      "summary": "Solving large-scale instances of the Traveling Salesman Problem (TSP) exactly is computationally expensive. Researchers often employ graph sparsification methods to improve computational efficiency. Traditional sparsific",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:paper,benchmark,cli"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.25131",
+      "title": "Entropy Can Flow, or It Can Guide. Be Entropy. LEDFlow: Introducing Entropy-guided Generation Order into Uniform Discrete Flow",
+      "source": "arXiv cs.LG",
+      "published": "2026-09-23",
+      "summary": "Uniform discrete flow permits repeated updates at every generation position. While continued revision supports correction of wrong tokens, it also exposes correct intermediate predictions to later errors. An experiment o",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:guide,benchmark"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.25152",
+      "title": "Exposing Blind Spots in Deep Imbalanced Regression Evaluation",
+      "source": "arXiv cs.LG",
+      "published": "2026-09-23",
+      "summary": "Deep Imbalanced Regression (DIR) addresses a common failure mode of regression models: target distributions are highly non-uniform, causing models to perform best in densely populated target regions even when reliable pe",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:benchmark"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.25082",
+      "title": "Federating Quantum and Classical Computing: A Privacy-Preserving Hybrid Approach",
+      "source": "arXiv cs.LG",
+      "published": "2026-09-23",
+      "summary": "Quantum machine learning (QML) is increasingly recognized as one of the most promising near-term applications of quantum computing, viewed as a next-frontier candidate beyond purely classical approaches. Hybrid quantum-c",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:paper,benchmark"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.25143",
+      "title": "Stable Unsupervised Continual Chunking with Sheaf SyncMap",
+      "source": "arXiv cs.LG",
+      "published": "2026-09-23",
+      "summary": "Unsupervised Continual chunking is a fundamental problem in machine learning and neuroscience, where the goal is to identify groups of states that frequently co-occur in temporal sequences. A key challenge is to form acc",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.25134",
+      "title": "The Probabilistic Structure of Large Language Models",
+      "source": "arXiv cs.LG",
+      "published": "2026-09-23",
+      "summary": "This paper presents a probabilistic perspective on large language models (LLMs), developed with the aim of bringing together, in a single self-contained account, tools that are usually treated separately across the liter",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:paper,tool"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.25531",
+      "title": "An Empirical Analysis of Cross-OS Portability Issues in Python Projects",
+      "source": "arXiv cs.SE",
+      "published": "2026-09-23",
+      "summary": "While Python is designed as a cross-platform language, real-world applications encounter portability failures when deployed across different operating systems. We present the first large-scale empirical study of cross-OS",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:github,tool,library"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.25520",
+      "title": "Dynamic Conformance Testing of WebGPU Through Specification-Driven Mutation",
+      "source": "arXiv cs.SE",
+      "published": "2026-09-23",
+      "summary": "WebGPU is a low-level graphics and compute API that exposes modern GPU functionality to web applications. While the official WebGPU Conformance Test Suite (CTS) focuses on well-formed usage under the WebGPU specification",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:guide,framework"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.25528",
+      "title": "Evaluating Shaker for Flaky Test Detection in Python Projects",
+      "source": "arXiv cs.SE",
+      "published": "2026-09-23",
+      "summary": "Flaky tests pass or fail non-deterministically on unchanged code, eroding trust in test suites and inflating the cost of every failure. Shaker detects them by injecting resource contention (CPU, memory, and I/O stress) t",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:tool,benchmark"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.25261",
+      "title": "TAILOR: Template-Preserving Augmentation for Long-Tailed Log Parsing",
+      "source": "arXiv cs.SE",
+      "published": "2026-09-23",
+      "summary": "Log parsing is essential for system log analysis because it supports tasks such as debugging, monitoring, and anomaly detection by transforming unstructured log messages into structured log templates. However, real-world",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:paper,framework,benchmark"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.25121",
+      "title": "TRACTOR Benchmark for Evaluating C to Rust Translators",
+      "source": "arXiv cs.SE",
+      "published": "2026-09-23",
+      "summary": "Memory-safety vulnerabilities remain a persistent source of security risk in critical software, much of which is implemented in memory-unsafe languages such as C and C++. Recent advances in programming languages, program",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:tool,benchmark"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.25516",
+      "title": "The Vocabulary of Flaky Tests in Swift",
+      "source": "arXiv cs.SE",
+      "published": "2026-09-23",
+      "summary": "Flaky tests produce non-deterministic outcomes without code change, eroding CI confidence and delaying deliveries. While vocabulary-based machine learning prediction has proven effective for Java and JavaScript, no study",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.25587",
+      "title": "Understanding Maintenance and Support in a Community-Driven Scientific Workflow Ecosystem: A Cross-Space Study of Galaxy",
+      "source": "arXiv cs.SE",
+      "published": "2026-09-23",
+      "summary": "Galaxy is a widely used, community-driven scientific workflow system whose sustainability depends on continuous maintenance across its software, tools, workflows, infrastructure, documentation, and user-support ecosystem",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:github,tool"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.25786",
+      "title": "What Was Once Learned May Need to Be Unlearned: Machine Unlearning for Deprecated API Knowledge in Large Language Models",
+      "source": "arXiv cs.SE",
+      "published": "2026-09-23",
+      "summary": "Large language models (LLMs) for code completion may generate deprecated APIs because their pre-training corpora contain code from historical library versions. Existing approaches use inference-time intervention, model e",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:library,benchmark"
       ]
     },
     {
