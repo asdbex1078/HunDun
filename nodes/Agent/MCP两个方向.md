@@ -11,7 +11,8 @@ tags:
   - 协议
 desc: 作 client（agent 通过 MCP 调自己的工具）是多一跳、收益为零；作 server（把能力暴露给别的 agent 客户端）才是它的正解——两个方向的结论相反，混着谈必然得出错结论
 learned: 2026-09-20
-source: MCP.md
+sources:
+  - "[[articles/MCP]]"
 layer: AI应用
 timeless: true
 ---

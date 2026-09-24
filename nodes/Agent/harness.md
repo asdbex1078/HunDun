@@ -10,7 +10,8 @@ tags:
   - 取消
   - 恢复
 desc: "包在 LLM 调用和工具调用外面的那层运行时：循环转几轮、调哪个工具、上下文裁多长、能不能取消、崩了怎么接着跑——**模型管不了的那一半全在这里**"
-source: 长程Agent任务生命周期与可控终止.md
+sources:
+  - "[[articles/长程Agent任务生命周期与可控终止]]"
 layer: AI应用
 timeless: true
 ---

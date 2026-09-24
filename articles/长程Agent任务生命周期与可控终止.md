@@ -1,3 +1,7 @@
+---
+imported: 2026-09-10
+origin: harness/agent/docs/长程Agent任务生命周期与可控终止.md
+---
 # 长程 Agent 任务生命周期与可控终止
 
 ## 1. 为什么需要单独设计终止机制
