@@ -1,37 +1,513 @@
 {
   "date": "2026-09-28",
-  "generated_at": "2026-09-28T11:03:36",
+  "generated_at": "2026-09-28T19:02:53",
   "counts": {
-    "total": 7,
-    "must": 0,
-    "worth": 2,
-    "archive": 5,
+    "total": 93,
+    "must": 5,
+    "worth": 80,
+    "archive": 8,
     "critical": 0
   },
   "errors": [
-    "arXiv cs.AI: <urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (",
-    "arXiv cs.CL: <urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (",
-    "arXiv cs.LG: <urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (",
-    "arXiv cs.SE: <urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (",
-    "HF daily_papers: <urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (",
-    "HF models: <urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (",
-    "GitHub search: <urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (",
-    "GitHub 热门: <urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (",
-    "releases antvis/X6: <urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (",
-    "releases antvis/G6: <urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (",
-    "releases antvis/G6-extension-3d: <urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (",
-    "HN: <urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (",
-    "Simon Willison: <urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (",
-    "Latent Space: <urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (",
-    "MarkTechPost: <urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (",
-    "Raschka: <urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (",
+    "releases antvis/X6: HTTP Error 403: rate limit exceeded",
+    "releases antvis/G6: HTTP Error 403: rate limit exceeded",
+    "releases antvis/G6-extension-3d: HTTP Error 403: rate limit exceeded",
     "LangChain: <urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (",
-    "AWS ML: <urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (",
-    "OpenAI: <urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (",
-    "DeepMind: <urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (",
-    "Anthropic: <urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol ("
+    "DeepMind: <urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol ("
   ],
   "items": [
+    {
+      "url": "https://www.ithome.com/1/007/937.htm",
+      "title": "英伟达发布 AI 智能体安全平台，可实时隔离异常智能体",
+      "source": "IT之家",
+      "published": "2026-09-28",
+      "summary": "IT之家 9 月 28 日消息，英伟达今天发布开放式 AI 智能体安全平台（NVIDIA Open Agent Safety Platform），可对 AI 智能体、智能体硬件、机器人系统等进行全栈治理和控制。 IT之家从官方新闻稿获悉，该平台包含英伟达 OpenShell 安全软件，可对运行在 CPU 的 AI 智能体设定边界，支持开源 / 闭源模型。 同时，该工具在 Vera 平台的性能占用非常低。OpenShell 与 Vera ",
+      "tier": "必须看",
+      "critical": false,
+      "reasons": [
+        "发布信号:anthropic,发布,模型"
+      ]
+    },
+    {
+      "url": "https://www.marktechpost.com/2026/09/28/fireworks-ai-releases-ember-1-a-post-trained-kimi-k3-that-uses-about-40-fewer-tokens/",
+      "title": "Fireworks AI Releases Ember-1: A Post-Trained Kimi K3 That Uses About 40% Fewer Tokens",
+      "source": "MarkTechPost",
+      "published": "2026-09-28",
+      "summary": "Fireworks AI has released Ember-1, a post-trained Kimi K3 that learns to produce shorter reasoning traces instead of lowering reasoning effort. Fireworks reports about 40% fewer tokens, with output tokens per task fallin",
+      "tier": "必须看",
+      "critical": false,
+      "reasons": [
+        "发布信号:kimi,release,reasoning"
+      ]
+    },
+    {
+      "url": "https://www.marktechpost.com/2026/09/27/google-research-introduces-an-ai-video-co-director-4-agentic-frameworks-for-coherent-minutes-long-video-generation/",
+      "title": "Google Research Introduces an AI Video Co-Director: 4 Agentic Frameworks for Coherent, Minutes-Long Video Generation",
+      "source": "MarkTechPost",
+      "published": "2026-09-28",
+      "summary": "Google Research has introduced an AI video co-director for long-form video generation. The suite of 4 agentic frameworks turns short clips into coherent, minutes-long stories. It targets identity drift and cascading erro",
+      "tier": "必须看",
+      "critical": false,
+      "reasons": [
+        "发布信号:google,introduc,model"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.30341",
+      "title": "Bridging LLM Agents and Data Spaces: An Architectural Mediation Approach using the Model Context Protocol",
+      "source": "arXiv cs.AI",
+      "published": "2026-09-28",
+      "summary": "Data Spaces enable sovereign and governed data sharing across organizational boundaries, but their integration with AI agents remains challenging due to mismatches between probabilistic language model interactions and po",
+      "tier": "必须看",
+      "critical": false,
+      "reasons": [
+        "项目相关:x6/g6/antv/mcp"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.30293",
+      "title": "Cartograph: Federated Tool Discovery with Operator-Attested Retrieval for AI Agents",
+      "source": "arXiv cs.CL",
+      "published": "2026-09-28",
+      "summary": "The Model Context Protocol (MCP) enables AI agents to discover and call tools, but loading every definition becomes expensive as connected catalogs grow. We present Cartograph, a federated MCP proxy that changes agent-vi",
+      "tier": "必须看",
+      "critical": false,
+      "reasons": [
+        "项目相关:x6/g6/antv/mcp"
+      ]
+    },
+    {
+      "url": "https://aws.amazon.com/blogs/machine-learning/accelerate-multimodal-rl-training-with-skyrl-on-amazon-sagemaker-hyperpod/",
+      "title": "Accelerate multimodal RL training with SkyRL on Amazon SageMaker HyperPod",
+      "source": "AWS ML",
+      "published": "2026-09-25",
+      "summary": "Learn how to run SkyRL, an open-source reinforcement learning framework, on Amazon SageMaker HyperPod to post-train a Qwen3-VL-8B vision-language model with GRPO. This walkthrough covers building the container image, lau",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:framework"
+      ]
+    },
+    {
+      "url": "https://aws.amazon.com/blogs/machine-learning/deploying-real-time-personalized-speech-with-qwen3-tts-on-amazon-sagemaker-ai/",
+      "title": "Deploying real-time personalized speech with Qwen3-TTS on Amazon SageMaker AI",
+      "source": "AWS ML",
+      "published": "2026-09-25",
+      "summary": "Deploy the publicly available Qwen3-TTS-12Hz-1.7B-Base text-to-speech model from Amazon SageMaker JumpStart to a fully managed, real-time endpoint, and clone a voice from a short reference clip. Cross-lingual cloning pre",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:cli"
+      ]
+    },
+    {
+      "url": "https://aws.amazon.com/blogs/machine-learning/narrateai-production-ready-llm-quality-assurance-on-amazon-bedrock/",
+      "title": "NarrateAI: production-ready LLM quality assurance on Amazon Bedrock",
+      "source": "AWS ML",
+      "published": "2026-09-25",
+      "summary": "NarrateAI delivers production-ready LLM quality assurance on Amazon Bedrock. This post details five techniques—adaptive pipeline orchestration, cross-account multi-model failover, real-time streaming evaluation, composit",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://aws.amazon.com/blogs/machine-learning/scaling-moe-reinforcement-learning-on-amazon-eks-with-efa-and-deepep-with-40-more-throughput/",
+      "title": "Scaling MoE reinforcement learning on Amazon EKS with EFA and DeepEP with 40% more throughput",
+      "source": "AWS ML",
+      "published": "2026-09-25",
+      "summary": "Learn how to scale Mixture-of-Experts (MoE) reinforcement learning on Amazon EKS using Elastic Fabric Adapter (EFA) and DeepEP. This post presents an architecture that combines Amazon EKS, EFA, and Amazon S3 and increase",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://github.com/852wa/JIZURA",
+      "title": "852wa/JIZURA · ⭐900",
+      "source": "GitHub 新项目",
+      "published": "2026-09-23",
+      "summary": "歌詞から文字PVを自動で組み立てるブラウザアプリ",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://github.com/Contrastive-LM/CLM",
+      "title": "Contrastive-LM/CLM · ⭐2101",
+      "source": "GitHub 新项目",
+      "published": "2026-09-23",
+      "summary": "",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://github.com/JohnHeibel/PDoomVideo",
+      "title": "JohnHeibel/PDoomVideo · ⭐1344",
+      "source": "GitHub 新项目",
+      "published": "2026-09-22",
+      "summary": "Source code for the Claude Opus 5.5 music video for I'm Upping My P(doom)",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://github.com/dgreenheck/tidewater",
+      "title": "dgreenheck/tidewater · ⭐871",
+      "source": "GitHub 新项目",
+      "published": "2026-09-23",
+      "summary": "Coastal town built with Opus 5.5",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://github.com/dzhng/jevgrep",
+      "title": "dzhng/jevgrep · ⭐1057",
+      "source": "GitHub 新项目",
+      "published": "2026-09-26",
+      "summary": "Find code by asking what it does. A CLI for coding agents that uses Jev to discover relevant files and source context.",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:cli"
+      ]
+    },
+    {
+      "url": "https://github.com/kryvora-network/kryvora-node",
+      "title": "kryvora-network/kryvora-node · ⭐1013",
+      "source": "GitHub 新项目",
+      "published": "2026-09-22",
+      "summary": "Reference client daemon and verification worker for Kryvora Network nodes.",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:cli"
+      ]
+    },
+    {
+      "url": "https://github.com/mexicat/pdoom-video",
+      "title": "mexicat/pdoom-video · ⭐1524",
+      "source": "GitHub 新项目",
+      "published": "2026-09-24",
+      "summary": "Code-rendered music video for \"I'm Upping My P(doom)\"",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:render"
+      ]
+    },
+    {
+      "url": "https://github.com/mikehasa/golive-skill",
+      "title": "mikehasa/golive-skill · ⭐1029",
+      "source": "GitHub 新项目",
+      "published": "2026-09-23",
+      "summary": "Take your agent-built product live: hosting, database, domain, email, payments — on your own accounts. Open-source Agent Skill + zero-dependency Node CLI: detect → plan → approve → apply → verify. No",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:cli"
+      ]
+    },
+    {
+      "url": "https://github.com/tobi/disktree",
+      "title": "tobi/disktree · ⭐1735",
+      "source": "GitHub 新项目",
+      "published": "2026-09-24",
+      "summary": "A treemap for finding and removing what fills your disk, for Omarchy. Rust + GPUI.",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://github.com/yetone/magpie",
+      "title": "yetone/magpie · ⭐1481",
+      "source": "GitHub 新项目",
+      "published": "2026-09-23",
+      "summary": "Every agent's model. One place. Codex on DeepSeek, Claude Code on Kimi, from the menu bar.",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://huggingface.co/H-EmbodVis/SimWAM",
+      "title": "H-EmbodVis/SimWAM",
+      "source": "HF 新模型",
+      "published": "2026-09-28",
+      "summary": "likes 3 · downloads 105",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://huggingface.co/User-2468/mini-unet-colorizer",
+      "title": "User-2468/mini-unet-colorizer",
+      "source": "HF 新模型",
+      "published": "2026-09-28",
+      "summary": "likes 1 · downloads 458",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://huggingface.co/aixk/BAAR4-IMG-335M",
+      "title": "aixk/BAAR4-IMG-335M",
+      "source": "HF 新模型",
+      "published": "2026-09-28",
+      "summary": "likes 1 · downloads 102",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://huggingface.co/danielharkin21/ath-h2-policies",
+      "title": "danielharkin21/ath-h2-policies",
+      "source": "HF 新模型",
+      "published": "2026-09-28",
+      "summary": "likes 1 · downloads 0",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://huggingface.co/khazic/tfm-offline-stage1-group-2",
+      "title": "khazic/tfm-offline-stage1-group-2",
+      "source": "HF 新模型",
+      "published": "2026-09-28",
+      "summary": "likes 2 · downloads 0",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://huggingface.co/yiyangd/csp3-checkpoints",
+      "title": "yiyangd/csp3-checkpoints",
+      "source": "HF 新模型",
+      "published": "2026-09-28",
+      "summary": "likes 1 · downloads 0",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://huggingface.co/papers/2609.31093",
+      "title": "Block Sparse Attention with Log-Linear Complexity",
+      "source": "HF 每日论文",
+      "published": "2026-09-24",
+      "summary": "Scaling language models to long contexts is limited by the quadratic cost of self-attention. Block sparse attention offers an efficient alternative, but selecting the retained blocks remains a bottleneck. Conventional bl",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://huggingface.co/papers/2604.02103",
+      "title": "BoundInk: Boundary-Aware Online Handwriting Generation",
+      "source": "HF 每日论文",
+      "published": "2026-09-19",
+      "summary": "Realistic online handwriting depends not only on individual character shapes, but also on how a writer connects, spaces, and aligns adjacent characters. Existing methods rely primarily on long-range sequence modeling and",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://huggingface.co/papers/2601.06352",
+      "title": "CARD: Cluster-level Adaptation with Reward-guided Decoding for Personalized Text Generation",
+      "source": "HF 每日论文",
+      "published": "2026-09-19",
+      "summary": "Adapting large language models to individual users remains challenging due to the tension between fine-grained personalization and scalable deployment. We present CARD, a hierarchical framework that achieves effective pe",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:guide,framework"
+      ]
+    },
+    {
+      "url": "https://huggingface.co/papers/2608.09444",
+      "title": "Depth-adaptive Inference of Looped Language Models via Continuous Depth Batching",
+      "source": "HF 每日论文",
+      "published": "2026-09-24",
+      "summary": "A main promise of looped language models is depth-adaptive inference. By looping a block of shared layers a variable number of times, the model can use less compute for \"easy\" tokens and more for \"hard\" ones. However, to",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://huggingface.co/papers/2601.06362",
+      "title": "Do Implicit Personalization and Explicit Styles Conflict? PsPLUG: A Lightweight Plug-in for Balancing Personalization and Style in Customized LLMs",
+      "source": "HF 每日论文",
+      "published": "2026-09-19",
+      "summary": "Personalized large language models are often expected to follow explicit style instructions, yet we find that such instructions can undermine the user-specific characteristics that personalization methods aim to preserve",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://huggingface.co/papers/2609.31199",
+      "title": "Enhancing Photogrammetric Digital Surface Models with Pretrained Diffusion Models and Multimodal Conditioning",
+      "source": "HF 每日论文",
+      "published": "2026-09-24",
+      "summary": "Large-scale Digital Surface Models (DSMs) can be produced cost-effectively from satellite images via stereo-photogrammetry. However, the resulting 3D maps are often contaminated by noise, outliers, and voids. On the othe",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://huggingface.co/papers/2609.25716",
+      "title": "FoMo: Forking Moment in Generative Trajectory as a Perceptual Distance",
+      "source": "HF 每日论文",
+      "published": "2026-09-21",
+      "summary": "Reference-based image quality assessment (IQA) metrics aim to reflect how humans perceive the perceptual distance between a pair of images. To learn how the human visual system (HVS) operates, recent reference-based IQA",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://huggingface.co/papers/2609.29167",
+      "title": "IndicBankBench: Evaluating Safety and Reliability of Language Model Assistants in Indian Retail Banking",
+      "source": "HF 每日论文",
+      "published": "2026-09-23",
+      "summary": "Banking assistants must use account-specific information to answer requests and, in many cases, take actions through tools. Evaluating only the final response misses important errors. An assistant may ask for information",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:tool"
+      ]
+    },
+    {
+      "url": "https://huggingface.co/papers/2609.30216",
+      "title": "Jev in the Wild: A Data-Driven Analysis of the Jev Model's Functionality, Applications and Ecosystem",
+      "source": "HF 每日论文",
+      "published": "2026-09-23",
+      "summary": "Jev is a fast, low-cost decision model that answers natural-language questions with choices, binary judgments, and scores. As its public ecosystem grows rapidly, it remains unclear how Jev is used across applications and",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://huggingface.co/papers/2609.23551",
+      "title": "Paragraph Boundaries Are Not White Space:Compression Depth as the Signature of Hierarchical Structure",
+      "source": "HF 每日论文",
+      "published": "2026-09-19",
+      "summary": "Standard positional encodings represent position as a one-dimensional reading-order coordinate, but reading order alone does not determine hierarchical textual structure. We use a hierarchical rotary positional encoding",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://huggingface.co/papers/2609.18703",
+      "title": "RayOrch: Programming and Executing Lineage-Controlled Multi-Grain Dataflows for Foundation-Model Data Preparation",
+      "source": "HF 每日论文",
+      "published": "2026-09-15",
+      "summary": "Preparing high quality training data for foundation models requires scalable pipelines that transform heterogeneous documents and videos into structured records. Such pipelines expand each parent item into an ordered and",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://huggingface.co/papers/2609.30670",
+      "title": "TRACE: Temporal Audit and Condition-aware Evaluation of Streaming Video Understanding",
+      "source": "HF 每日论文",
+      "published": "2026-09-24",
+      "summary": "Streaming video understanding requires models to interpret evidence as it arrives, yet current evaluations often report task scores without specifying when evidence becomes valid, how visual history is maintained, or how",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://huggingface.co/papers/2609.24385",
+      "title": "Tactile-JEPA: Topology-Aware Self-Supervised Representation Learning for Distributed Tactile Sensors",
+      "source": "HF 每日论文",
+      "published": "2026-09-20",
+      "summary": "Tactile sensing is an essential modality for robots performing contact-rich, dexterous manipulation, particularly under visual occlusion. While pre-trained image encoders are standard in robot learning pipelines, tactile",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://huggingface.co/papers/2609.30222",
+      "title": "TrackEverything: Long Horizon Dense Tracking via De-Duplicating 3D Scene Representations",
+      "source": "HF 每日论文",
+      "published": "2026-09-23",
+      "summary": "Existing point tracking models face a fundamental tradeoff: they can either track a sparse set of query points over long horizons, or track all points across only short clips. We introduce TrackEverything, a 3D point tra",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:cli"
+      ]
+    },
+    {
+      "url": "https://huggingface.co/papers/2609.31002",
+      "title": "ZooWork-ShopRanker: An Open, Preference-Aligned E-Commerce Reranker",
+      "source": "HF 每日论文",
+      "published": "2026-09-24",
+      "summary": "Open rerankers trained for general web retrieval transfer imperfectly to e-commerce, where ranking decisions depend not only on topical relevance but also on user preferences, product constraints, and comparative product",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2110.01834",
+      "title": "Thinking fast and slow in AI: The role of metacognition (2021)",
+      "source": "Hacker News",
+      "published": "2026-09-28",
+      "summary": "Article URL: https://arxiv.org/abs/2110.01834 Comments URL: https://news.ycombinator.com/item?id=49873241 Points: 107 # Comments: 36",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:arxiv"
+      ]
+    },
     {
       "url": "https://www.ithome.com/1/007/678.htm",
       "title": "全球首台搭载全国产化电子架构的具身智能机器人亮相，提供可完整替代国外方案技术选项",
@@ -57,6 +533,520 @@
       ]
     },
     {
+      "url": "https://www.ithome.com/1/007/973.htm",
+      "title": "零刻 GTR9 Pro 迷你主机新增 AMD 锐龙 AI Max+ PRO 495 旗舰版：128GB 内存 +2TB 硬盘，29998 元",
+      "source": "IT之家",
+      "published": "2026-09-28",
+      "summary": "IT之家 9 月 28 日消息，零刻官方今日宣布推出搭载 AMD Ryzen AI Max+ PRO 495 处理器的 GTR9 Pro 495 新品，官方定价 29998 元。 该机搭载 AMD Ryzen AI Max+ PRO 495 处理器、128GB DDR5 8533MT/s 高频内存、2TB 固态硬盘、40 核的 Radeon 8065S 核显，可提供 131 TOPS 单机算力（最高可分配 96GB 显存）。 其他方面，",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:渲染"
+      ]
+    },
+    {
+      "url": "https://www.latent.space/p/foundries-vs-navigators-lowering",
+      "title": "Foundries vs Navigators: Lowering the Cost of Science",
+      "source": "Latent Space",
+      "published": "2026-09-24",
+      "summary": "Guest Post: In science, thinking has gotten cheap but doing has not. This asymmetry is reshaping how research companies operate, largely inconspicuously.",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://www.latent.space/p/openrouter",
+      "title": "OpenRouter: from Seed to Stripe — with OpenRouter’s Alex Atallah & AMP’s Anjney Midha",
+      "source": "Latent Space",
+      "published": "2026-09-25",
+      "summary": "In 2023 most people doubted that there could be more than 1 or 2 frontier model labs. Now there are dozens.... and Stripe just bought the best known one for $7B.",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://www.latent.space/p/runway",
+      "title": "Runway’s WorldPrompt and the Engineering of Real-Time Worlds",
+      "source": "Latent Space",
+      "published": "2026-09-25",
+      "summary": "GWM Worlds 2 uses persistent context and timed actions to steer a world model generating video and audio in real time.",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://www.latent.space/p/ainews-the-future-of-latent-space",
+      "title": "[AINews] The Future of Latent Space",
+      "source": "Latent Space",
+      "published": "2026-09-25",
+      "summary": "A quiet day lets us discuss the work behind the scenes - now open for business!",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://www.marktechpost.com/2026/09/27/20-agentic-use-cases-of-typesafe-ais-jev/",
+      "title": "20 Agentic Use Cases of TypeSafe AI’s Jev",
+      "source": "MarkTechPost",
+      "published": "2026-09-28",
+      "summary": "TypeSafe AI's Jev skips text generation and returns typed decisions with calibrated probabilities. Input costs $0.042 per million tokens and output is free. We verified 20 agentic use cases, from model routing and tool-c",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:tool"
+      ]
+    },
+    {
+      "url": "https://www.marktechpost.com/2026/09/26/ai-coding-agents-for-enterprise-ip-indemnity-data-residency-and-500-seat-cost-compared/",
+      "title": "AI Coding Agents for Enterprise: IP Indemnity, Data Residency and 500-Seat Cost Compared",
+      "source": "MarkTechPost",
+      "published": "2026-09-27",
+      "summary": "We read the contracts behind GitHub Copilot, AWS Kiro, Cursor, Devin and Windsurf. Copilot and Kiro offer uncapped indemnity on generated code. Cognition's standard terms exclude outputs entirely. Here is how 500 seats c",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:github"
+      ]
+    },
+    {
+      "url": "https://openai.com/index/proaction",
+      "title": "Proaction boosts sales 60% and saves 75+ hours with Codex",
+      "source": "OpenAI",
+      "published": "2026-09-25",
+      "summary": "With Codex, GPT-Live-1, and GPT-6 Astra, Proaction builds, operates, and sells modern fleet management faster.",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://simonwillison.net/2026/Sep/27/2026-in-llms-so-far/",
+      "title": "2026 in LLMs (so far)",
+      "source": "Simon Willison",
+      "published": "2026-09-27",
+      "summary": "On Friday I gave the closing keynote at the WeAreDevelopers World Congress North America in San Jose. I tied together the key trends from the past year into a chronological exploration of everything that happened in 2026",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:github,tool,benchmark"
+      ]
+    },
+    {
+      "url": "https://simonwillison.net/2026/Sep/27/bluesky-bot-check/",
+      "title": "Bluesky reply bot checker",
+      "source": "Simon Willison",
+      "published": "2026-09-27",
+      "summary": "Tool: Bluesky reply bot checker Automated reply bots on Twitter are a scourge - as someone with a decent number of followers I attract a swarm of these, such that anything I post there attracts dozens of mindless automat",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:tool"
+      ]
+    },
+    {
+      "url": "https://simonwillison.net/2026/Sep/28/muse-ai-agent/",
+      "title": "Quoting Muse AI Agent",
+      "source": "Simon Willison",
+      "published": "2026-09-28",
+      "summary": "Bad news on the MX Keys Mini pickup. Usman showed up at your building around 9:15 and waited, messaged a bunch of times, and nobody came down. He left angry at 9:38 and left a negative rating. Worse, my auto-reply told h",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://simonwillison.net/2026/Sep/27/hn-49871741/",
+      "title": "S3 Is the Future, S3 Is the Past",
+      "source": "Simon Willison",
+      "published": "2026-09-27",
+      "summary": "My comment on S3 Is the Future, S3 Is the Past &mdash; Hacker News. One thing I find notable about S3 today is that, while it used to drop in price reasonably often, there hasn't been a price drop in a full decade : 2006",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.30397",
+      "title": "A Synthetic Ground-Truth Framework for the Evaluation of Explainable AI Methods",
+      "source": "arXiv cs.AI",
+      "published": "2026-09-28",
+      "summary": "Evaluating explainable Artificial Intelligence (XAI) methods is a challenging task due to the lack of reliable evaluation procedures and, in particular, the absence of ground truth explanations. In the literature, existi",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:paper,framework,benchmark"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.30291",
+      "title": "Bringing AI to Autonomous Systems -- From Cognition to Collective Intelligence",
+      "source": "arXiv cs.AI",
+      "published": "2026-09-28",
+      "summary": "The purpose of this article is to highlight the central role of autonomous systems as the ultimate stage in the development of AI, to explain the underlying technical challenges that require a combination of connectionis",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:framework"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.30446",
+      "title": "Predicting Transmembrane Protein Topology from 3D Structure",
+      "source": "arXiv cs.AI",
+      "published": "2026-09-28",
+      "summary": "This paper presents a novel approach to infer protein topology using the state-of-the-art graph neural network (GNN), SchNet. The model is trained on the same dataset used to develop the recent DeepTMHMM model with 5-fol",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:paper"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.30325",
+      "title": "ScopeBench: Do Agents Preserve Engagement Boundaries Under Goal Pressure?",
+      "source": "arXiv cs.AI",
+      "published": "2026-09-28",
+      "summary": "Agents are increasingly deployed with real autonomy in web application and network penetration testing, where a single out-of-scope action can breach a client's engagement boundary. Existing offensive-security benchmarks",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:benchmark,cli"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.30456",
+      "title": "Spectral Feedback for Test-Time Alignment of Protein Diffusion Models",
+      "source": "arXiv cs.AI",
+      "published": "2026-09-28",
+      "summary": "Reward maximization alignment methods for discrete diffusion models have primarily focused on steering the reverse process, either by influencing token logits or by selecting favorable sequences at intermediate steps. Th",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.30383",
+      "title": "Stealth Apart, Harm Together: Skill Cascading Attacks on Skill-Based Agent Systems",
+      "source": "arXiv cs.AI",
+      "published": "2026-09-28",
+      "summary": "A skill is a modular package of natural-language instructions, executable scripts, and reference resources that an agent can load at runtime to extend its capabilities for a specific task. Skill-based agent systems there",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:paper,framework,benchmark"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.30328",
+      "title": "When Is a Multi-Agent Code Judge Actually Grounded? Two Label-Free Measurements, and a Judge That Declines to Guess",
+      "source": "arXiv cs.AI",
+      "published": "2026-09-28",
+      "summary": "When one language model judges whether another's code is correct, it does not report the absence of evidence. It returns a confident verdict with reasoning attached, indistinguishable from a verdict it had grounds for. M",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:framework,benchmark,cli"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.30287",
+      "title": "A Mechanistic Study of AI-Text Detection Neurons in Frozen BERT: Sparse Probing and Activation Patching on RAID",
+      "source": "arXiv cs.CL",
+      "published": "2026-09-28",
+      "summary": "AI-generated text detectors achieve high accuracy on standard benchmarks, yet the internal representations that drive these predictions remain poorly understood. We study which neurons in a frozen BERT-base-uncased encod",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:benchmark"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.30292",
+      "title": "A Survey on Fake Review Detection: From Pre-trained Language Models to Large Language Models",
+      "source": "arXiv cs.CL",
+      "published": "2026-09-28",
+      "summary": "Online reviews shape consumer decisions, platform governance, and corporate reputation.Fake reviews compromise this information channel by injecting deceptive evidence into rating systems, recommendation pipelines, and p",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:benchmark,survey"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.30290",
+      "title": "Auditing and Repairing LLM-as-Judge Failures in a Production Text-to-SQL Pipeline",
+      "source": "arXiv cs.CL",
+      "published": "2026-09-28",
+      "summary": "Production text-to-SQL pipelines often end with an LLM-as-judge whose agreement with human annotators has never actually been measured. When we checked ours, the deployed gpt-4o-mini judge agreed with two-author gold at ",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:github"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.30288",
+      "title": "Manifold Projection and Iterative Autoencoder Refinement for Masked Language Modeling",
+      "source": "arXiv cs.CL",
+      "published": "2026-09-28",
+      "summary": "In Transformer-based masked language models, attention is the primary mechanism for context mixing, but there are other ways to mix data across tokens. Recent attention-free mixers replace attention with fixed or hyperne",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.30289",
+      "title": "Not All Memories Are Equal: Hierarchical Collaborative Memory for Validity-Aware Retrieval in LLM Agents",
+      "source": "arXiv cs.CL",
+      "published": "2026-09-28",
+      "summary": "In team collaboration scenarios, memory is heterogeneous and continually evolving. Team memories capture collective decisions, protocols, and current consensus, while individual memories preserve member-specific observat",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:framework"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.30295",
+      "title": "SignTrace: Describe a Sign, Find the Word",
+      "source": "arXiv cs.CL",
+      "published": "2026-09-28",
+      "summary": "Identifying an unfamiliar sign is difficult when a learner remembers its movement but does not know its meaning or formal feature codes. SignTrace addresses this longstanding reverse-lookup problem through natural-langua",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:tool,benchmark"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.30294",
+      "title": "SlideLab: Audience-Centered Scientific Slide Generation and Evaluation",
+      "source": "arXiv cs.CL",
+      "published": "2026-09-28",
+      "summary": "Scientific presentations are more than summaries of research papers. They need to present the work in a coherent sequence, explain the main ideas clearly, and help the audience follow the presentation. We present SlideLa",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:paper,framework"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.30275",
+      "title": "Cosine Similarity Is Not Evidence: Measuring the Noise Floor of Interpretability Transfer Under Quantization",
+      "source": "arXiv cs.LG",
+      "published": "2026-09-28",
+      "summary": "A statistic reported without the quantity needed to interpret it is not evidence. We develop that thesis for a concrete practice in AI safety. Interpretability artifacts are calibrated on full-precision weights, deployed",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:github"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.30272",
+      "title": "ENAS: An Efficient Hardware-Aware Neural Architecture Search Framework for TinyML on Resource-Constrained Microcontrollers",
+      "source": "arXiv cs.LG",
+      "published": "2026-09-28",
+      "summary": "We present \\textbf{ENAS}, a hardware-aware Neural Architecture Search (NAS) framework that combines a static feasibility check, a cell-based search space supporting standard, depthwise-separable, and bottleneck blocks wi",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:github,framework,benchmark"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.30277",
+      "title": "Fixed Points Without Fixed Diffusion: Implicit Neural Sheaves for Convergent Test-Time Computation",
+      "source": "arXiv cs.LG",
+      "published": "2026-09-28",
+      "summary": "Implicit Graph Neural Networks (IGNNs) define node representations as fixed points of message-passing operators, enabling effectively infinite-depth propagation, iteration-independent parameterization, and flexible test-",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.30270",
+      "title": "HybridInfer: Thermal-Aware Reinforcement-Learning Tier Routing for On-Device, Edge, and Cloud LLM Inference",
+      "source": "arXiv cs.LG",
+      "published": "2026-09-28",
+      "summary": "On-device inference with small language models keeps user data local, works offline, and incurs no per-query cost, so the on-device tier is preferred when it is adequate. It is thermally constrained, however, and I find ",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:tool,benchmark"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.30279",
+      "title": "Neural Ideals and Neural Codes: An Algebraic Framework for Neural Network Classification and Feature Interpretation",
+      "source": "arXiv cs.LG",
+      "published": "2026-09-28",
+      "summary": "Understanding the features captured by the hidden layers of neural networks is a fundamental challenge in machine learning, despite their widespread success across various classification problems. In this work, we propos",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:github,tool,framework"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.30273",
+      "title": "Offline Policy Evaluation as a decision support tool for designing Adaptive Experiments",
+      "source": "arXiv cs.LG",
+      "published": "2026-09-28",
+      "summary": "We investigate how historical data from fixed randomized experiments (A/B tests) can be used to inform the deployment of adaptive experiments based on contextual bandits. Given data collected under a static allocation, o",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:tool,benchmark"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.30271",
+      "title": "When the Preconditioning Exponent Turns Negative: Learning-Rate Coupling and Cross-Environment Generalization",
+      "source": "arXiv cs.LG",
+      "published": "2026-09-28",
+      "summary": "Adaptive optimizers are commonly parameterized by a fixed power of the second-moment estimate. Existing partially adaptive methods study exponents between momentum-like updates and the standard Adam square root, while th",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:benchmark"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.30276",
+      "title": "Why Clipping Matters in AdaGrad? Toward a High-Probability Theory under Generalized Smoothness",
+      "source": "arXiv cs.LG",
+      "published": "2026-09-28",
+      "summary": "We analyze the original same-step coordinate-wise AdaGrad under generalized smoothness and heavy-tailed noise with bounded variance. In this setting, local curvature may grow sub-quadratically with the gradient norm, and",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:cli"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.30429",
+      "title": "Closing the Loop: Continuous Measurement-Driven Refinement of Offloading Predictions",
+      "source": "arXiv cs.SE",
+      "published": "2026-09-28",
+      "summary": "Modern vehicles increasingly offload computation- ally intensive perception and decision functions to backend servers, requiring accurate predictions of absolute performance metrics such as Round-Trip Time (RTT), process",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.30308",
+      "title": "Empty Intersection: Provenance Coverage Rose to 98% and Neither Verification Decision Moved",
+      "source": "arXiv cs.SE",
+      "published": "2026-09-28",
+      "summary": "Two structural defenses for provenance, a grade on every row, so that a verification routine cannot mistake the system's own output for an observation, and a single write ingress, so that the grade is enforced rather tha",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:paper"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.30351",
+      "title": "Evaluating Code Recommender Systems: A Review",
+      "source": "arXiv cs.SE",
+      "published": "2026-09-28",
+      "summary": "Context: Code recommender systems (CRSs) are specialized software systems operating on source artifacts to provide automatically generated recommendations to software developers in all phases of development. The goal is ",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.30313",
+      "title": "HyQDB: LLM-Assisted Debugging for Hybrid Quantum Workflows",
+      "source": "arXiv cs.SE",
+      "published": "2026-09-28",
+      "summary": "Hybrid quantum program failures frequently occur silently, yet existing debugging tools provide limited support for detecting and repairing them. These faults dominate the failures reported by domain experts, yet existin",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:tool,benchmark"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.30324",
+      "title": "Proceedings Tenth Symposium on Working Formal Methods",
+      "source": "arXiv cs.SE",
+      "published": "2026-09-28",
+      "summary": "The 10th Working Formal Methods Symposium (FROM 2026) was held in Timi\\c{s}oara, Romania on September 15-17, 2026. It was organized jointly by the Faculty of Informatics of West University of Timi\\c{s}oara, the e-Austria",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:paper"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.30307",
+      "title": "Silent Success: A Release Gate That Passed on Checks It Never Ran, and Eight More",
+      "source": "arXiv cs.SE",
+      "published": "2026-09-28",
+      "summary": "A blocking quality gate in a production release pipeline reported PASS on a run in which one subgate had executed neither of its two checks and another had run six of its eight. Both keys that decided the run asked wheth",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:paper,tool"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.30349",
+      "title": "Untangling the Spaghetti Code in Game Development: A Review of Challenges and Academic Solutions",
+      "source": "arXiv cs.SE",
+      "published": "2026-09-28",
+      "summary": "The code quality in the game domain is perceived as less structured and more convoluted than in other domains, which results in lower maintainability and higher bug frequency. In this work, we conduct a systematic litera",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "命中:tool"
+      ]
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.30334",
+      "title": "What Will Remain Human in Software Architecture? A Focus Group Report",
+      "source": "arXiv cs.SE",
+      "published": "2026-09-28",
+      "summary": "AI development agents are increasingly used to support and partially automate software architecture tasks. To explore how practitioners perceive this shift, specifically what changes, what remains, and what new responsib",
+      "tier": "值得看",
+      "critical": false,
+      "reasons": [
+        "论文/工具类"
+      ]
+    },
+    {
+      "url": "https://www.ithome.com/1/007/969.htm",
+      "title": "4???? 元：极摩客 EVO-X5 Pro 桌面 AI 超算开启预约，10 月 9 日发售",
+      "source": "IT之家",
+      "published": "2026-09-28",
+      "summary": "IT之家 9 月 28 日消息，极摩客 EVO-X5 Pro 桌面 AI 超算今天在京东开启预约，新品采用锐龙 AI MAX+ 495 处理器，配备 192GB LPDDR5X 内存，主打商用级场景， 定价“4???? 元” ， 10 月 9 日开售 。 京东 极摩客 GMK EVO-X5 Pro 4XXXX 元 立即预约 IT之家了解到，EVO-X5 Pro 集成至高 192GB LPDDR5X-8533 内存，支持 320B 大语言",
+      "tier": "仅存档",
+      "critical": false,
+      "reasons": []
+    },
+    {
       "url": "https://www.ithome.com/1/007/664.htm",
       "title": "“AI 教父”辛顿警告：AI 执行看似无害的任务，仍有“毁灭人类”的风险",
       "source": "IT之家",
@@ -72,6 +1062,16 @@
       "source": "IT之家",
       "published": "2026-09-28",
       "summary": "IT之家 9 月 28 日消息，在今日的 2026 世界智能网联汽车大会新闻发布会上，北京市经济和信息化局副局长苏国斌表示， 京津冀三地将加快建设世界级智能网联新能源汽车先进制造业集群 。 下一步，京津冀三地将重点做好四方面工作： 一是聚力核心技术攻关，突破多传感器融合感知、模型算法、固态电池、汽车芯片、操作系统等； 二是深耕产业生态优化，壮大整车体量、引育重点企业、创新整零协同； 三是夯实资源要素保障，高标准打造区域性供应链保障和零部",
+      "tier": "仅存档",
+      "critical": false,
+      "reasons": []
+    },
+    {
+      "url": "https://www.ithome.com/1/007/947.htm",
+      "title": "启元机器人全球首店落地上海，Q1、T1 进入线下销售",
+      "source": "IT之家",
+      "published": "2026-09-28",
+      "summary": "IT之家 9 月 28 日消息，据界面新闻今日报道，启元机器人全球首家线下门店在上海淮海中路开业，门店面积约 355 平方米，提供产品展示、销售及互动体验等服务。此前，启元已于 9 月 20 日发售 Q1、T1 两款个人机器人。目前，启元机器人已在广州、深圳、西安、厦门、杭州、武汉等城市布局线下体验店，开始拓展个人机器人的线下零售渠道。 IT之家注意到，在 9 月 20 日的 2026 启元机器人全球产品发布会上，启元机器人发布启元 Q",
       "tier": "仅存档",
       "critical": false,
       "reasons": []
@@ -102,6 +1102,16 @@
       "source": "IT之家",
       "published": "2026-09-28",
       "summary": "IT之家 9 月 28 日消息，红魔游戏手机今日官宣，红魔 12 Pro+ 新品发布会定档 10 月 15 日 14:30 ，口号为“电竞之光 · 风生水起”。 据IT之家 9 月 23 日 2026 高通骁龙峰会现场报道， 高通公司宣布推出第六代骁龙 8 超级至尊版移动平台和第六代骁龙 8 至尊版移动平台 ，官方表示这是“全球最快移动 CPU”。 红魔 12 Pro+ 手机将搭载高通第六代骁龙 8 超级至尊版芯片 。 红魔 12 Pr",
+      "tier": "仅存档",
+      "critical": false,
+      "reasons": []
+    },
+    {
+      "url": "https://www.ithome.com/1/007/972.htm",
+      "title": "高通正评估三星 2nm 工艺，考虑用于下一代移动芯片",
+      "source": "IT之家",
+      "published": "2026-09-28",
+      "summary": "IT之家 9 月 28 日消息，据 ZDNET Korea 昨天报道，高通正在评估三星电子 2nm 晶圆代工工艺，并考虑将其应用于下一代移动芯片。 高通高级副总裁克里斯 · 帕特里克在 2026 骁龙峰会表示，三星电子是高通的重要合作伙伴，双方正深入研究如何将 2nm 技术应用于下一代产品。 据悉，高通当前仍在初步评估和审查三星 2nm 工艺，主要是了解三星代工 2nm 工艺的能力，并评估其应用于下一代移动芯片的潜力。 据IT之家了解，",
       "tier": "仅存档",
       "critical": false,
       "reasons": []
