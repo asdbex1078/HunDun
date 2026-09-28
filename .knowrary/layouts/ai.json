@@ -1,11 +1,11 @@
 {
   "schema_version": 2,
-  "revision": 221,
-  "updated_at": "2026-09-22T02:57:28Z",
+  "revision": 266,
+  "updated_at": "2026-09-24T05:52:23Z",
   "viewport": {
-    "zoom": 0.577,
-    "cx": 861.0,
-    "cy": 385.0
+    "zoom": 0.514,
+    "cx": 472.0,
+    "cy": 413.0
   },
   "groups": {},
   "nodes": {
@@ -20,8 +20,8 @@
       "anchor": null
     },
     "CUDA": {
-      "x": -136.0,
-      "y": 32.0,
+      "x": -336.0,
+      "y": 144.0,
       "w": 196.0,
       "h": 64.0,
       "group": null,
@@ -105,7 +105,7 @@
       "w": 196.0,
       "h": 64.0,
       "group": null,
-      "state": "draft",
+      "state": "final",
       "placedAt": "2026-09-21",
       "anchor": null
     },
@@ -115,8 +115,8 @@
       "w": 196.0,
       "h": 64.0,
       "group": null,
-      "state": "ghost",
-      "placedAt": null,
+      "state": "final",
+      "placedAt": "2026-09-23",
       "anchor": null
     },
     "word2vec": {
@@ -309,26 +309,6 @@
       "placedAt": null,
       "anchor": null
     },
-    "符号主义": {
-      "x": -192.0,
-      "y": 216.0,
-      "w": 176.0,
-      "h": 52.0,
-      "group": null,
-      "state": "final",
-      "placedAt": "2026-09-18",
-      "anchor": null
-    },
-    "连接主义": {
-      "x": -224.0,
-      "y": 432.0,
-      "w": 176.0,
-      "h": 52.0,
-      "group": null,
-      "state": "final",
-      "placedAt": "2026-09-18",
-      "anchor": null
-    },
     "Hodgkin-Huxley模型": {
       "x": -288.0,
       "y": 576.0,
@@ -360,13 +340,33 @@
       "anchor": null
     },
     "DeepSeek-V3": {
-      "x": -486.0,
-      "y": 558.0,
+      "x": -872.0,
+      "y": 704.0,
       "w": 176.0,
       "h": 52.0,
       "group": null,
-      "state": "draft",
+      "state": "final",
       "placedAt": "2026-09-21",
+      "anchor": null
+    },
+    "Engram": {
+      "x": 1408.0,
+      "y": 288.0,
+      "w": 176.0,
+      "h": 52.0,
+      "group": null,
+      "state": "final",
+      "placedAt": "2026-09-23",
+      "anchor": null
+    },
+    "独热编码": {
+      "x": -522.0,
+      "y": 359.0,
+      "w": 176.0,
+      "h": 52.0,
+      "group": null,
+      "state": "final",
+      "placedAt": "2026-09-24",
       "anchor": null
     }
   },

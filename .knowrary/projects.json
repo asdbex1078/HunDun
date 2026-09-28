@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
-  "revision": 23,
-  "updated_at": "2026-09-21T13:08:37Z",
+  "revision": 27,
+  "updated_at": "2026-09-24T05:49:09Z",
   "projects": {
     "transformer": {
       "name": "Transformer",
@@ -68,14 +68,6 @@
                   "id": "注意力机制",
                   "name": "注意力机制",
                   "why": "2014 年 Bahdanau 为修补 seq2seq 定长瓶颈提出的加性注意力，是自注意力的直系前身",
-                  "load": "中",
-                  "layer": "",
-                  "year": null
-                },
-                {
-                  "id": "子词分词-BPE",
-                  "name": "子词分词-BPE",
-                  "why": "决定了模型看到的最小单位和词表大小，也是后来上下文长度、token 计费的计量基础",
                   "load": "中",
                   "layer": "",
                   "year": null
@@ -291,7 +283,7 @@
                 {
                   "id": "BPE分词",
                   "name": "BPE分词",
-                  "why": "词嵌入的前一步，决定了序列长度和词表大小，也是后面上下文窗口、计算复杂度讨论的计量单位",
+                  "why": "决定模型看到的最小单位和词表大小；序列长度、上下文窗口、计算复杂度、token 计费都以它为计量单位",
                   "load": "中",
                   "layer": "",
                   "year": null
@@ -440,7 +432,78 @@
           "coach": "",
           "field": "",
           "target_date": null,
-          "stages": []
+          "stages": [
+            {
+              "name": "聊出来的",
+              "deadline": null,
+              "points": [
+                {
+                  "id": "ELF",
+                  "name": "ELF",
+                  "why": "聊出来的",
+                  "load": "中",
+                  "layer": "",
+                  "year": null
+                },
+                {
+                  "id": "ELF节",
+                  "name": "ELF节",
+                  "why": "聊出来的",
+                  "load": "中",
+                  "layer": "",
+                  "year": null
+                },
+                {
+                  "id": "ELF段",
+                  "name": "ELF段",
+                  "why": "聊出来的",
+                  "load": "中",
+                  "layer": "",
+                  "year": null
+                },
+                {
+                  "id": "ELF加载过程",
+                  "name": "ELF加载过程",
+                  "why": "聊出来的",
+                  "load": "中",
+                  "layer": "",
+                  "year": null
+                },
+                {
+                  "id": "重定位",
+                  "name": "重定位",
+                  "why": "聊出来的",
+                  "load": "中",
+                  "layer": "",
+                  "year": null
+                },
+                {
+                  "id": "动态链接",
+                  "name": "动态链接",
+                  "why": "聊出来的",
+                  "load": "中",
+                  "layer": "",
+                  "year": null
+                },
+                {
+                  "id": "ELF安全机制",
+                  "name": "ELF安全机制",
+                  "why": "聊出来的",
+                  "load": "中",
+                  "layer": "",
+                  "year": null
+                },
+                {
+                  "id": "数据库C扩展加载",
+                  "name": "数据库C扩展加载",
+                  "why": "聊出来的",
+                  "load": "中",
+                  "layer": "",
+                  "year": null
+                }
+              ]
+            }
+          ]
         }
       ]
     },
@@ -772,6 +835,22 @@
                 {
                   "id": "DeepSeek-V3",
                   "name": "DeepSeek-V3",
+                  "why": "聊出来的",
+                  "load": "中",
+                  "layer": "",
+                  "year": null
+                },
+                {
+                  "id": "Engram",
+                  "name": "Engram",
+                  "why": "聊出来的",
+                  "load": "中",
+                  "layer": "",
+                  "year": null
+                },
+                {
+                  "id": "独热编码",
+                  "name": "独热编码",
                   "why": "聊出来的",
                   "load": "中",
                   "layer": "",

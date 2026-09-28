@@ -1,14 +1,95 @@
 {
   "schema_version": 2,
-  "revision": 2,
-  "updated_at": "2026-09-16T03:58:18Z",
+  "revision": 16,
+  "updated_at": "2026-09-24T05:50:25Z",
   "viewport": {
-    "zoom": 0.8,
-    "cx": 0.0,
-    "cy": 0.0
+    "zoom": 0.6,
+    "cx": 309.0,
+    "cy": 337.0
   },
   "groups": {},
-  "nodes": {},
+  "nodes": {
+    "ELF": {
+      "x": 80.0,
+      "y": 80.0,
+      "w": 176.0,
+      "h": 52.0,
+      "group": null,
+      "state": "final",
+      "placedAt": "2026-09-24",
+      "anchor": null
+    },
+    "ELF节": {
+      "x": 300.0,
+      "y": 80.0,
+      "w": 176.0,
+      "h": 52.0,
+      "group": null,
+      "state": "final",
+      "placedAt": "2026-09-24",
+      "anchor": null
+    },
+    "ELF段": {
+      "x": 520.0,
+      "y": 80.0,
+      "w": 176.0,
+      "h": 52.0,
+      "group": null,
+      "state": "final",
+      "placedAt": "2026-09-24",
+      "anchor": null
+    },
+    "ELF加载过程": {
+      "x": 80.0,
+      "y": 168.0,
+      "w": 176.0,
+      "h": 52.0,
+      "group": null,
+      "state": "final",
+      "placedAt": "2026-09-24",
+      "anchor": null
+    },
+    "重定位": {
+      "x": 300.0,
+      "y": 168.0,
+      "w": 176.0,
+      "h": 52.0,
+      "group": null,
+      "state": "final",
+      "placedAt": "2026-09-24",
+      "anchor": null
+    },
+    "动态链接": {
+      "x": 520.0,
+      "y": 168.0,
+      "w": 176.0,
+      "h": 52.0,
+      "group": null,
+      "state": "final",
+      "placedAt": "2026-09-24",
+      "anchor": null
+    },
+    "ELF安全机制": {
+      "x": 80.0,
+      "y": 256.0,
+      "w": 176.0,
+      "h": 52.0,
+      "group": null,
+      "state": "final",
+      "placedAt": "2026-09-24",
+      "anchor": null
+    },
+    "数据库C扩展加载": {
+      "x": 300.0,
+      "y": 256.0,
+      "w": 176.0,
+      "h": 52.0,
+      "group": null,
+      "state": "final",
+      "placedAt": "2026-09-24",
+      "anchor": null
+    }
+  },
   "refs": [],
   "notes": [],
   "images": [],

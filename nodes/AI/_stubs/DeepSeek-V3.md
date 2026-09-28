@@ -1,39 +1,46 @@
 ---
 name: DeepSeek-V3
 field: AI
-type: stub
 year: 2024
 tags:
   - 大模型
-  - 长上下文
-  - 推理优化
-desc: DeepSeek 于 2024 年发布的开源大语言模型，支持 128K 上下文，引入 engram 等推理优化机制
+  - MoE
+  - MLA
+  - MTP
+  - FP8
+  - DeepSeek-V2
+  - DeepSeek-R1
+  - H800
+  - Transformer
+desc: DeepSeek 2024-12 开源的 MoE 大模型，671B 总参 / 37B 激活，靠 MLA + MoE + FP8 把训练成本压到很低
 layer: AI应用
+params: 671B
 ---
-# DeepSeek-V3
+DeepSeek-V3 是 DeepSeek 2024 年 12 月发布的开源 MoE 大模型：总参数 671B、每个 token 激活 37B，上下文 128K。它的意义在于用很低的训练成本做到了和当时闭源一线模型接近的水平。
 
-DeepSeek-V3 是 DeepSeek 于 2024 年发布的开源大语言模型，主打长上下文（128K）和高效推理。
+## 为什么需要它
+稠密模型每个 token 都要过全部参数，参数量一上去训练和推理成本线性往上涨。V3 用 MoE 让每个 token 只走一小部分专家，再配一组省显存、省通信的工程设计，把成本压下来——技术报告给的训练开销约 278.8 万 H800 GPU 小时。
 
-## 关键特性
-- 支持 128K token 上下文长度
-- 推理加速技术：engram（动态 KV Cache 压缩）、flash attention 优化等
-- 开源权重与推理代码
-
-## 线头
-- 架构基础：Transformer → 「Transformer」节点（已存在）
-- 对比模型：LLaMA-3、Qwen2 → 待建
-- 优化机制：engram → 本节点下「系统优化」小节
-
-## 系统优化
-
-### engram
-engram 是 DeepSeek-V3 引入的动态 KV Cache 压缩机制，用于长上下文推理：
-- **目的**：降低显存占用（KV Cache 从 O(L) 降至 O(√L) 量级）和计算量；
-- **原理**：不按位置丢弃（如 sliding window），而是根据当前 token 对历史各位置的 attention score 动态判断重要性；score 高的 KV 视为“记忆痕迹（engram）”保留，低的批量压缩或丢弃；
-- **注意**：engram 与分词（tokenization）无关 —— 它工作在已 tokenized 的 ID 序列之后，只操作 KV Cache，不触碰输入层。
+## 怎么运作
+- **MLA**（Multi-head Latent Attention，V2 引入）：把 K/V 压成低维 latent 再缓存，KV Cache 大幅缩小
+- **DeepSeekMoE**：细粒度专家 + 共享专家
+- **无辅助损失的负载均衡**：靠给每个专家加可调 bias 平衡路由，不再往 loss 里加惩罚项
+- **MTP**（Multi-Token Prediction）：训练时多预测后面几个 token，增加训练信号
+- **FP8 混合精度训练**，预训练约 14.8T token
 
 ## 容易搞混的
-- 和「n-gram」：名字含 gram 纯属巧合；n-gram 是统计语言模型（AI应用层），engram 是系统级推理优化（系统软件层）；二者无演化、无依赖、无共同目标。
-- 和「sliding window」：前者是注意力驱动的软裁剪，后者是位置驱动的硬截断。
+- **V3 里没有 Engram。** Engram 是 DeepSeek 2026 年 1 月论文里提出的另一个模块（哈希 n-gram 查表记忆），和 V3 是两回事。
+- 和 DeepSeek-R1：R1（2025-01）是在 V3 基座上用强化学习训出来的推理模型。
+
+## 我的理解
+待补：……
+
+## 线头
+- 架构基础：Transformer、MoE
+- 注意力：MLA，从 MHA → MQA → GQA 那条线下来
+- 前代：DeepSeek-V2（2024，引入 MLA）
+- 后继：DeepSeek-R1（2025，RL 推理）
+- 硬件：H800，出口管制下的算力约束
+- Engram：DeepSeek 2026 的条件记忆模块，不属于 V3
 
 ## 关系

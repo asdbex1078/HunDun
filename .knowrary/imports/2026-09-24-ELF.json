@@ -1,0 +1,904 @@
+{
+  "plan": {
+    "nodes": [
+      {
+        "id": "ELF",
+        "name": "ELF（可执行与可链接格式）",
+        "type": "概念",
+        "year": null,
+        "desc": "Unix/Linux 最核心的二进制容器格式：目标文件、可执行文件、共享库、core dump、内核模块、eBPF 对象都用它；核心设计是链接视图（节）与执行视图（段）分离",
+        "from_section": "1. ELF 是什么",
+        "tags": [
+          "二进制格式",
+          "链接",
+          "加载",
+          "Linux",
+          "CSAPP"
+        ],
+        "aliases": [
+          "Executable and Linkable Format",
+          "ELF 文件"
+        ],
+        "body": "## 描述\n\nELF（Executable and Linkable Format，可执行与可链接格式）是 Unix/Linux 世界最核心的二进制文件格式。它不只是「可执行文件格式」，还是目标文件、共享库、核心转储、内核模块、动态插件、eBPF 对象共用的容器。理解 ELF，就是理解**程序怎么从磁盘上的文件变成进程地址空间里的代码和数据**。\n\n一句话定位：**ELF 是链接器和加载器之间的契约。**\n\n## 核心内容\n\n### 来源与支持范围\n\nELF 源自 System V ABI，后来由 TIS（Tool Interface Standard）标准化。它支持：\n\n- 32 位 / 64 位\n- 小端 / 大端\n- 多种 CPU 架构：x86、x86-64、ARM、AArch64、RISC-V、MIPS、PowerPC 等\n- 多种文件类型：目标文件、可执行文件、共享库、core dump\n\n### 核心设计：两种视图\n\n- **链接视图**：以「节（section）」为单位，给链接器、调试器、静态分析工具看 → [[ELF节]]\n- **执行视图**：以「段（segment）」为单位，给操作系统加载器和动态链接器看 → [[ELF段]]\n\n节头表可以被 `strip` 删掉，程序照样能跑；程序头表对可执行文件和共享库的加载必不可少。\n\n### 顶层结构\n\n```text\n+----------------------+\n| ELF Header           |  e_ident, e_type, e_machine, e_entry, e_phoff, e_shoff ...\n+----------------------+\n| Program Header Table |  描述「段」，加载器使用\n+----------------------+\n| Sections / Segments  |  实际代码、数据、符号、重定位、调试信息\n+----------------------+\n| Section Header Table |  描述「节」，链接器/调试器使用\n+----------------------+\n```\n\nELF 头位于文件开头，关键字段：\n\n- `e_ident`：魔数 `0x7F 'E' 'L' 'F'`，以及位数、字节序、OSABI 等\n- `e_type`：文件类型\n- `e_machine`：目标架构\n- `e_entry`：入口虚拟地址\n- `e_phoff` / `e_shoff`：程序头表 / 节头表在文件中的偏移\n- `e_phentsize` / `e_phnum`、`e_shentsize` / `e_shnum`：两张表的表项大小与数量\n- `e_shstrndx`：节名字符串表索引\n\n### 文件类型（`e_type`）\n\n| 类型 | 值 | 含义 | 典型文件 |\n|---|---:|---|---|\n| `ET_NONE` | 0 | 未知 | 很少见 |\n| `ET_REL` | 1 | 可重定位目标文件 | `.o` |\n| `ET_EXEC` | 2 | 可执行文件，固定地址 | 传统非 PIE 可执行文件 |\n| `ET_DYN` | 3 | 共享目标文件 / PIE 可执行文件 | `.so`、PIE 程序 |\n| `ET_CORE` | 4 | 核心转储 | `core` |\n\n注意：现代 Linux 的可执行文件通常是 `ET_DYN`，也就是 PIE，为了支持 ASLR（见 [[ELF安全机制]]）。\n\n### 用在哪里\n\n1. 可执行文件：`/bin/ls`、`/usr/bin/python`\n2. 共享库：`libc.so.6`、`libssl.so`、`libstdc++.so`\n3. 目标文件：`.o`，编译器（[[汇编器]]）输出、链接器输入\n4. 静态库：`.a` 是 `ar` 归档，里面装多个 `.o`\n5. 核心转储：`core` 文件，内存快照 + note，用于事后调试\n6. 内核模块：Linux `.ko`，模块加载器解析符号和重定位\n7. 内核镜像：`vmlinux` 是 ELF，`bzImage` 是压缩引导镜像\n8. Android Native 库：`.so`\n9. [[eBPF]] 对象：BPF 程序编译为 ELF，由 libbpf 加载\n10. [[JIT]] 目标文件：LLVM ORC、MCJIT 可生成 ELF 对象并加载——ELF 在这里是「运行时生成的代码容器」\n11. 数据库插件：PostgreSQL、MySQL、SQLite 扩展动态库（见 [[数据库C扩展加载]]）\n12. 调试符号文件：`.debug`、build-id 对应文件\n13. 容器镜像里的二进制：几乎全是 ELF\n14. 嵌入式与 RTOS：很多嵌入式 Linux、QNX、VxWorks\n\n### 对操作系统的启发\n\n1. **统一加载接口**：内核只实现一个 ELF 加载器，就能支持可执行文件、共享库、PIE、core\n2. **链接与加载分离**：编译时生成可重定位信息，加载时由动态链接器完成地址绑定\n3. **虚拟内存映射**：`PT_LOAD` 直接映射到虚拟地址，支持按需分页、写时复制、mmap\n4. **动态链接器用户态化**：内核只负责加载解释器，复杂的符号解析放在用户态\n5. **进程启动模型**：`fork` + `execve`，`execve` 替换地址空间\n6. **模块化**：内核模块 `.ko` 用 ELF，支持动态加载、符号导出、重定位\n7. **安全机制**：PIE、ASLR、NX、RELRO、CET 都依赖 ELF 元数据\n8. **核心转储**：core 是 ELF\n9. **可扩展性**：节/段类型、NOTE、GNU 扩展让格式持续演进\n10. **ABI 稳定性**：符号版本、SONAME、动态标签支撑长期二进制兼容\n\n### 对 CSAPP 学习的启发\n\nCSAPP 第 7 章「链接」和第 9 章「虚拟内存」几乎就是 ELF 的教科书：\n\n- **第 7 章 链接**：`.c` → `.s` → `.o` → 可执行文件；`ET_REL` 目标文件、符号表、重定位；静态/动态链接、共享库；GOT/PLT、位置无关代码；库打桩、LD_PRELOAD\n- **第 9 章 虚拟内存**：ELF 段映射到虚拟地址；`mmap`、按需分页、写时复制；加载器怎么把可执行文件变成进程\n- **第 8 章 异常控制流**：`fork`、`execve`、进程上下文\n- **第 3 章 机器级表示**：`.text` 里的机器码、汇编、反汇编\n- **第 5 章 优化**：PIC 开销、内联、符号可见性\n- **安全实验**：Attack Lab 的缓冲区溢出、NX、ASLR、RELRO 都和 ELF 权限与布局有关\n\n作者原话：读懂 ELF，CSAPP 的链接、加载、虚拟内存、动态库章节会从「概念」变成「可验证的工程现实」。\n\n### 实践工具\n\n```sh\nfile a.out\nreadelf -h a.out          # ELF 头\nreadelf -l a.out          # 程序头 / 段\nreadelf -S a.out          # 节头 / 节\nreadelf -s a.out          # 符号表\nreadelf -d a.out          # 动态段\nreadelf -r a.out          # 重定位\nobjdump -d a.out          # 反汇编\nobjdump -t a.out          # 符号表\nobjdump -s -j .rodata a.out\nnm a.out\nldd a.out\npatchelf --print-interpreter a.out\nstrip a.out\ngdb a.out\ncat /proc/$(pidof a.out)/maps\nLD_DEBUG=libs ./a.out\nLD_PRELOAD=./hook.so ./a.out\n```\n\n这些工具能把 ELF 的节、段、符号、重定位一一对应起来。\n\n## 参考资料\n\n- System V ABI, ELF 规范：https://refspecs.linuxfoundation.org/elf/gabi4+/ch4.intro.html\n- TIS ELF Specification 1.2：https://refspecs.linuxfoundation.org/elf/elf.pdf\n- `elf(5)`：https://man7.org/linux/man-pages/man5/elf.5.html\n- CSAPP 第 7 章链接、第 9 章虚拟内存\n- Ian Lance Taylor, *Linkers and Loaders*\n- Wikipedia, *Executable and Linkable Format*\n- GNU Binutils BFD 文档：https://sourceware.org/binutils/docs/bfd/\n\n## 待办\n\n- [ ] 拿一个 hello world 分别编成非 PIE / PIE，用 `readelf -h` 对比 `e_type`\n- [ ] 对照 CSAPP 第 7 章把 `.c → .s → .o → a.out` 每一步的产物跑一遍",
+        "relations": [
+          {
+            "type": "包含",
+            "target": "ELF节",
+            "year": null,
+            "note": "链接视图",
+            "confidence": 0.95
+          },
+          {
+            "type": "包含",
+            "target": "ELF段",
+            "year": null,
+            "note": "执行视图",
+            "confidence": 0.95
+          },
+          {
+            "type": "产出自",
+            "target": "汇编器",
+            "year": null,
+            "note": "汇编器把 .s 翻成 ET_REL 目标文件 .o",
+            "confidence": 0.8
+          },
+          {
+            "type": "相关",
+            "target": "eBPF",
+            "year": null,
+            "note": "eBPF 程序编译成 ELF 对象（程序、map、BTF），由 libbpf 加载进内核",
+            "confidence": 0.85
+          },
+          {
+            "type": "相关",
+            "target": "JIT",
+            "year": null,
+            "note": "LLVM ORC / MCJIT 生成 ELF 对象在运行时加载，数据库表达式 JIT 常用",
+            "confidence": 1.0
+          }
+        ]
+      },
+      {
+        "id": "ELF节",
+        "name": "ELF 节（Section）：链接视图",
+        "type": "概念",
+        "year": null,
+        "desc": "ELF 按「节」划分的链接视图：.text/.data/.bss/.rodata 装代码数据，.symtab/.rela.* 服务链接，.dynamic/.got/.plt 服务动态链接；给链接器、调试器看，可被 strip",
+        "from_section": "4. 节（Section）划分：链接视图",
+        "tags": [
+          "ELF",
+          "链接",
+          "节头表",
+          "符号表"
+        ],
+        "aliases": [
+          "Section",
+          "节头表",
+          "链接视图"
+        ],
+        "body": "## 描述\n\n节是 ELF 里最丰富的区域划分，是**链接视图**：给[[链接器]]、调试器、静态分析工具看。节由节头表描述，节头表可以被 `strip` 删掉而程序仍能运行——内核加载器根本不看节，只看 [[ELF段]]。\n\n## 核心内容\n\n### 节头表项字段\n\n- `sh_name`：节名在 `.shstrtab` 中的偏移\n- `sh_type`：节类型\n- `sh_flags`：可写、可执行、是否分配内存\n- `sh_addr`：加载后的虚拟地址\n- `sh_offset`：文件偏移\n- `sh_size`：大小\n- `sh_link` / `sh_info`：关联信息\n- `sh_addralign`：对齐\n- `sh_entsize`：表项大小\n\n### 代码与数据\n\n| 节名 | 类型 | 典型标志 | 作用 |\n|---|---|---|---|\n| `.text` | `PROGBITS` | `AX` | 机器指令（即 [[代码段]]） |\n| `.data` | `PROGBITS` | `WA` | 已初始化的全局/静态变量（即 [[数据段]]） |\n| `.bss` | `NOBITS` | `WA` | 未初始化全局/静态变量，文件不占空间，加载清零 |\n| `.rodata` | `PROGBITS` | `A` | 只读常量、字符串字面量、跳转表 |\n| `.comment` | `PROGBITS` | `MS` | 编译器版本信息 |\n\n### 链接与符号\n\n| 节名 | 类型 | 作用 |\n|---|---|---|\n| `.symtab` | `SYMTAB` | 静态符号表，链接器使用，可被 strip |\n| `.strtab` | `STRTAB` | `.symtab` 的字符串表 |\n| `.shstrtab` | `STRTAB` | 节名字符串表 |\n| `.rel.*` / `.rela.*` | `REL` / `RELA` | 重定位信息（见 [[重定位]]） |\n| `.debug_*` | `PROGBITS` | DWARF 调试信息 |\n| `.line` | `PROGBITS` | 行号信息，旧格式 |\n| `.gnu_debuglink` | `PROGBITS` | 指向分离的调试文件 |\n| `.note.gnu.build-id` | `NOTE` | 构建 ID，用于调试与符号定位 |\n\n### 动态链接（详见 [[动态链接]]）\n\n| 节名 | 类型 | 作用 |\n|---|---|---|\n| `.interp` | `PROGBITS` | 动态链接器路径，如 `/lib64/ld-linux-x86-64.so.2` |\n| `.dynamic` | `DYNAMIC` | 动态链接所需标签数组 |\n| `.dynsym` | `DYNSYM` | 动态符号表 |\n| `.dynstr` | `STRTAB` | 动态字符串表 |\n| `.hash` / `.gnu.hash` | `HASH` / `GNU_HASH` | 符号哈希表，加速符号查找 |\n| `.rela.dyn` | `RELA` | 数据重定位 |\n| `.rela.plt` | `RELA` | PLT 重定位 |\n| `.got` / `.got.plt` | `PROGBITS` | 全局偏移表 |\n| `.plt` / `.plt.got` / `.plt.sec` | `PROGBITS` | 过程链接表，外部函数跳转桩 |\n| `.gnu.version` | `VERSYM` | 符号版本索引 |\n| `.gnu.version_d` | `VERDEF` | 版本定义 |\n| `.gnu.version_r` | `VERNEED` | 版本需求 |\n\n### 初始化、异常与 TLS\n\n| 节名 | 类型 | 作用 |\n|---|---|---|\n| `.init` / `.fini` | `PROGBITS` | 旧式初始化和析构代码 |\n| `.init_array` | `INIT_ARRAY` | 构造函数指针数组 |\n| `.fini_array` | `FINI_ARRAY` | 析构函数指针数组 |\n| `.preinit_array` | `PREINIT_ARRAY` | main 之前最早执行的初始化 |\n| `.eh_frame` | `PROGBITS` | 异常处理与栈展开信息 |\n| `.eh_frame_hdr` | `PROGBITS` | `.eh_frame` 的索引 |\n| `.gcc_except_table` | `PROGBITS` | C++ 异常表 |\n| `.tdata` | `PROGBITS` | 线程局部存储的已初始化数据 |\n| `.tbss` | `NOBITS` | 线程局部存储的未初始化数据 |\n\n### 安全与属性\n\n| 节名 | 作用 |\n|---|---|\n| `.note.gnu.property` | CET、IBT、SHSTK 等硬件安全属性 |\n| `.note.ABI-tag` | ABI 版本标签 |\n| `.gnu.hash` | GNU 扩展哈希 |\n| `.gnu.version_r` | 依赖库符号版本 |\n\n### 个人理解\n\n汇编里写的 `.text` / `.data` 伪指令，最终落成的就是这里的同名节；`.bss` 是 `NOBITS`，这就是为什么大数组不初始化时可执行文件不会变大。\n\n## 参考资料\n\n- MaskRay, *ELF section types*：https://maskray.me/blog/2021-01-17-elf-section-types\n- `readelf -S a.out` 查看节头\n\n## 待办\n\n- [ ] 写一个带全局未初始化大数组的程序，对比 `.bss` 在 `readelf -S` 里的 size 和文件大小",
+        "relations": [
+          {
+            "type": "对比",
+            "target": "ELF段",
+            "year": null,
+            "note": "链接视图 vs 执行视图",
+            "confidence": 0.9
+          },
+          {
+            "type": "包含",
+            "target": "代码段",
+            "year": null,
+            "note": ".text 节",
+            "confidence": 0.8
+          },
+          {
+            "type": "包含",
+            "target": "数据段",
+            "year": null,
+            "note": ".data 节",
+            "confidence": 0.8
+          },
+          {
+            "type": "相关",
+            "target": "链接器",
+            "year": null,
+            "note": "节是给链接器看的",
+            "confidence": 0.85
+          }
+        ]
+      },
+      {
+        "id": "ELF段",
+        "name": "ELF 段（Segment）：执行视图",
+        "type": "概念",
+        "year": null,
+        "desc": "ELF 按「段」划分的执行视图：程序头表里的 PT_LOAD 等条目告诉内核把文件哪部分以什么权限映射到哪个虚拟地址；p_filesz < p_memsz 的差额就是清零的 .bss",
+        "from_section": "5. 段（Segment）划分：执行视图",
+        "tags": [
+          "ELF",
+          "加载",
+          "程序头表",
+          "虚拟内存"
+        ],
+        "aliases": [
+          "Segment",
+          "程序头表",
+          "Program Header",
+          "执行视图"
+        ],
+        "body": "## 描述\n\n内核加载器不关心「节」，只关心「段」。段由程序头表描述，是 ELF 的**执行视图**：给操作系统加载器和动态链接器看。对可执行文件和共享库，程序头表必不可少（和 [[ELF节]] 可被 strip 相反）。一个段通常装着若干个节，`readelf -l` 会打印「Section to Segment mapping」。\n\n## 核心内容\n\n### 程序头表项字段\n\n- `p_type`：段类型，如 `PT_LOAD`、`PT_DYNAMIC`\n- `p_flags`：权限，`PF_R`、`PF_W`、`PF_X`\n- `p_offset`：文件偏移\n- `p_vaddr`：虚拟地址\n- `p_filesz`：文件中大小\n- `p_memsz`：内存中大小\n- `p_align`：对齐\n\n`p_filesz < p_memsz` 的典型例子是 `.bss`：文件里不占空间，加载时清零。\n\n### 常见段类型\n\n| 段类型 | 作用 |\n|---|---|\n| `PT_LOAD` | 可加载段，映射到[[虚拟内存]]，权限由 `p_flags` 决定 |\n| `PT_DYNAMIC` | 指向 `.dynamic`，动态链接信息 |\n| `PT_INTERP` | 动态链接器路径 |\n| `PT_NOTE` | 注释信息，如 build-id、ABI、属性 |\n| `PT_PHDR` | 程序头表自身在内存中的位置 |\n| `PT_TLS` | 线程局部存储模板 |\n| `PT_GNU_EH_FRAME` | 异常处理帧信息 |\n| `PT_GNU_STACK` | 标记栈权限，通常 RW、不可执行 |\n| `PT_GNU_RELRO` | 重定位后只读区域 |\n| `PT_GNU_PROPERTY` | 安全属性 |\n| `PT_SHLIB` | 保留，很少使用 |\n| `PT_SUNWBSS` / `PT_SUNWSTACK` | Solaris 平台相关 |\n\n### 一个典型动态可执行文件的段\n\n- 一个 `PT_LOAD`：R + X，映射代码\n- 一个 `PT_LOAD`：R，映射只读数据\n- 一个 `PT_LOAD`：RW，映射数据、GOT、动态段\n- `PT_INTERP`：指定动态链接器\n- `PT_DYNAMIC`：动态链接信息\n- `PT_GNU_RELRO`：把 GOT 等区域在重定位后设为只读\n- `PT_GNU_STACK`：不可执行栈\n\n### 个人理解\n\n节按「用途」分（符号表、字符串表、重定位表……），段按「权限」分（RX / R / RW）——加载器只需要知道哪块内存该有什么权限，所以几十个节被合并成三四个 `PT_LOAD`。这也是[[程序的内存布局]]里代码段、数据段在运行时的真正来源；栈和堆则是加载时/运行时另行建立的。\n\n## 参考资料\n\n- `readelf -l a.out` 查看段与节到段的映射\n- LWN, *How programs get run: ELF binaries*：https://lwn.net/Articles/631631/\n\n## 待办\n\n- [ ] `readelf -l` 看一个动态程序，数它有几个 `PT_LOAD`、各是什么权限\n- [ ] 对照 `/proc/<pid>/maps` 验证每个 `PT_LOAD` 映射到了哪里",
+        "relations": [
+          {
+            "type": "依赖",
+            "target": "虚拟内存",
+            "year": null,
+            "note": "PT_LOAD 直接映射到虚拟地址，按需分页、写时复制",
+            "confidence": 0.9
+          },
+          {
+            "type": "支撑",
+            "target": "程序的内存布局",
+            "year": null,
+            "note": "代码段、数据段在运行时的实际来源是 PT_LOAD 映射",
+            "confidence": 1.0
+          }
+        ]
+      },
+      {
+        "id": "ELF加载过程",
+        "name": "ELF 加载过程（execve）",
+        "type": "机制",
+        "year": null,
+        "desc": "execve 时内核读 ELF 头和程序头表，把每个 PT_LOAD 映射进虚拟内存、多出的部分清零、设权限，加载 PT_INTERP 指定的动态链接器并构建带 auxv 的用户栈，再把控制权交出去",
+        "from_section": "6. 典型加载过程",
+        "tags": [
+          "ELF",
+          "execve",
+          "加载器",
+          "进程启动",
+          "CSAPP"
+        ],
+        "aliases": [
+          "execve 加载",
+          "程序加载",
+          "binfmt_elf"
+        ],
+        "body": "## 描述\n\n一个 ELF 文件怎么变成进程：以 Linux `execve` 为例，内核负责「映射 + 建栈 + 交控制权」，复杂的符号解析交给用户态的动态链接器。内核实现在 `fs/binfmt_elf.c`。进程启动模型是 `fork` + `execve`：`execve` 用新程序替换掉当前地址空间。\n\n## 核心内容\n\n### 步骤\n\n1. 用户调用 `execve(path, argv, envp)`\n2. 内核打开文件，读取 ELF 头，检查魔数、架构、类型\n3. 内核读取程序头表（[[ELF段]]）\n4. 对每个 `PT_LOAD` 段：\n   - 把文件偏移 `p_offset` 处的内容映射到虚拟地址 `p_vaddr`\n   - 若 `p_filesz < p_memsz`，多余内存清零——这就是 `.bss`\n   - 设置权限：R、W、X\n5. 若存在 `PT_INTERP`，内核读取动态链接器路径并加载动态链接器\n6. 内核构建用户栈：`argc`、`argv`、`envp`、`auxv`\n   - `AT_PHDR`：程序头表地址\n   - `AT_ENTRY`：入口地址\n   - `AT_BASE`：动态链接器基址\n   - `AT_RANDOM`：随机数，用于栈保护等\n   - `AT_SYSINFO_EHDR`：vDSO 地址\n7. 控制权交给动态链接器，或（静态程序）直接交给入口 `e_entry`\n8. 动态链接器（见 [[动态链接]]）：\n   - 解析 `.dynamic`\n   - 加载 `DT_NEEDED` 依赖库\n   - 执行重定位、解析符号\n   - 运行 `.init_array` / `.init`\n   - 跳转到 `main`\n9. 程序退出时运行 `.fini_array` / `.fini`\n\n动态链接器本身也是 ELF 共享对象，通常路径为 `/lib64/ld-linux-x86-64.so.2`。\n\n### 个人理解\n\n「程序先存硬盘、加载到内存后被 CPU 执行」这句话的细节全在这里：加载不是把整个文件拷进内存，而是 mmap 映射，页真正被访问时才按需调入。`main` 并不是第一条被执行的指令——前面还有动态链接器和 `.preinit_array` / `.init_array`。\n\n## 参考资料\n\n- `execve(2)`：https://man7.org/linux/man-pages/man2/execve.2.html\n- Linux 内核 ELF 加载器源码 `fs/binfmt_elf.c`：https://elixir.bootlin.com/linux/latest/source/fs/binfmt_elf.c\n- LWN, *How programs get run: ELF binaries*：https://lwn.net/Articles/631631/\n- CSAPP 第 8 章异常控制流、第 9 章虚拟内存\n\n## 待办\n\n- [ ] 用 `LD_SHOW_AUXV=1 /bin/true` 看一眼 auxv 里的这些 AT_* 值\n- [ ] 读 `binfmt_elf.c` 里 `load_elf_binary` 的主干",
+        "relations": [
+          {
+            "type": "依赖",
+            "target": "ELF段",
+            "year": null,
+            "note": "内核只读程序头表",
+            "confidence": 0.95
+          },
+          {
+            "type": "包含",
+            "target": "动态链接",
+            "year": null,
+            "note": "第 8 步由动态链接器完成",
+            "confidence": 0.7
+          },
+          {
+            "type": "属于",
+            "target": "OS",
+            "year": null,
+            "note": "内核的 ELF 加载器（binfmt_elf）",
+            "confidence": 0.8
+          },
+          {
+            "type": "产出",
+            "target": "程序的内存布局",
+            "year": null,
+            "note": "加载完成后才有进程地址空间里的代码/数据/栈",
+            "confidence": 1.0
+          }
+        ]
+      },
+      {
+        "id": "重定位",
+        "name": "重定位",
+        "type": "机制",
+        "year": null,
+        "desc": "编译时不知道代码和数据最终落在哪个地址，于是在 .rel/.rela 节里记下「哪里要填什么地址」，由链接器或动态链接器在链接/加载时补上",
+        "from_section": "7.1 为什么需要重定位",
+        "tags": [
+          "ELF",
+          "链接",
+          "PIC",
+          "CSAPP"
+        ],
+        "aliases": [
+          "Relocation",
+          "重定位表"
+        ],
+        "body": "## 描述\n\n编译时不知道共享库和可执行文件最终会加载到哪个地址，所以目标文件里对外部符号、绝对地址的引用只能先留空，同时在 `.rel.*` / `.rela.*` 节（见 [[ELF节]]）里写下「这个位置要按这种方式填上那个符号的地址」。静态链接时由[[链接器]]填，动态链接时由动态链接器在加载后填（见 [[动态链接]]）。\n\n为了让这件事可行，需要四样东西配合：\n\n- 位置无关代码（PIC）\n- 全局偏移表（GOT）\n- 过程链接表（PLT）\n- 重定位表\n\n## 核心内容\n\n### x86-64 常见重定位类型\n\n- `R_X86_64_64`：填 64 位绝对地址\n- `R_X86_64_PC32`：填相对当前 PC 的 32 位偏移\n- `R_X86_64_PLT32`：经 PLT 调用函数\n- `R_X86_64_GOTPCREL`：PC 相对地访问 GOT 条目\n- `R_X86_64_GLOB_DAT`：把数据符号地址填进 GOT\n- `R_X86_64_JUMP_SLOT`：把函数地址填进 GOT.PLT（延迟绑定用）\n- `R_X86_64_RELATIVE`：基址 + 加数，PIE/共享库自身的内部指针\n- `R_X86_64_COPY`：把共享库里的数据拷到可执行文件\n- `R_X86_64_TLS*`：线程局部存储\n\n### 个人理解\n\n`.o` 的 `e_type` 叫 `ET_REL`（可重定位目标文件），名字就说明了它的本质：一堆还没填地址的代码。`R_X86_64_RELATIVE` 是 PIE 之所以能随机基址（ASLR）的关键——加载器知道基址后，把所有内部指针统一加上去就行。\n\n## 参考资料\n\n- `readelf -r a.out` 查看重定位表\n- CSAPP 第 7 章链接\n- Ian Lance Taylor, *Linkers and Loaders*\n\n## 待办\n\n- [ ] `objdump -dr foo.o` 看未重定位的 call 指令和它下面挂的重定位项",
+        "relations": [
+          {
+            "type": "基于",
+            "target": "ELF节",
+            "year": null,
+            "note": "重定位信息存放在 .rel.* / .rela.* 节",
+            "confidence": 0.8
+          },
+          {
+            "type": "相关",
+            "target": "链接器",
+            "year": null,
+            "note": "静态链接时由链接器执行重定位",
+            "confidence": 0.85
+          }
+        ]
+      },
+      {
+        "id": "动态链接",
+        "name": "动态链接与 GOT/PLT",
+        "type": "机制",
+        "year": null,
+        "desc": "运行时由用户态动态链接器解析 .dynamic、加载依赖库、做重定位；外部函数经 PLT 桩跳 GOT，首次调用才解析真实地址写回 GOT（延迟绑定），glibc 再用符号版本保旧程序能跑",
+        "from_section": "7. 动态链接、重定位、GOT/PLT",
+        "tags": [
+          "ELF",
+          "动态链接",
+          "GOT",
+          "PLT",
+          "共享库",
+          "ABI"
+        ],
+        "aliases": [
+          "GOT/PLT",
+          "延迟绑定",
+          "lazy binding",
+          "动态链接器",
+          "ld.so",
+          "符号版本"
+        ],
+        "body": "## 描述\n\n共享库在运行时才确定加载地址，调用它里面的函数、访问它里面的变量，都要等加载后才知道地址。动态链接器（`/lib64/ld-linux-x86-64.so.2`，本身也是 ELF 共享对象）在 [[ELF加载过程]] 的最后阶段接手：解析 `.dynamic`、加载 `DT_NEEDED` 依赖、执行[[重定位]]、解析符号、跑初始化函数、跳进 `main`。\n\n靠的是 [[ELF节]] 里这一组节：`.interp`、`.dynamic`、`.dynsym`、`.dynstr`、`.gnu.hash`、`.rela.dyn`、`.rela.plt`、`.got`/`.got.plt`、`.plt`。\n\n## 核心内容\n\n### GOT/PLT 调用过程\n\n外部函数调用通常被编译成：\n\n```asm\ncall func@plt\n```\n\nPLT 桩跳转到 GOT 中存的地址。首次调用时，GOT 条目可能指向 PLT 里的解析代码，由动态链接器解析出真实地址并写回 GOT；之后再调用就直接跳过去。\n\n这就是**延迟绑定**（lazy binding）。可以用 `LD_BIND_NOW=1` 或链接选项 `-z now` 改成立即绑定。\n\n### 符号版本\n\nglibc 使用符号版本，比如：\n\n```text\nmemcpy@GLIBC_2.14\n```\n\n同一个库可以导出同一符号的多个版本，保证旧程序照样能跑。相关节：`.gnu.version`、`.gnu.version_d`、`.gnu.version_r`。这和 SONAME、动态标签一起，是 Linux 长期二进制兼容（ABI 稳定性）的基础。\n\n### 性能与 ABI（作者从数据库角度的总结）\n\n- **PLT/GOT 开销**：外部函数调用多一次跳转。可用 `-fno-plt`、`-Bsymbolic`、`-fvisibility=hidden` 优化\n- **延迟绑定**：首次调用较慢；`-z now` 行为可预测但启动稍慢\n- **静态 vs 动态链接**：数据库核心常动态链接 libc、libssl、libaio、libnuma\n- **符号冲突**：多个插件可能导出同名符号，需要隐藏内部符号\n- **LD_PRELOAD**：可以 hook、审计、测试（CSAPP 里叫库打桩），生产上要谨慎\n\n### 个人理解\n\n「内核只负责加载解释器，复杂符号解析放在用户态」是一个很干净的分工：内核的 ELF 加载器保持简单，动态链接策略（延迟绑定、版本、预加载）全部可以在用户态演进。\n\n## 参考资料\n\n- `ld.so(8)`：https://man7.org/linux/man-pages/man8/ld.so.8.html\n- Ulrich Drepper, *How to Write Shared Libraries*：https://www.akkadia.org/drepper/dsohowto.pdf\n- MaskRay, *All about symbol versioning*：https://maskray.me/blog/2020-11-26-all-about-symbol-versioning\n- CSAPP 第 7 章链接（共享库、PIC、库打桩）\n\n## 待办\n\n- [ ] gdb 里在 `puts@plt` 前后各看一次对应 GOT 条目，亲眼看延迟绑定写回\n- [ ] `LD_DEBUG=bindings ./a.out` 看符号绑定日志",
+        "relations": [
+          {
+            "type": "依赖",
+            "target": "重定位",
+            "year": null,
+            "note": "动态链接的核心工作就是运行时重定位",
+            "confidence": 0.9
+          },
+          {
+            "type": "使用",
+            "target": "ELF节",
+            "year": null,
+            "note": ".dynamic/.dynsym/.got/.plt 等节",
+            "confidence": 0.8
+          }
+        ]
+      },
+      {
+        "id": "ELF安全机制",
+        "name": "ELF 安全机制（PIE/ASLR/NX/RELRO）",
+        "type": "机制",
+        "year": null,
+        "desc": "PIE+ASLR 随机基址、GNU_STACK 不可执行栈、RELRO 重定位后 GOT 只读、BIND_NOW 缩短 GOT 可写窗口、CET 控制流保护——全都靠 ELF 元数据表达",
+        "from_section": "7.5 安全机制",
+        "tags": [
+          "ELF",
+          "安全",
+          "ASLR",
+          "PIE",
+          "RELRO",
+          "NX"
+        ],
+        "aliases": [
+          "PIE",
+          "ASLR",
+          "RELRO",
+          "NX",
+          "BIND_NOW",
+          "CET"
+        ],
+        "body": "## 描述\n\n现代 Linux 的二进制加固几乎都不是额外的机制，而是写在 ELF 元数据里、由加载器和动态链接器照着执行的约定。这也是为什么现代可执行文件的 `e_type` 通常是 `ET_DYN`：它们是 PIE，才能随机基址。\n\n## 核心内容\n\n- **PIE / ASLR**：可执行文件本身也编成位置无关，加载基址随机化；内部指针靠 `R_X86_64_RELATIVE` [[重定位]]修正\n- **NX / GNU_STACK**：`PT_GNU_STACK` 标记栈为 RW、不可执行，栈上注入的 shellcode 跑不了（对应[[栈内存]]）\n- **RELRO**：`PT_GNU_RELRO` 让 GOT 等区域在重定位完成后变只读\n- **BIND_NOW**：立即绑定，所有符号启动时解析完，减少 GOT 可写的时间（配合 Full RELRO）\n- **CET / GNU_PROPERTY**：`.note.gnu.property` / `PT_GNU_PROPERTY` 声明 IBT、SHSTK 等硬件控制流保护\n- **符号可见性**：`-fvisibility=hidden` 减少导出符号\n- **版本脚本**：控制符号导出与版本\n\n`AT_RANDOM`（加载时放进 auxv 的随机数）用于栈保护等。\n\n### 个人理解\n\n这些机制和 [[动态链接]] 的延迟绑定天然冲突：延迟绑定需要 GOT 在运行期可写，而可写的函数指针表正是攻击面——所以 RELRO + BIND_NOW 是拿启动速度换安全。CSAPP Attack Lab 里的缓冲区溢出、NX、ASLR、RELRO 都和 ELF 的权限与布局有关。\n\n## 参考资料\n\n- CSAPP Attack Lab\n- `readelf -l`（看 GNU_STACK / GNU_RELRO）、`readelf -d`（看 BIND_NOW / FLAGS）\n\n## 待办\n\n- [ ] 用 `checksec` 或 `readelf` 对比 `-z norelro`、`-z relro`、`-z relro -z now` 三种产物",
+        "relations": [
+          {
+            "type": "依赖",
+            "target": "ELF段",
+            "year": null,
+            "note": "PT_GNU_STACK / PT_GNU_RELRO / PT_GNU_PROPERTY",
+            "confidence": 0.85
+          },
+          {
+            "type": "相关",
+            "target": "动态链接",
+            "year": null,
+            "note": "RELRO、BIND_NOW 限制的正是 GOT 的可写窗口",
+            "confidence": 0.85
+          },
+          {
+            "type": "相关",
+            "target": "栈内存",
+            "year": null,
+            "note": "NX：栈不可执行",
+            "confidence": 1.0
+          }
+        ]
+      },
+      {
+        "id": "数据库C扩展加载",
+        "name": "数据库 C 扩展加载（dlopen/dlsym）",
+        "type": "模式",
+        "year": null,
+        "desc": "PostgreSQL/MySQL/SQLite 的 C 扩展都是 ELF 共享库：服务器 dlopen 加载 .so、dlsym 按名查函数，靠 PG_MODULE_MAGIC 之类的魔数做 ABI 校验；插件就是任意代码，必须信任",
+        "from_section": "10.1 数据库扩展与插件",
+        "tags": [
+          "ELF",
+          "数据库",
+          "插件",
+          "dlopen",
+          "ABI",
+          "PostgreSQL"
+        ],
+        "aliases": [
+          "数据库插件",
+          "UDF",
+          "dlopen"
+        ],
+        "body": "## 描述\n\n数据库的「用 C 写扩展函数 / 插件」机制，底层全是 ELF 共享库 + [[动态链接]]：扩展编成 `.so`，数据库进程运行时 `dlopen` 把它映射进自己的地址空间，再用 `dlsym` 在动态符号表里按名字找到入口函数。\n\n## 核心内容\n\n### PostgreSQL\n\n```sql\nCREATE FUNCTION add_one(integer) RETURNS integer\nAS '$libdir/add_one', 'add_one'\nLANGUAGE C STRICT;\n```\n\n```c\n#include \"postgres.h\"\n#include \"fmgr.h\"\n\nPG_MODULE_MAGIC;\n\nPG_FUNCTION_INFO_V1(add_one);\n\nDatum\nadd_one(PG_FUNCTION_ARGS)\n{\n    int32 arg = PG_GETARG_INT32(0);\n    PG_RETURN_INT32(arg + 1);\n}\n```\n\n```sh\ngcc -fPIC -shared -I$(pg_config --includedir-server) -o add_one.so add_one.c\n```\n\nPostgreSQL 服务器通过 `dlopen` 加载 `.so`，通过 `dlsym` 找到 `add_one`。`PG_MODULE_MAGIC` 用于 ABI 校验。\n\n### MySQL / SQLite\n\n```sql\nINSTALL PLUGIN myplugin SONAME 'myplugin.so';\n```\n\n```sql\nSELECT load_extension('./myext.so');\n```\n\n这些机制都依赖 ELF 动态库、动态符号表、重定位和 ABI。\n\n### 要注意的点\n\n- **插件 ABI**：扩展必须匹配服务器 ABI、glibc 版本、C++ ABI\n- **符号冲突**：多个插件可能导出同名符号，要 `-fvisibility=hidden` 隐藏内部符号\n- **安全**：插件是任意代码，必须信任；RELRO、ASLR、NX 只能降低风险\n\n### 旁支：数据库 JIT 与 eBPF 观测\n\n- 数据库表达式 JIT 常用 LLVM 生成 ELF 目标文件、运行时加载（PostgreSQL JIT、ClickHouse、部分商业数据库）\n- eBPF 程序编译为 ELF 对象，libbpf 加载进内核，可用来观测数据库的 I/O、锁、调度、网络\n\n## 参考资料\n\n- PostgreSQL: C-Language Functions：https://www.postgresql.org/docs/current/xfunc-c.html\n- SQLite: Run-Time Loadable Extensions：https://www.sqlite.org/loadext.html\n- MySQL: Plugin API：https://dev.mysql.com/doc/refman/8.0/en/plugin-api.html\n\n## 待办\n\n- [ ] 把 add_one 真编一次，`readelf -s --dyn-syms add_one.so` 找到 `add_one` 和 `Pg_magic_func`",
+        "relations": [
+          {
+            "type": "依赖",
+            "target": "动态链接",
+            "year": null,
+            "note": "dlopen/dlsym 走的就是动态链接器",
+            "confidence": 0.9
+          },
+          {
+            "type": "使用",
+            "target": "GCC",
+            "year": null,
+            "note": "gcc -fPIC -shared 编出扩展",
+            "confidence": 1.0
+          }
+        ]
+      }
+    ],
+    "stubs": [
+      {
+        "id": "链接器",
+        "name": "链接器",
+        "desc": "把多个可重定位目标文件（.o）和库合并成可执行文件或共享库，完成符号解析与重定位",
+        "why": "ELF 链接视图的服务对象、静态重定位的执行者，图里有汇编器/编译器但没有链接器"
+      },
+      {
+        "id": "虚拟内存",
+        "name": "虚拟内存",
+        "desc": "给每个进程一份独立的地址空间，按页映射到物理内存或文件，支持按需分页、写时复制、mmap",
+        "why": "ELF 的 PT_LOAD 段直接映射到虚拟地址，CSAPP 第 9 章主线，图里没有这个点"
+      }
+    ],
+    "enrich": [
+      {
+        "existing": "eBPF",
+        "content": "### eBPF 对象是 ELF\n\neBPF 程序编译出来是一个 ELF 对象文件，里面装着程序本身、map 定义和 BTF（类型信息），由 libbpf 解析这个 ELF 并加载进内核。数据库运维可以用 eBPF 观测 I/O、锁、调度、网络。",
+        "why": "已有 eBPF 节点只讲了数据包过滤起源，没讲它的产物格式和加载方式"
+      },
+      {
+        "existing": "数据段",
+        "content": "### 在 ELF 里的细分\n\n汇编的 `.data` 在 ELF 里对应 `.data` 节（`PROGBITS`，标志 `WA`），只放**已初始化**的全局/静态变量。另外两个相邻的节：\n\n- `.bss`（`NOBITS`，`WA`）：未初始化的全局/静态变量，文件里不占空间；加载时 `p_filesz < p_memsz` 的差额被清零，就是它\n- `.rodata`（`PROGBITS`，`A`）：只读常量、字符串字面量、跳转表\n\n运行时它们按权限被合进 R 或 RW 的 `PT_LOAD` 段。",
+        "why": "已有节点只说数据段由 .data 定义，缺 .data / .bss / .rodata 的区分"
+      },
+      {
+        "existing": "代码段",
+        "content": "### 在 ELF 里\n\n`.text` 节类型 `PROGBITS`、标志 `AX`（分配内存 + 可执行）。加载时被放进权限为 R + X 的 `PT_LOAD` 段——可执行但不可写。",
+        "why": "补上代码段在 ELF 文件与加载后的权限"
+      }
+    ],
+    "proposed_types": [],
+    "suggest_home": {
+      "isolated": [],
+      "kind": "none",
+      "name": "",
+      "why": "所有新节点都挂到了 ELF 主节点或已有的汇编器/eBPF/OS/程序的内存布局上"
+    },
+    "shape": "multi",
+    "summary": "这篇给图谱补上了「从磁盘文件到进程地址空间」这一段：ELF 主节点加上节/段双视图、execve 加载、重定位、动态链接 GOT/PLT、安全机制、数据库扩展加载，另外新建了链接器、虚拟内存两个 stub。最重要的一条新边是「ELF段 支撑→程序的内存布局」：它把已有那组代码段/数据段/栈/堆节点和它们在运行时的真正来源接上了；这条边 confidence 0.75，会进待审清单。"
+  },
+  "changes": [
+    {
+      "type": "create_node",
+      "source": "ELF",
+      "path": "nodes/计算机系统/ELF.md",
+      "fields": {
+        "name": "ELF（可执行与可链接格式）",
+        "field": "计算机系统",
+        "desc": "Unix/Linux 最核心的二进制容器格式：目标文件、可执行文件、共享库、core dump、内核模块、eBPF 对象都用它；核心设计是链接视图（节）与执行视图（段）分离",
+        "learned": "2026-09-24",
+        "sources": [
+          "ELF"
+        ],
+        "type": "概念",
+        "aliases": [
+          "Executable and Linkable Format",
+          "ELF 文件"
+        ],
+        "tags": [
+          "二进制格式",
+          "链接",
+          "加载",
+          "Linux",
+          "CSAPP"
+        ]
+      },
+      "body": "## 描述\n\nELF（Executable and Linkable Format，可执行与可链接格式）是 Unix/Linux 世界最核心的二进制文件格式。它不只是「可执行文件格式」，还是目标文件、共享库、核心转储、内核模块、动态插件、eBPF 对象共用的容器。理解 ELF，就是理解**程序怎么从磁盘上的文件变成进程地址空间里的代码和数据**。\n\n一句话定位：**ELF 是链接器和加载器之间的契约。**\n\n## 核心内容\n\n### 来源与支持范围\n\nELF 源自 System V ABI，后来由 TIS（Tool Interface Standard）标准化。它支持：\n\n- 32 位 / 64 位\n- 小端 / 大端\n- 多种 CPU 架构：x86、x86-64、ARM、AArch64、RISC-V、MIPS、PowerPC 等\n- 多种文件类型：目标文件、可执行文件、共享库、core dump\n\n### 核心设计：两种视图\n\n- **链接视图**：以「节（section）」为单位，给链接器、调试器、静态分析工具看 → [[ELF节]]\n- **执行视图**：以「段（segment）」为单位，给操作系统加载器和动态链接器看 → [[ELF段]]\n\n节头表可以被 `strip` 删掉，程序照样能跑；程序头表对可执行文件和共享库的加载必不可少。\n\n### 顶层结构\n\n```text\n+----------------------+\n| ELF Header           |  e_ident, e_type, e_machine, e_entry, e_phoff, e_shoff ...\n+----------------------+\n| Program Header Table |  描述「段」，加载器使用\n+----------------------+\n| Sections / Segments  |  实际代码、数据、符号、重定位、调试信息\n+----------------------+\n| Section Header Table |  描述「节」，链接器/调试器使用\n+----------------------+\n```\n\nELF 头位于文件开头，关键字段：\n\n- `e_ident`：魔数 `0x7F 'E' 'L' 'F'`，以及位数、字节序、OSABI 等\n- `e_type`：文件类型\n- `e_machine`：目标架构\n- `e_entry`：入口虚拟地址\n- `e_phoff` / `e_shoff`：程序头表 / 节头表在文件中的偏移\n- `e_phentsize` / `e_phnum`、`e_shentsize` / `e_shnum`：两张表的表项大小与数量\n- `e_shstrndx`：节名字符串表索引\n\n### 文件类型（`e_type`）\n\n| 类型 | 值 | 含义 | 典型文件 |\n|---|---:|---|---|\n| `ET_NONE` | 0 | 未知 | 很少见 |\n| `ET_REL` | 1 | 可重定位目标文件 | `.o` |\n| `ET_EXEC` | 2 | 可执行文件，固定地址 | 传统非 PIE 可执行文件 |\n| `ET_DYN` | 3 | 共享目标文件 / PIE 可执行文件 | `.so`、PIE 程序 |\n| `ET_CORE` | 4 | 核心转储 | `core` |\n\n注意：现代 Linux 的可执行文件通常是 `ET_DYN`，也就是 PIE，为了支持 ASLR（见 [[ELF安全机制]]）。\n\n### 用在哪里\n\n1. 可执行文件：`/bin/ls`、`/usr/bin/python`\n2. 共享库：`libc.so.6`、`libssl.so`、`libstdc++.so`\n3. 目标文件：`.o`，编译器（[[汇编器]]）输出、链接器输入\n4. 静态库：`.a` 是 `ar` 归档，里面装多个 `.o`\n5. 核心转储：`core` 文件，内存快照 + note，用于事后调试\n6. 内核模块：Linux `.ko`，模块加载器解析符号和重定位\n7. 内核镜像：`vmlinux` 是 ELF，`bzImage` 是压缩引导镜像\n8. Android Native 库：`.so`\n9. [[eBPF]] 对象：BPF 程序编译为 ELF，由 libbpf 加载\n10. [[JIT]] 目标文件：LLVM ORC、MCJIT 可生成 ELF 对象并加载——ELF 在这里是「运行时生成的代码容器」\n11. 数据库插件：PostgreSQL、MySQL、SQLite 扩展动态库（见 [[数据库C扩展加载]]）\n12. 调试符号文件：`.debug`、build-id 对应文件\n13. 容器镜像里的二进制：几乎全是 ELF\n14. 嵌入式与 RTOS：很多嵌入式 Linux、QNX、VxWorks\n\n### 对操作系统的启发\n\n1. **统一加载接口**：内核只实现一个 ELF 加载器，就能支持可执行文件、共享库、PIE、core\n2. **链接与加载分离**：编译时生成可重定位信息，加载时由动态链接器完成地址绑定\n3. **虚拟内存映射**：`PT_LOAD` 直接映射到虚拟地址，支持按需分页、写时复制、mmap\n4. **动态链接器用户态化**：内核只负责加载解释器，复杂的符号解析放在用户态\n5. **进程启动模型**：`fork` + `execve`，`execve` 替换地址空间\n6. **模块化**：内核模块 `.ko` 用 ELF，支持动态加载、符号导出、重定位\n7. **安全机制**：PIE、ASLR、NX、RELRO、CET 都依赖 ELF 元数据\n8. **核心转储**：core 是 ELF\n9. **可扩展性**：节/段类型、NOTE、GNU 扩展让格式持续演进\n10. **ABI 稳定性**：符号版本、SONAME、动态标签支撑长期二进制兼容\n\n### 对 CSAPP 学习的启发\n\nCSAPP 第 7 章「链接」和第 9 章「虚拟内存」几乎就是 ELF 的教科书：\n\n- **第 7 章 链接**：`.c` → `.s` → `.o` → 可执行文件；`ET_REL` 目标文件、符号表、重定位；静态/动态链接、共享库；GOT/PLT、位置无关代码；库打桩、LD_PRELOAD\n- **第 9 章 虚拟内存**：ELF 段映射到虚拟地址；`mmap`、按需分页、写时复制；加载器怎么把可执行文件变成进程\n- **第 8 章 异常控制流**：`fork`、`execve`、进程上下文\n- **第 3 章 机器级表示**：`.text` 里的机器码、汇编、反汇编\n- **第 5 章 优化**：PIC 开销、内联、符号可见性\n- **安全实验**：Attack Lab 的缓冲区溢出、NX、ASLR、RELRO 都和 ELF 权限与布局有关\n\n作者原话：读懂 ELF，CSAPP 的链接、加载、虚拟内存、动态库章节会从「概念」变成「可验证的工程现实」。\n\n### 实践工具\n\n```sh\nfile a.out\nreadelf -h a.out          # ELF 头\nreadelf -l a.out          # 程序头 / 段\nreadelf -S a.out          # 节头 / 节\nreadelf -s a.out          # 符号表\nreadelf -d a.out          # 动态段\nreadelf -r a.out          # 重定位\nobjdump -d a.out          # 反汇编\nobjdump -t a.out          # 符号表\nobjdump -s -j .rodata a.out\nnm a.out\nldd a.out\npatchelf --print-interpreter a.out\nstrip a.out\ngdb a.out\ncat /proc/$(pidof a.out)/maps\nLD_DEBUG=libs ./a.out\nLD_PRELOAD=./hook.so ./a.out\n```\n\n这些工具能把 ELF 的节、段、符号、重定位一一对应起来。\n\n## 参考资料\n\n- System V ABI, ELF 规范：https://refspecs.linuxfoundation.org/elf/gabi4+/ch4.intro.html\n- TIS ELF Specification 1.2：https://refspecs.linuxfoundation.org/elf/elf.pdf\n- `elf(5)`：https://man7.org/linux/man-pages/man5/elf.5.html\n- CSAPP 第 7 章链接、第 9 章虚拟内存\n- Ian Lance Taylor, *Linkers and Loaders*\n- Wikipedia, *Executable and Linkable Format*\n- GNU Binutils BFD 文档：https://sourceware.org/binutils/docs/bfd/\n\n## 待办\n\n- [ ] 拿一个 hello world 分别编成非 PIE / PIE，用 `readelf -h` 对比 `e_type`\n- [ ] 对照 CSAPP 第 7 章把 `.c → .s → .o → a.out` 每一步的产物跑一遍"
+    },
+    {
+      "type": "add_edge",
+      "source": "ELF",
+      "relation": "包含",
+      "target": "ELF节",
+      "note": "链接视图",
+      "confidence": 0.95
+    },
+    {
+      "type": "add_edge",
+      "source": "ELF",
+      "relation": "包含",
+      "target": "ELF段",
+      "note": "执行视图",
+      "confidence": 0.95
+    },
+    {
+      "type": "add_edge",
+      "source": "ELF",
+      "relation": "产出自",
+      "target": "汇编器",
+      "note": "汇编器把 .s 翻成 ET_REL 目标文件 .o",
+      "confidence": 0.8
+    },
+    {
+      "type": "add_edge",
+      "source": "ELF",
+      "relation": "相关",
+      "target": "eBPF",
+      "note": "eBPF 程序编译成 ELF 对象（程序、map、BTF），由 libbpf 加载进内核",
+      "confidence": 0.85
+    },
+    {
+      "type": "add_edge",
+      "source": "ELF",
+      "relation": "相关",
+      "target": "JIT",
+      "note": "LLVM ORC / MCJIT 生成 ELF 对象在运行时加载，数据库表达式 JIT 常用",
+      "confidence": 1.0
+    },
+    {
+      "type": "create_node",
+      "source": "ELF节",
+      "path": "nodes/计算机系统/ELF节.md",
+      "fields": {
+        "name": "ELF 节（Section）：链接视图",
+        "field": "计算机系统",
+        "desc": "ELF 按「节」划分的链接视图：.text/.data/.bss/.rodata 装代码数据，.symtab/.rela.* 服务链接，.dynamic/.got/.plt 服务动态链接；给链接器、调试器看，可被 strip",
+        "learned": "2026-09-24",
+        "sources": [
+          "ELF"
+        ],
+        "type": "概念",
+        "aliases": [
+          "Section",
+          "节头表",
+          "链接视图"
+        ],
+        "tags": [
+          "ELF",
+          "链接",
+          "节头表",
+          "符号表"
+        ]
+      },
+      "body": "## 描述\n\n节是 ELF 里最丰富的区域划分，是**链接视图**：给[[链接器]]、调试器、静态分析工具看。节由节头表描述，节头表可以被 `strip` 删掉而程序仍能运行——内核加载器根本不看节，只看 [[ELF段]]。\n\n## 核心内容\n\n### 节头表项字段\n\n- `sh_name`：节名在 `.shstrtab` 中的偏移\n- `sh_type`：节类型\n- `sh_flags`：可写、可执行、是否分配内存\n- `sh_addr`：加载后的虚拟地址\n- `sh_offset`：文件偏移\n- `sh_size`：大小\n- `sh_link` / `sh_info`：关联信息\n- `sh_addralign`：对齐\n- `sh_entsize`：表项大小\n\n### 代码与数据\n\n| 节名 | 类型 | 典型标志 | 作用 |\n|---|---|---|---|\n| `.text` | `PROGBITS` | `AX` | 机器指令（即 [[代码段]]） |\n| `.data` | `PROGBITS` | `WA` | 已初始化的全局/静态变量（即 [[数据段]]） |\n| `.bss` | `NOBITS` | `WA` | 未初始化全局/静态变量，文件不占空间，加载清零 |\n| `.rodata` | `PROGBITS` | `A` | 只读常量、字符串字面量、跳转表 |\n| `.comment` | `PROGBITS` | `MS` | 编译器版本信息 |\n\n### 链接与符号\n\n| 节名 | 类型 | 作用 |\n|---|---|---|\n| `.symtab` | `SYMTAB` | 静态符号表，链接器使用，可被 strip |\n| `.strtab` | `STRTAB` | `.symtab` 的字符串表 |\n| `.shstrtab` | `STRTAB` | 节名字符串表 |\n| `.rel.*` / `.rela.*` | `REL` / `RELA` | 重定位信息（见 [[重定位]]） |\n| `.debug_*` | `PROGBITS` | DWARF 调试信息 |\n| `.line` | `PROGBITS` | 行号信息，旧格式 |\n| `.gnu_debuglink` | `PROGBITS` | 指向分离的调试文件 |\n| `.note.gnu.build-id` | `NOTE` | 构建 ID，用于调试与符号定位 |\n\n### 动态链接（详见 [[动态链接]]）\n\n| 节名 | 类型 | 作用 |\n|---|---|---|\n| `.interp` | `PROGBITS` | 动态链接器路径，如 `/lib64/ld-linux-x86-64.so.2` |\n| `.dynamic` | `DYNAMIC` | 动态链接所需标签数组 |\n| `.dynsym` | `DYNSYM` | 动态符号表 |\n| `.dynstr` | `STRTAB` | 动态字符串表 |\n| `.hash` / `.gnu.hash` | `HASH` / `GNU_HASH` | 符号哈希表，加速符号查找 |\n| `.rela.dyn` | `RELA` | 数据重定位 |\n| `.rela.plt` | `RELA` | PLT 重定位 |\n| `.got` / `.got.plt` | `PROGBITS` | 全局偏移表 |\n| `.plt` / `.plt.got` / `.plt.sec` | `PROGBITS` | 过程链接表，外部函数跳转桩 |\n| `.gnu.version` | `VERSYM` | 符号版本索引 |\n| `.gnu.version_d` | `VERDEF` | 版本定义 |\n| `.gnu.version_r` | `VERNEED` | 版本需求 |\n\n### 初始化、异常与 TLS\n\n| 节名 | 类型 | 作用 |\n|---|---|---|\n| `.init` / `.fini` | `PROGBITS` | 旧式初始化和析构代码 |\n| `.init_array` | `INIT_ARRAY` | 构造函数指针数组 |\n| `.fini_array` | `FINI_ARRAY` | 析构函数指针数组 |\n| `.preinit_array` | `PREINIT_ARRAY` | main 之前最早执行的初始化 |\n| `.eh_frame` | `PROGBITS` | 异常处理与栈展开信息 |\n| `.eh_frame_hdr` | `PROGBITS` | `.eh_frame` 的索引 |\n| `.gcc_except_table` | `PROGBITS` | C++ 异常表 |\n| `.tdata` | `PROGBITS` | 线程局部存储的已初始化数据 |\n| `.tbss` | `NOBITS` | 线程局部存储的未初始化数据 |\n\n### 安全与属性\n\n| 节名 | 作用 |\n|---|---|\n| `.note.gnu.property` | CET、IBT、SHSTK 等硬件安全属性 |\n| `.note.ABI-tag` | ABI 版本标签 |\n| `.gnu.hash` | GNU 扩展哈希 |\n| `.gnu.version_r` | 依赖库符号版本 |\n\n### 个人理解\n\n汇编里写的 `.text` / `.data` 伪指令，最终落成的就是这里的同名节；`.bss` 是 `NOBITS`，这就是为什么大数组不初始化时可执行文件不会变大。\n\n## 参考资料\n\n- MaskRay, *ELF section types*：https://maskray.me/blog/2021-01-17-elf-section-types\n- `readelf -S a.out` 查看节头\n\n## 待办\n\n- [ ] 写一个带全局未初始化大数组的程序，对比 `.bss` 在 `readelf -S` 里的 size 和文件大小"
+    },
+    {
+      "type": "add_edge",
+      "source": "ELF节",
+      "relation": "对比",
+      "target": "ELF段",
+      "note": "链接视图 vs 执行视图",
+      "confidence": 0.9
+    },
+    {
+      "type": "add_edge",
+      "source": "ELF节",
+      "relation": "包含",
+      "target": "代码段",
+      "note": ".text 节",
+      "confidence": 0.8
+    },
+    {
+      "type": "add_edge",
+      "source": "ELF节",
+      "relation": "包含",
+      "target": "数据段",
+      "note": ".data 节",
+      "confidence": 0.8
+    },
+    {
+      "type": "add_edge",
+      "source": "ELF节",
+      "relation": "相关",
+      "target": "链接器",
+      "note": "节是给链接器看的",
+      "confidence": 0.85
+    },
+    {
+      "type": "create_node",
+      "source": "ELF段",
+      "path": "nodes/计算机系统/ELF段.md",
+      "fields": {
+        "name": "ELF 段（Segment）：执行视图",
+        "field": "计算机系统",
+        "desc": "ELF 按「段」划分的执行视图：程序头表里的 PT_LOAD 等条目告诉内核把文件哪部分以什么权限映射到哪个虚拟地址；p_filesz < p_memsz 的差额就是清零的 .bss",
+        "learned": "2026-09-24",
+        "sources": [
+          "ELF"
+        ],
+        "type": "概念",
+        "aliases": [
+          "Segment",
+          "程序头表",
+          "Program Header",
+          "执行视图"
+        ],
+        "tags": [
+          "ELF",
+          "加载",
+          "程序头表",
+          "虚拟内存"
+        ]
+      },
+      "body": "## 描述\n\n内核加载器不关心「节」，只关心「段」。段由程序头表描述，是 ELF 的**执行视图**：给操作系统加载器和动态链接器看。对可执行文件和共享库，程序头表必不可少（和 [[ELF节]] 可被 strip 相反）。一个段通常装着若干个节，`readelf -l` 会打印「Section to Segment mapping」。\n\n## 核心内容\n\n### 程序头表项字段\n\n- `p_type`：段类型，如 `PT_LOAD`、`PT_DYNAMIC`\n- `p_flags`：权限，`PF_R`、`PF_W`、`PF_X`\n- `p_offset`：文件偏移\n- `p_vaddr`：虚拟地址\n- `p_filesz`：文件中大小\n- `p_memsz`：内存中大小\n- `p_align`：对齐\n\n`p_filesz < p_memsz` 的典型例子是 `.bss`：文件里不占空间，加载时清零。\n\n### 常见段类型\n\n| 段类型 | 作用 |\n|---|---|\n| `PT_LOAD` | 可加载段，映射到[[虚拟内存]]，权限由 `p_flags` 决定 |\n| `PT_DYNAMIC` | 指向 `.dynamic`，动态链接信息 |\n| `PT_INTERP` | 动态链接器路径 |\n| `PT_NOTE` | 注释信息，如 build-id、ABI、属性 |\n| `PT_PHDR` | 程序头表自身在内存中的位置 |\n| `PT_TLS` | 线程局部存储模板 |\n| `PT_GNU_EH_FRAME` | 异常处理帧信息 |\n| `PT_GNU_STACK` | 标记栈权限，通常 RW、不可执行 |\n| `PT_GNU_RELRO` | 重定位后只读区域 |\n| `PT_GNU_PROPERTY` | 安全属性 |\n| `PT_SHLIB` | 保留，很少使用 |\n| `PT_SUNWBSS` / `PT_SUNWSTACK` | Solaris 平台相关 |\n\n### 一个典型动态可执行文件的段\n\n- 一个 `PT_LOAD`：R + X，映射代码\n- 一个 `PT_LOAD`：R，映射只读数据\n- 一个 `PT_LOAD`：RW，映射数据、GOT、动态段\n- `PT_INTERP`：指定动态链接器\n- `PT_DYNAMIC`：动态链接信息\n- `PT_GNU_RELRO`：把 GOT 等区域在重定位后设为只读\n- `PT_GNU_STACK`：不可执行栈\n\n### 个人理解\n\n节按「用途」分（符号表、字符串表、重定位表……），段按「权限」分（RX / R / RW）——加载器只需要知道哪块内存该有什么权限，所以几十个节被合并成三四个 `PT_LOAD`。这也是[[程序的内存布局]]里代码段、数据段在运行时的真正来源；栈和堆则是加载时/运行时另行建立的。\n\n## 参考资料\n\n- `readelf -l a.out` 查看段与节到段的映射\n- LWN, *How programs get run: ELF binaries*：https://lwn.net/Articles/631631/\n\n## 待办\n\n- [ ] `readelf -l` 看一个动态程序，数它有几个 `PT_LOAD`、各是什么权限\n- [ ] 对照 `/proc/<pid>/maps` 验证每个 `PT_LOAD` 映射到了哪里"
+    },
+    {
+      "type": "add_edge",
+      "source": "ELF段",
+      "relation": "依赖",
+      "target": "虚拟内存",
+      "note": "PT_LOAD 直接映射到虚拟地址，按需分页、写时复制",
+      "confidence": 0.9
+    },
+    {
+      "type": "add_edge",
+      "source": "ELF段",
+      "relation": "支撑",
+      "target": "程序的内存布局",
+      "note": "代码段、数据段在运行时的实际来源是 PT_LOAD 映射",
+      "confidence": 1.0
+    },
+    {
+      "type": "create_node",
+      "source": "ELF加载过程",
+      "path": "nodes/计算机系统/ELF加载过程.md",
+      "fields": {
+        "name": "ELF 加载过程（execve）",
+        "field": "计算机系统",
+        "desc": "execve 时内核读 ELF 头和程序头表，把每个 PT_LOAD 映射进虚拟内存、多出的部分清零、设权限，加载 PT_INTERP 指定的动态链接器并构建带 auxv 的用户栈，再把控制权交出去",
+        "learned": "2026-09-24",
+        "sources": [
+          "ELF"
+        ],
+        "type": "机制",
+        "aliases": [
+          "execve 加载",
+          "程序加载",
+          "binfmt_elf"
+        ],
+        "tags": [
+          "ELF",
+          "execve",
+          "加载器",
+          "进程启动",
+          "CSAPP"
+        ]
+      },
+      "body": "## 描述\n\n一个 ELF 文件怎么变成进程：以 Linux `execve` 为例，内核负责「映射 + 建栈 + 交控制权」，复杂的符号解析交给用户态的动态链接器。内核实现在 `fs/binfmt_elf.c`。进程启动模型是 `fork` + `execve`：`execve` 用新程序替换掉当前地址空间。\n\n## 核心内容\n\n### 步骤\n\n1. 用户调用 `execve(path, argv, envp)`\n2. 内核打开文件，读取 ELF 头，检查魔数、架构、类型\n3. 内核读取程序头表（[[ELF段]]）\n4. 对每个 `PT_LOAD` 段：\n   - 把文件偏移 `p_offset` 处的内容映射到虚拟地址 `p_vaddr`\n   - 若 `p_filesz < p_memsz`，多余内存清零——这就是 `.bss`\n   - 设置权限：R、W、X\n5. 若存在 `PT_INTERP`，内核读取动态链接器路径并加载动态链接器\n6. 内核构建用户栈：`argc`、`argv`、`envp`、`auxv`\n   - `AT_PHDR`：程序头表地址\n   - `AT_ENTRY`：入口地址\n   - `AT_BASE`：动态链接器基址\n   - `AT_RANDOM`：随机数，用于栈保护等\n   - `AT_SYSINFO_EHDR`：vDSO 地址\n7. 控制权交给动态链接器，或（静态程序）直接交给入口 `e_entry`\n8. 动态链接器（见 [[动态链接]]）：\n   - 解析 `.dynamic`\n   - 加载 `DT_NEEDED` 依赖库\n   - 执行重定位、解析符号\n   - 运行 `.init_array` / `.init`\n   - 跳转到 `main`\n9. 程序退出时运行 `.fini_array` / `.fini`\n\n动态链接器本身也是 ELF 共享对象，通常路径为 `/lib64/ld-linux-x86-64.so.2`。\n\n### 个人理解\n\n「程序先存硬盘、加载到内存后被 CPU 执行」这句话的细节全在这里：加载不是把整个文件拷进内存，而是 mmap 映射，页真正被访问时才按需调入。`main` 并不是第一条被执行的指令——前面还有动态链接器和 `.preinit_array` / `.init_array`。\n\n## 参考资料\n\n- `execve(2)`：https://man7.org/linux/man-pages/man2/execve.2.html\n- Linux 内核 ELF 加载器源码 `fs/binfmt_elf.c`：https://elixir.bootlin.com/linux/latest/source/fs/binfmt_elf.c\n- LWN, *How programs get run: ELF binaries*：https://lwn.net/Articles/631631/\n- CSAPP 第 8 章异常控制流、第 9 章虚拟内存\n\n## 待办\n\n- [ ] 用 `LD_SHOW_AUXV=1 /bin/true` 看一眼 auxv 里的这些 AT_* 值\n- [ ] 读 `binfmt_elf.c` 里 `load_elf_binary` 的主干"
+    },
+    {
+      "type": "add_edge",
+      "source": "ELF加载过程",
+      "relation": "依赖",
+      "target": "ELF段",
+      "note": "内核只读程序头表",
+      "confidence": 0.95
+    },
+    {
+      "type": "add_edge",
+      "source": "ELF加载过程",
+      "relation": "包含",
+      "target": "动态链接",
+      "note": "第 8 步由动态链接器完成",
+      "confidence": 0.7
+    },
+    {
+      "type": "add_edge",
+      "source": "ELF加载过程",
+      "relation": "属于",
+      "target": "OS",
+      "note": "内核的 ELF 加载器（binfmt_elf）",
+      "confidence": 0.8
+    },
+    {
+      "type": "add_edge",
+      "source": "ELF加载过程",
+      "relation": "产出",
+      "target": "程序的内存布局",
+      "note": "加载完成后才有进程地址空间里的代码/数据/栈",
+      "confidence": 1.0
+    },
+    {
+      "type": "create_node",
+      "source": "重定位",
+      "path": "nodes/计算机系统/重定位.md",
+      "fields": {
+        "name": "重定位",
+        "field": "计算机系统",
+        "desc": "编译时不知道代码和数据最终落在哪个地址，于是在 .rel/.rela 节里记下「哪里要填什么地址」，由链接器或动态链接器在链接/加载时补上",
+        "learned": "2026-09-24",
+        "sources": [
+          "ELF"
+        ],
+        "type": "机制",
+        "aliases": [
+          "Relocation",
+          "重定位表"
+        ],
+        "tags": [
+          "ELF",
+          "链接",
+          "PIC",
+          "CSAPP"
+        ]
+      },
+      "body": "## 描述\n\n编译时不知道共享库和可执行文件最终会加载到哪个地址，所以目标文件里对外部符号、绝对地址的引用只能先留空，同时在 `.rel.*` / `.rela.*` 节（见 [[ELF节]]）里写下「这个位置要按这种方式填上那个符号的地址」。静态链接时由[[链接器]]填，动态链接时由动态链接器在加载后填（见 [[动态链接]]）。\n\n为了让这件事可行，需要四样东西配合：\n\n- 位置无关代码（PIC）\n- 全局偏移表（GOT）\n- 过程链接表（PLT）\n- 重定位表\n\n## 核心内容\n\n### x86-64 常见重定位类型\n\n- `R_X86_64_64`：填 64 位绝对地址\n- `R_X86_64_PC32`：填相对当前 PC 的 32 位偏移\n- `R_X86_64_PLT32`：经 PLT 调用函数\n- `R_X86_64_GOTPCREL`：PC 相对地访问 GOT 条目\n- `R_X86_64_GLOB_DAT`：把数据符号地址填进 GOT\n- `R_X86_64_JUMP_SLOT`：把函数地址填进 GOT.PLT（延迟绑定用）\n- `R_X86_64_RELATIVE`：基址 + 加数，PIE/共享库自身的内部指针\n- `R_X86_64_COPY`：把共享库里的数据拷到可执行文件\n- `R_X86_64_TLS*`：线程局部存储\n\n### 个人理解\n\n`.o` 的 `e_type` 叫 `ET_REL`（可重定位目标文件），名字就说明了它的本质：一堆还没填地址的代码。`R_X86_64_RELATIVE` 是 PIE 之所以能随机基址（ASLR）的关键——加载器知道基址后，把所有内部指针统一加上去就行。\n\n## 参考资料\n\n- `readelf -r a.out` 查看重定位表\n- CSAPP 第 7 章链接\n- Ian Lance Taylor, *Linkers and Loaders*\n\n## 待办\n\n- [ ] `objdump -dr foo.o` 看未重定位的 call 指令和它下面挂的重定位项"
+    },
+    {
+      "type": "add_edge",
+      "source": "重定位",
+      "relation": "基于",
+      "target": "ELF节",
+      "note": "重定位信息存放在 .rel.* / .rela.* 节",
+      "confidence": 0.8
+    },
+    {
+      "type": "add_edge",
+      "source": "重定位",
+      "relation": "相关",
+      "target": "链接器",
+      "note": "静态链接时由链接器执行重定位",
+      "confidence": 0.85
+    },
+    {
+      "type": "create_node",
+      "source": "动态链接",
+      "path": "nodes/计算机系统/动态链接.md",
+      "fields": {
+        "name": "动态链接与 GOT/PLT",
+        "field": "计算机系统",
+        "desc": "运行时由用户态动态链接器解析 .dynamic、加载依赖库、做重定位；外部函数经 PLT 桩跳 GOT，首次调用才解析真实地址写回 GOT（延迟绑定），glibc 再用符号版本保旧程序能跑",
+        "learned": "2026-09-24",
+        "sources": [
+          "ELF"
+        ],
+        "type": "机制",
+        "aliases": [
+          "GOT/PLT",
+          "延迟绑定",
+          "lazy binding",
+          "动态链接器",
+          "ld.so",
+          "符号版本"
+        ],
+        "tags": [
+          "ELF",
+          "动态链接",
+          "GOT",
+          "PLT",
+          "共享库",
+          "ABI"
+        ]
+      },
+      "body": "## 描述\n\n共享库在运行时才确定加载地址，调用它里面的函数、访问它里面的变量，都要等加载后才知道地址。动态链接器（`/lib64/ld-linux-x86-64.so.2`，本身也是 ELF 共享对象）在 [[ELF加载过程]] 的最后阶段接手：解析 `.dynamic`、加载 `DT_NEEDED` 依赖、执行[[重定位]]、解析符号、跑初始化函数、跳进 `main`。\n\n靠的是 [[ELF节]] 里这一组节：`.interp`、`.dynamic`、`.dynsym`、`.dynstr`、`.gnu.hash`、`.rela.dyn`、`.rela.plt`、`.got`/`.got.plt`、`.plt`。\n\n## 核心内容\n\n### GOT/PLT 调用过程\n\n外部函数调用通常被编译成：\n\n```asm\ncall func@plt\n```\n\nPLT 桩跳转到 GOT 中存的地址。首次调用时，GOT 条目可能指向 PLT 里的解析代码，由动态链接器解析出真实地址并写回 GOT；之后再调用就直接跳过去。\n\n这就是**延迟绑定**（lazy binding）。可以用 `LD_BIND_NOW=1` 或链接选项 `-z now` 改成立即绑定。\n\n### 符号版本\n\nglibc 使用符号版本，比如：\n\n```text\nmemcpy@GLIBC_2.14\n```\n\n同一个库可以导出同一符号的多个版本，保证旧程序照样能跑。相关节：`.gnu.version`、`.gnu.version_d`、`.gnu.version_r`。这和 SONAME、动态标签一起，是 Linux 长期二进制兼容（ABI 稳定性）的基础。\n\n### 性能与 ABI（作者从数据库角度的总结）\n\n- **PLT/GOT 开销**：外部函数调用多一次跳转。可用 `-fno-plt`、`-Bsymbolic`、`-fvisibility=hidden` 优化\n- **延迟绑定**：首次调用较慢；`-z now` 行为可预测但启动稍慢\n- **静态 vs 动态链接**：数据库核心常动态链接 libc、libssl、libaio、libnuma\n- **符号冲突**：多个插件可能导出同名符号，需要隐藏内部符号\n- **LD_PRELOAD**：可以 hook、审计、测试（CSAPP 里叫库打桩），生产上要谨慎\n\n### 个人理解\n\n「内核只负责加载解释器，复杂符号解析放在用户态」是一个很干净的分工：内核的 ELF 加载器保持简单，动态链接策略（延迟绑定、版本、预加载）全部可以在用户态演进。\n\n## 参考资料\n\n- `ld.so(8)`：https://man7.org/linux/man-pages/man8/ld.so.8.html\n- Ulrich Drepper, *How to Write Shared Libraries*：https://www.akkadia.org/drepper/dsohowto.pdf\n- MaskRay, *All about symbol versioning*：https://maskray.me/blog/2020-11-26-all-about-symbol-versioning\n- CSAPP 第 7 章链接（共享库、PIC、库打桩）\n\n## 待办\n\n- [ ] gdb 里在 `puts@plt` 前后各看一次对应 GOT 条目，亲眼看延迟绑定写回\n- [ ] `LD_DEBUG=bindings ./a.out` 看符号绑定日志"
+    },
+    {
+      "type": "add_edge",
+      "source": "动态链接",
+      "relation": "依赖",
+      "target": "重定位",
+      "note": "动态链接的核心工作就是运行时重定位",
+      "confidence": 0.9
+    },
+    {
+      "type": "add_edge",
+      "source": "动态链接",
+      "relation": "使用",
+      "target": "ELF节",
+      "note": ".dynamic/.dynsym/.got/.plt 等节",
+      "confidence": 0.8
+    },
+    {
+      "type": "create_node",
+      "source": "ELF安全机制",
+      "path": "nodes/计算机系统/ELF安全机制.md",
+      "fields": {
+        "name": "ELF 安全机制（PIE/ASLR/NX/RELRO）",
+        "field": "计算机系统",
+        "desc": "PIE+ASLR 随机基址、GNU_STACK 不可执行栈、RELRO 重定位后 GOT 只读、BIND_NOW 缩短 GOT 可写窗口、CET 控制流保护——全都靠 ELF 元数据表达",
+        "learned": "2026-09-24",
+        "sources": [
+          "ELF"
+        ],
+        "type": "机制",
+        "aliases": [
+          "PIE",
+          "ASLR",
+          "RELRO",
+          "NX",
+          "BIND_NOW",
+          "CET"
+        ],
+        "tags": [
+          "ELF",
+          "安全",
+          "ASLR",
+          "PIE",
+          "RELRO",
+          "NX"
+        ]
+      },
+      "body": "## 描述\n\n现代 Linux 的二进制加固几乎都不是额外的机制，而是写在 ELF 元数据里、由加载器和动态链接器照着执行的约定。这也是为什么现代可执行文件的 `e_type` 通常是 `ET_DYN`：它们是 PIE，才能随机基址。\n\n## 核心内容\n\n- **PIE / ASLR**：可执行文件本身也编成位置无关，加载基址随机化；内部指针靠 `R_X86_64_RELATIVE` [[重定位]]修正\n- **NX / GNU_STACK**：`PT_GNU_STACK` 标记栈为 RW、不可执行，栈上注入的 shellcode 跑不了（对应[[栈内存]]）\n- **RELRO**：`PT_GNU_RELRO` 让 GOT 等区域在重定位完成后变只读\n- **BIND_NOW**：立即绑定，所有符号启动时解析完，减少 GOT 可写的时间（配合 Full RELRO）\n- **CET / GNU_PROPERTY**：`.note.gnu.property` / `PT_GNU_PROPERTY` 声明 IBT、SHSTK 等硬件控制流保护\n- **符号可见性**：`-fvisibility=hidden` 减少导出符号\n- **版本脚本**：控制符号导出与版本\n\n`AT_RANDOM`（加载时放进 auxv 的随机数）用于栈保护等。\n\n### 个人理解\n\n这些机制和 [[动态链接]] 的延迟绑定天然冲突：延迟绑定需要 GOT 在运行期可写，而可写的函数指针表正是攻击面——所以 RELRO + BIND_NOW 是拿启动速度换安全。CSAPP Attack Lab 里的缓冲区溢出、NX、ASLR、RELRO 都和 ELF 的权限与布局有关。\n\n## 参考资料\n\n- CSAPP Attack Lab\n- `readelf -l`（看 GNU_STACK / GNU_RELRO）、`readelf -d`（看 BIND_NOW / FLAGS）\n\n## 待办\n\n- [ ] 用 `checksec` 或 `readelf` 对比 `-z norelro`、`-z relro`、`-z relro -z now` 三种产物"
+    },
+    {
+      "type": "add_edge",
+      "source": "ELF安全机制",
+      "relation": "依赖",
+      "target": "ELF段",
+      "note": "PT_GNU_STACK / PT_GNU_RELRO / PT_GNU_PROPERTY",
+      "confidence": 0.85
+    },
+    {
+      "type": "add_edge",
+      "source": "ELF安全机制",
+      "relation": "相关",
+      "target": "动态链接",
+      "note": "RELRO、BIND_NOW 限制的正是 GOT 的可写窗口",
+      "confidence": 0.85
+    },
+    {
+      "type": "add_edge",
+      "source": "ELF安全机制",
+      "relation": "相关",
+      "target": "栈内存",
+      "note": "NX：栈不可执行",
+      "confidence": 1.0
+    },
+    {
+      "type": "create_node",
+      "source": "数据库C扩展加载",
+      "path": "nodes/计算机系统/数据库C扩展加载.md",
+      "fields": {
+        "name": "数据库 C 扩展加载（dlopen/dlsym）",
+        "field": "计算机系统",
+        "desc": "PostgreSQL/MySQL/SQLite 的 C 扩展都是 ELF 共享库：服务器 dlopen 加载 .so、dlsym 按名查函数，靠 PG_MODULE_MAGIC 之类的魔数做 ABI 校验；插件就是任意代码，必须信任",
+        "learned": "2026-09-24",
+        "sources": [
+          "ELF"
+        ],
+        "type": "模式",
+        "aliases": [
+          "数据库插件",
+          "UDF",
+          "dlopen"
+        ],
+        "tags": [
+          "ELF",
+          "数据库",
+          "插件",
+          "dlopen",
+          "ABI",
+          "PostgreSQL"
+        ]
+      },
+      "body": "## 描述\n\n数据库的「用 C 写扩展函数 / 插件」机制，底层全是 ELF 共享库 + [[动态链接]]：扩展编成 `.so`，数据库进程运行时 `dlopen` 把它映射进自己的地址空间，再用 `dlsym` 在动态符号表里按名字找到入口函数。\n\n## 核心内容\n\n### PostgreSQL\n\n```sql\nCREATE FUNCTION add_one(integer) RETURNS integer\nAS '$libdir/add_one', 'add_one'\nLANGUAGE C STRICT;\n```\n\n```c\n#include \"postgres.h\"\n#include \"fmgr.h\"\n\nPG_MODULE_MAGIC;\n\nPG_FUNCTION_INFO_V1(add_one);\n\nDatum\nadd_one(PG_FUNCTION_ARGS)\n{\n    int32 arg = PG_GETARG_INT32(0);\n    PG_RETURN_INT32(arg + 1);\n}\n```\n\n```sh\ngcc -fPIC -shared -I$(pg_config --includedir-server) -o add_one.so add_one.c\n```\n\nPostgreSQL 服务器通过 `dlopen` 加载 `.so`，通过 `dlsym` 找到 `add_one`。`PG_MODULE_MAGIC` 用于 ABI 校验。\n\n### MySQL / SQLite\n\n```sql\nINSTALL PLUGIN myplugin SONAME 'myplugin.so';\n```\n\n```sql\nSELECT load_extension('./myext.so');\n```\n\n这些机制都依赖 ELF 动态库、动态符号表、重定位和 ABI。\n\n### 要注意的点\n\n- **插件 ABI**：扩展必须匹配服务器 ABI、glibc 版本、C++ ABI\n- **符号冲突**：多个插件可能导出同名符号，要 `-fvisibility=hidden` 隐藏内部符号\n- **安全**：插件是任意代码，必须信任；RELRO、ASLR、NX 只能降低风险\n\n### 旁支：数据库 JIT 与 eBPF 观测\n\n- 数据库表达式 JIT 常用 LLVM 生成 ELF 目标文件、运行时加载（PostgreSQL JIT、ClickHouse、部分商业数据库）\n- eBPF 程序编译为 ELF 对象，libbpf 加载进内核，可用来观测数据库的 I/O、锁、调度、网络\n\n## 参考资料\n\n- PostgreSQL: C-Language Functions：https://www.postgresql.org/docs/current/xfunc-c.html\n- SQLite: Run-Time Loadable Extensions：https://www.sqlite.org/loadext.html\n- MySQL: Plugin API：https://dev.mysql.com/doc/refman/8.0/en/plugin-api.html\n\n## 待办\n\n- [ ] 把 add_one 真编一次，`readelf -s --dyn-syms add_one.so` 找到 `add_one` 和 `Pg_magic_func`"
+    },
+    {
+      "type": "add_edge",
+      "source": "数据库C扩展加载",
+      "relation": "依赖",
+      "target": "动态链接",
+      "note": "dlopen/dlsym 走的就是动态链接器",
+      "confidence": 0.9
+    },
+    {
+      "type": "add_edge",
+      "source": "数据库C扩展加载",
+      "relation": "使用",
+      "target": "GCC",
+      "note": "gcc -fPIC -shared 编出扩展",
+      "confidence": 1.0
+    },
+    {
+      "type": "create_node",
+      "source": "链接器",
+      "path": "nodes/_stubs/链接器.md",
+      "fields": {
+        "name": "链接器",
+        "field": "计算机系统",
+        "status": "stub",
+        "desc": "把多个可重定位目标文件（.o）和库合并成可执行文件或共享库，完成符号解析与重定位",
+        "sources": [
+          "ELF"
+        ]
+      },
+      "body": "> 空壳节点（stub）：ELF 链接视图的服务对象、静态重定位的执行者，图里有汇编器/编译器但没有链接器"
+    },
+    {
+      "type": "create_node",
+      "source": "虚拟内存",
+      "path": "nodes/_stubs/虚拟内存.md",
+      "fields": {
+        "name": "虚拟内存",
+        "field": "计算机系统",
+        "status": "stub",
+        "desc": "给每个进程一份独立的地址空间，按页映射到物理内存或文件，支持按需分页、写时复制、mmap",
+        "sources": [
+          "ELF"
+        ]
+      },
+      "body": "> 空壳节点（stub）：ELF 的 PT_LOAD 段直接映射到虚拟地址，CSAPP 第 9 章主线，图里没有这个点"
+    },
+    {
+      "type": "append_body",
+      "source": "eBPF",
+      "body": "> 补充自《ELF》（2026-09-24）：已有 eBPF 节点只讲了数据包过滤起源，没讲它的产物格式和加载方式\n\n### eBPF 对象是 ELF\n\neBPF 程序编译出来是一个 ELF 对象文件，里面装着程序本身、map 定义和 BTF（类型信息），由 libbpf 解析这个 ELF 并加载进内核。数据库运维可以用 eBPF 观测 I/O、锁、调度、网络。"
+    },
+    {
+      "type": "update_frontmatter",
+      "source": "eBPF",
+      "fields": {
+        "sources": [
+          "知识图谱zhis.jpg",
+          "ELF"
+        ]
+      }
+    },
+    {
+      "type": "append_body",
+      "source": "数据段",
+      "body": "> 补充自《ELF》（2026-09-24）：已有节点只说数据段由 .data 定义，缺 .data / .bss / .rodata 的区分\n\n### 在 ELF 里的细分\n\n汇编的 `.data` 在 ELF 里对应 `.data` 节（`PROGBITS`，标志 `WA`），只放**已初始化**的全局/静态变量。另外两个相邻的节：\n\n- `.bss`（`NOBITS`，`WA`）：未初始化的全局/静态变量，文件里不占空间；加载时 `p_filesz < p_memsz` 的差额被清零，就是它\n- `.rodata`（`PROGBITS`，`A`）：只读常量、字符串字面量、跳转表\n\n运行时它们按权限被合进 R 或 RW 的 `PT_LOAD` 段。"
+    },
+    {
+      "type": "update_frontmatter",
+      "source": "数据段",
+      "fields": {
+        "sources": [
+          "知识图谱zhis.jpg",
+          "ELF"
+        ]
+      }
+    },
+    {
+      "type": "append_body",
+      "source": "代码段",
+      "body": "> 补充自《ELF》（2026-09-24）：补上代码段在 ELF 文件与加载后的权限\n\n### 在 ELF 里\n\n`.text` 节类型 `PROGBITS`、标志 `AX`（分配内存 + 可执行）。加载时被放进权限为 R + X 的 `PT_LOAD` 段——可执行但不可写。"
+    },
+    {
+      "type": "update_frontmatter",
+      "source": "代码段",
+      "fields": {
+        "sources": [
+          "知识图谱zhis.jpg",
+          "ELF"
+        ]
+      }
+    }
+  ],
+  "pending": [],
+  "warnings": [],
+  "article": null
+}
